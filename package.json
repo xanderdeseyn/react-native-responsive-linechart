@@ -4,7 +4,6 @@
   "author": "Xander Deseyn",
   "license": "MIT",
   "description": "Customizable linechart for react-native that works with flex",
-  "private": true,
   "devDependencies": {
     "react-native-scripts": "^1.11.1"
   },
