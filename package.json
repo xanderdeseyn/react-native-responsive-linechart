@@ -1,4 +1,9 @@
 {
+  "name": "react-native-responsive-linechart",
+  "version": "1.0.0",
+  "author": "Xander Deseyn",
+  "license": "MIT",
+  "description": "Customizable linechart for react-native that works with flex",
   "private": true,
   "devDependencies": {
     "react-native-scripts": "^1.11.1"
@@ -12,7 +17,7 @@
     "deepmerge": "^2.1.0",
     "expo": "^25.0.0"
   },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "main": "index.js",
   "scripts": {
     "start": "react-native-scripts start",
     "android": "react-native-scripts android",
