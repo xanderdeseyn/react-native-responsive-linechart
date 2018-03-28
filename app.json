@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "react-native-simple-linechart",
-    "description": "This project is really great.",
-    "slug": "react-native-simple-linechart",
+    "name": "react-native-responsive-linechart",
+    "description": "A responsive linechart for Expo, using react-native-svg",
+    "slug": "react-native-responsive-linechart",
     "privacy": "public",
     "sdkVersion": "25.0.0",
     "platforms": ["ios", "android"],

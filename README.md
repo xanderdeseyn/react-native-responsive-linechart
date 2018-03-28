@@ -6,6 +6,10 @@
 npm install react-native-responsive-linechart
 ```
 
+```js
+import LineChart from 'react-native-responsive-linechart';
+```
+
 No need to set an explicit width and height! Percentages or `flex` work just fine.
 
 ## Quick example
