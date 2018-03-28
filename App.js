@@ -91,7 +91,7 @@ const config3 = {
 const data4 = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
 const config4 = { 
   interpolation: 'spline',
-  line: { color: '#be2ddd', strokeWidth: 2 },
+  line: { strokeColor: '#be2ddd', strokeWidth: 2 },
   yAxis: { visible: false },
   grid: { visible: false }
 }

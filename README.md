@@ -6,11 +6,11 @@
 npm install react-native-responsive-linechart
 ```
 
-No need to set an explicit width and height! `flex` works just fine.
+No need to set an explicit width and height! Percentages or `flex` work just fine.
 
 ## Quick example
 
-![Chart Kit](https://i.imgur.com/dhcXADa.png)
+<a href="url"><img src="https://i.imgur.com/dhcXADa.png" align="middle" width="500" ></a>
 
 ```jsx
 <LineChart style={{ flex: 1 }} config={config} data={data} />
@@ -85,3 +85,75 @@ const exampleConfig = {
   backgroundColor: '#fff',
 }
 ```
+
+## More examples
+
+<a href="url"><img src="https://i.imgur.com/0i7LX2n.png" align="middle" width="500" ></a>
+```jsx
+const data = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
+const config = {
+  line: {
+    visible: true,
+    strokeWidth: 1,
+    strokeColor: '#54a0ff',
+  },
+  area: {
+    visible: false,
+  },
+  yAxis: {
+    labelColor: '#54a0ff',
+  },
+  interpolation: 'spline',
+  insetY: 10,
+  insetX: 10,
+}
+```
+
+<a href="url"><img src="https://i.imgur.com/r10ncLZ.png" align="middle" width="500" ></a>
+```jsx
+const data = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
+const config = {
+  line: {
+    visible: true,
+    strokeWidth: 2,
+    strokeColor: '#341f97',
+  },
+  area: {
+    visible: false,
+  },
+  yAxis: {
+    visible: true,
+    labelStepSize: 15,
+  },
+  insetY: 10,
+  insetX: 10,
+}
+```
+
+
+<a href="url"><img src="https://i.imgur.com/gFdef89.png" align="middle" width="500" ></a>
+```jsx
+const data4 = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
+const config4 = { 
+  interpolation: 'spline',
+  line: { strokeColor: '#be2ddd', strokeWidth: 2 },
+  yAxis: { visible: false },
+  grid: { visible: false }
+}
+```
+
+<a href="url"><img src="https://i.imgur.com/rWaUzB3.png" align="middle" width="500" ></a>
+```jsx
+const data5 = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
+const config5 = { 
+  interpolation: 'spline',
+  area: {
+    gradientFrom: '#10ac84',
+    gradientFromOpacity: 1,
+    gradientTo: '#10ac84',
+    gradientToOpacity: 0.4,
+  },
+  line: {
+    visible: false
+  }
+}```
