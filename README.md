@@ -1,5 +1,7 @@
 # react-native-responsive-linechart
 
+<a href="https://badge.fury.io/js/react-native-responsive-linechart"><img src="https://badge.fury.io/js/react-native-responsive-linechart.svg" alt="npm version" height="18"></a>
+
 ## Installation
 
 ```js
