@@ -4558,9 +4558,9 @@ react-native-maps@0.19.0:
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.19.0.tgz#ce94fad1cf360e335cb4338a68c95f791e869074"
 
-react-native-responsive-linechart@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-1.0.2.tgz#9c1832a6bccaa4bb97e6b3b6765e7f984b9aabce"
+react-native-responsive-linechart@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-1.0.3.tgz#8c73bfddee9bedaa30ae8a6364ac79a2d0b08b48"
   dependencies:
     cubic-spline "^1.0.4"
     deepmerge "^2.1.0"
