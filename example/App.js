@@ -57,7 +57,9 @@ const config2 = {
   },
   yAxis: {
     visible: true,
-    labelStepSize: 15,
+  },
+  grid: {
+    stepSize: 15,
   },
   insetY: 10,
   insetX: 10,
@@ -77,10 +79,10 @@ const config3 = {
   },
   yAxis: {
     labelColor: '#c8d6e5',
-    labelStepSize: 30,
   },
   grid: {
-    strokeColor: '#c8d6e5'
+    strokeColor: '#c8d6e5',
+    stepSize: 30,
   },
   insetY: 10,
   insetX: 10,

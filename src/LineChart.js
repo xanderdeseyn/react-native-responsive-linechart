@@ -230,6 +230,7 @@ const defaultConfig = {
     backgroundColor: '#fff',
     strokeWidth: 1,
     strokeColor: '#ededed',
+    stepSize: 15,
   },
   line: {
     visible: true,
@@ -245,7 +246,6 @@ const defaultConfig = {
   },
   yAxis: {
     visible: true,
-    labelStepSize: 20,
     labelFontSize: 12,
     labelColor: '#777',
     labelFormatter: v => String(v),
