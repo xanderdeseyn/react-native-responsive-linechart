@@ -21,12 +21,14 @@ class LineChart extends Component {
     const { data, config } = this.props;
     const mergedConfig = deepmerge(defaultConfig, config);
     const { grid, line, area, yAxis, insetX, insetY, interpolation, backgroundColor} = mergedConfig;
-    
-    console.log('Updating props');
 
     this.highestDataPoint = Math.max(...data);
     this.lowestDataPoint = Math.min(...data);
     this.dataRange = this.highestDataPoint - this.lowestDataPoint;
+
+    if (!config.grid || !config.grid.stepSize) {
+      grid.stepSize = this.dataRange / 6;
+    }
 
     this.lowestYLabel = (Math.floor(this.lowestDataPoint / grid.stepSize) - 1) * grid.stepSize;
     this.highestYLabel = (Math.ceil(this.highestDataPoint / grid.stepSize) + 1) * grid.stepSize;
@@ -119,7 +121,6 @@ class LineChart extends Component {
 
   onLayout = event => {
     const { width, height } = event.nativeEvent.layout;
-    console.log(width);
     this.setState({dimensions: { width, height }});
   }
 
