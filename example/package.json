@@ -1,5 +1,5 @@
 {
-  "name": "react-native-responsive-linechart",
+  "name": "react-native-responsive-linechart-example",
   "version": "1.0.1",
   "author": "Xander Deseyn",
   "license": "MIT",
@@ -25,9 +25,11 @@
   "dependencies": {
     "cubic-spline": "^1.0.4",
     "deepmerge": "^2.1.0",
-    "expo": "^25.0.0"
+    "expo": "^25.0.0",
+    "react": "16.2.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz"
   },
-  "main": "index.js",
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "react-native-scripts start",
     "android": "react-native-scripts android",
