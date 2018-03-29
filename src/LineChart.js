@@ -28,15 +28,15 @@ class LineChart extends Component {
     this.lowestDataPoint = Math.min(...data);
     this.dataRange = this.highestDataPoint - this.lowestDataPoint;
 
-    this.lowestYLabel = (Math.floor(this.lowestDataPoint / yAxis.labelStepSize) - 1) * yAxis.labelStepSize;
-    this.highestYLabel = (Math.ceil(this.highestDataPoint / yAxis.labelStepSize) + 1) * yAxis.labelStepSize;
+    this.lowestYLabel = (Math.floor(this.lowestDataPoint / grid.stepSize) - 1) * grid.stepSize;
+    this.highestYLabel = (Math.ceil(this.highestDataPoint / grid.stepSize) + 1) * grid.stepSize;
 
     this.top = this.highestYLabel;
     this.bottom = this.lowestYLabel;
     this.range = this.top - this.bottom;
 
-    const labelAmount = Math.ceil(this.range / yAxis.labelStepSize);
-    this.yLabels = Array(labelAmount).fill().map((e,i)=>  this.lowestYLabel + yAxis.labelStepSize * i);
+    const labelAmount = Math.ceil(this.range / grid.stepSize);
+    this.yLabels = Array(labelAmount).fill().map((e,i)=>  this.lowestYLabel + grid.stepSize * i);
 
     if(!yAxis.visible) {
       this.yAxisWidth = 0;

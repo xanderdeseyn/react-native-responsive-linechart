@@ -33,10 +33,10 @@ const config = {
   },
   yAxis: {
     labelColor: '#c8d6e5',
-    labelStepSize: 30,
   },
   grid: {
-    strokeColor: '#c8d6e5'
+    strokeColor: '#c8d6e5',
+    stepSize: 30,
   },
   insetY: 10,
   insetX: 10,
@@ -63,6 +63,7 @@ const exampleConfig = {
     backgroundColor: '#fff',
     strokeWidth: 1,
     strokeColor: '#ededed',
+    stepSize: 20,
   },
   line: {
     visible: true,
@@ -78,7 +79,6 @@ const exampleConfig = {
   },
   yAxis: {
     visible: true,
-    labelStepSize: 20,
     labelFontSize: 12,
     labelColor: '#777',
     labelFormatter: v => String(v),
@@ -127,7 +127,9 @@ const config = {
   },
   yAxis: {
     visible: true,
-    labelStepSize: 15,
+  },
+  grid: {
+    stepSize: 15,
   },
   insetY: 10,
   insetX: 10,
