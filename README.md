@@ -165,3 +165,5 @@ const config5 = {
     visible: false
   }
 }```
+
+Note: the cards around the charts are not included.
