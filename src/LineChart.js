@@ -27,7 +27,7 @@ class LineChart extends Component {
     this.dataRange = this.highestDataPoint - this.lowestDataPoint;
 
     if (!config.grid || !config.grid.stepSize) {
-      grid.stepSize = this.dataRange / 6;
+      grid.stepSize = this.dataRange / 6.0;
     }
 
     this.lowestYLabel = (Math.floor(this.lowestDataPoint / grid.stepSize) - 1) * grid.stepSize;
@@ -38,6 +38,7 @@ class LineChart extends Component {
     this.range = this.top - this.bottom;
 
     const labelAmount = Math.ceil(this.range / grid.stepSize);
+    
     this.yLabels = Array(labelAmount).fill().map((e,i)=>  this.lowestYLabel + grid.stepSize * i);
 
     if(!yAxis.visible) {
@@ -138,7 +139,7 @@ class LineChart extends Component {
     const yLabels = this.yLabels;
     const gridSize = this.gridSize;
     const gridOffset = this.gridOffset;
-    
+
     return (
       <View style={Object.assign({}, viewStyle, this.props.style)} onLayout={this.onLayout}>
         {
@@ -158,7 +159,7 @@ class LineChart extends Component {
                   textAnchor="end"
                   height={yAxis.labelFontSize}
                   fontWeight="400"
-                  dy={yAxis.labelFontSize * -2}>
+                  dy={yAxis.labelFontSize*0.3}>
                   {yAxis.labelFormatter(yLabel)}
                 </Text>
               )

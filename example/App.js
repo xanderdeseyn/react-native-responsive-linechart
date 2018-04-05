@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import LineChart from 'react-native-responsive-linechart';
+import LineChart from './LineChart';
 
 export default class App extends React.Component {
   render() {
@@ -27,7 +27,24 @@ export default class App extends React.Component {
     );
   }
 }
-const data1 = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
+const data1 = [
+  0,
+  7957,
+  -986,
+  10465,
+  9076,
+  23373,
+  17436,
+  9721,
+  8658,
+  24347,
+  18553,
+  23849,
+  19721,
+  39840,
+  36740,
+  29041,
+];
 const config1 = {
   line: {
     visible: true,
@@ -36,6 +53,9 @@ const config1 = {
   },
   area: {
     visible: false,
+  },
+  grid: {
+    stepSize: 10000
   },
   yAxis: {
     labelColor: '#54a0ff',

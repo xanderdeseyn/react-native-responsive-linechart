@@ -23,10 +23,10 @@
     "react-native": "*"
   },
   "dependencies": {
-    "expo": "^25.0.0",
-    "react": "16.2.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
-    "react-native-responsive-linechart": "^1.0.3"
+    "expo": "^26.0.0",
+    "react": "16.3.0-alpha.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
+    "react-native-responsive-linechart": "^1.0.4"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
