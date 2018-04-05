@@ -65,7 +65,7 @@ class LineChart extends Component {
     this.lowestLine = this.realY(this.yLabels[0]);
 
     this.points = this.formatPoints(this.calculatePoints(interpolation));
-    this.areaPoints = this.formatPoints(this.areaPoints(interpolation)); 
+    this.areaPoints = this.formatPoints(this.calculateAreaPoints(interpolation)); 
   }
 
   scaleY(y) { return 1 - ((y - this.bottom) / this.range) }
@@ -112,7 +112,7 @@ class LineChart extends Component {
     return points.map(p => p.x + ',' + p.y).join(' ');
   }
 
-  areaPoints(interpolation) {
+  calculateAreaPoints(interpolation) {
     const points = this.calculatePoints(interpolation);
     points.push({x: points[points.length -1].x + 0.5, y: points[points.length -1].y}) // pixel fix
     points.push({x: this.gridSize.width, y: this.lowestLine - this.gridOffset.y})
