@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import LineChart from './LineChart';
+import LineChart from 'react-native-responsive-linechart';
 
 export default class App extends React.Component {
   render() {
