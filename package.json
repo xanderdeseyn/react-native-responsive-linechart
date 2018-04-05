@@ -1,6 +1,6 @@
 {
   "name": "react-native-responsive-linechart",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "author": "Xander Deseyn",
   "license": "MIT",
   "description": "Customizable linechart for react-native that works with flex",
