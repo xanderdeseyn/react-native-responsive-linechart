@@ -54,18 +54,19 @@ const config = {
 | Property        | Type       |  Description  | Example |
 | ------------- |-------------| -----| ---- |
 | data | array | Your numeric data | [10, 22, 13, 15, 25]
+| xLabels | array | Optional labels for the X axis | ['jan', 'feb', 'mar']
 | config | object | Chart configuration object | See next section
 
-### Example Config
+### Default Config
 
 ```js
-const exampleConfig = {
+const defaultConfig = {
   grid: {
     visible: true,
     backgroundColor: '#fff',
     strokeWidth: 1,
     strokeColor: '#ededed',
-    stepSize: 20,
+    stepSize: 15,
   },
   line: {
     visible: true,
@@ -85,11 +86,17 @@ const exampleConfig = {
     labelColor: '#777',
     labelFormatter: v => String(v),
   },
+  xAxis: {
+    visible: false,
+    labelFontSize: 12,
+    labelColor: '#777'
+  },
   insetY: 10,
   insetX: 10,
   interpolation: 'none',
   backgroundColor: '#fff',
 }
+
 ```
 
 ## More examples
@@ -115,9 +122,10 @@ const config = {
 }
 ```
 
-<a href="url"><img src="https://i.imgur.com/r10ncLZ.png" align="middle" width="500" ></a>
+<a href="url"><img src="https://i.imgur.com/PrNGaIW.png" align="middle" width="500" ></a>
 ```jsx
-const data = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
+const data = [-10, -15, 40, 60, 78, 42, 56];
+const labels = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul'];
 const config = {
   line: {
     visible: true,
@@ -129,6 +137,10 @@ const config = {
   },
   yAxis: {
     visible: true,
+    labelFormatter: v => String(v) + ' °C'
+  },
+  xAxis: {
+    visible: true
   },
   grid: {
     stepSize: 15,

@@ -78,6 +78,7 @@ const config2 = {
   },
   yAxis: {
     visible: true,
+    labelFormatter: v => String(v) + ' °C'
   },
   xAxis: {
     visible: true

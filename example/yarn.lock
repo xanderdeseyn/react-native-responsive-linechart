@@ -4834,9 +4834,9 @@ react-native-gesture-handler@1.0.0-alpha.41:
     babel-plugin-module-resolver "^2.3.0"
     babel-preset-react-native "1.9.0"
 
-react-native-responsive-linechart@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-1.1.0.tgz#e77cbf1f01c5d4aeb603ca0dc489c769b624086e"
+react-native-responsive-linechart@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-1.2.0.tgz#887cd671ebbe67d8320881f2cb4f5a4971e91af8"
   dependencies:
     cubic-spline "^1.0.4"
     deepmerge "^2.1.0"
