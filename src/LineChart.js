@@ -20,7 +20,7 @@ class LineChart extends Component {
     const { width, height } = this.state.dimensions;
     const { data, config } = this.props;
     const mergedConfig = deepmerge(defaultConfig, config);
-    const { grid, line, area, yAxis, insetX, insetY, interpolation, backgroundColor} = mergedConfig;
+    const { grid, line, area, yAxis, xAxis, insetX, insetY, interpolation, backgroundColor} = mergedConfig;
 
     this.highestDataPoint = Math.max(...data);
     this.lowestDataPoint = Math.min(...data);
@@ -66,6 +66,13 @@ class LineChart extends Component {
 
     this.points = this.formatPoints(this.calculatePoints(interpolation));
     this.areaPoints = this.formatPoints(this.calculateAreaPoints(interpolation)); 
+
+    if(xAxis.visible) {
+      this.xLabelPoints = data.map((y, x) => ({
+        x: this.gridOffset.x + this.realX(x),
+        y: this.gridSize.height,
+      }));
+    }
   }
 
   scaleY(y) { return 1 - ((y - this.bottom) / this.range) }
@@ -133,10 +140,11 @@ class LineChart extends Component {
       var { width, height } = dimensions;
     }
     
-    const { style, config } = this.props;
+    const { style, config, xLabels } = this.props;
     const mergedConfig = deepmerge(defaultConfig, config);
-    const { grid, line, area, yAxis, insetX, insetY, backgroundColor} = mergedConfig;
+    const { grid, line, area, yAxis, xAxis, insetX, insetY, backgroundColor} = mergedConfig;
     const yLabels = this.yLabels;
+    const xLabelPoints = this.xLabelPoints;
     const gridSize = this.gridSize;
     const gridOffset = this.gridOffset;
 
@@ -161,6 +169,22 @@ class LineChart extends Component {
                   fontWeight="400"
                   dy={yAxis.labelFontSize*0.3}>
                   {yAxis.labelFormatter(yLabel)}
+                </Text>
+              )
+            }
+            { xAxis.visible && xLabels &&
+              xLabelPoints.map((point, i) =>
+                <Text
+                  key={point.x}
+                  fill={xAxis.labelColor}
+                  fontSize={xAxis.labelFontSize}
+                  x={point.x}
+                  y={point.y}
+                  textAnchor="middle"
+                  height={xAxis.labelFontSize}
+                  dy={xAxis.labelFontSize}
+                  fontWeight="400">
+                  {xLabels[i]}
                 </Text>
               )
             }
@@ -251,6 +275,11 @@ const defaultConfig = {
     labelFontSize: 12,
     labelColor: '#777',
     labelFormatter: v => String(v),
+  },
+  xAxis: {
+    visible: false,
+    labelFontSize: 12,
+    labelColor: '#777'
   },
   insetY: 10,
   insetX: 10,
