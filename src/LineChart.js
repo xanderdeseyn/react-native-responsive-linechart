@@ -48,12 +48,6 @@ class LineChart extends Component {
     this.range = this.top - this.bottom;
 
     const labelAmount = Math.ceil(this.range / grid.stepSize);
-
-    console.log(labelAmount);
-    console.log(grid.stepSize);
-    console.log(this.range);
-    console.log(this.lowestYLabel);
-    console.log(this.highestYLabel);
     
     this.yLabels = Array(labelAmount).fill().map((e,i)=>  this.lowestYLabel + grid.stepSize * i);
 
@@ -164,12 +158,6 @@ class LineChart extends Component {
     const xLabelPoints = this.xLabelPoints;
     const gridSize = this.gridSize;
     const gridOffset = this.gridOffset;
-
-    console.log(gridSize);
-    console.log(gridOffset);
-    console.log(yLabels);
-    if(yLabels)
-      console.log(yLabels.map(y => this.realY(y)));
 
     return (
       <View style={Object.assign({}, viewStyle, this.props.style)} onLayout={this.onLayout}>
