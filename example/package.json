@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "expo": "^26.0.0",
+    "memoize-one": "^4.0.0",
     "react": "16.3.0-alpha.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
     "react-native-responsive-linechart": "^1.2.1"
