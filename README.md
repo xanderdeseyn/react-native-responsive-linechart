@@ -91,8 +91,8 @@ const defaultConfig = {
     labelFontSize: 12,
     labelColor: "#777"
   },
-  insetY: 10,
-  insetX: 10,
+  insetY: 0,
+  insetX: 0,
   interpolation: "none",
   showTooltip: false,
   backgroundColor: "#fff"
