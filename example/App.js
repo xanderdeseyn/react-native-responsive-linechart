@@ -86,10 +86,11 @@ const config2 = {
     stepSize: 15
   },
   tooltip: {
-    visible: true
+    visible: true,
+    textFontSize: 10
   },
   insetY: 10,
-  insetX: 10,
+  insetX: 10
 };
 
 const data3 = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
