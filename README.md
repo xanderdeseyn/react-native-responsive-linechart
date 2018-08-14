@@ -91,10 +91,24 @@ const defaultConfig = {
     labelFontSize: 12,
     labelColor: "#777"
   },
+  tooltip: { // ONLY WORKS WITHOUT INTERPOLATION
+    visible: false,
+    textFormatter: v => v.toFixed(2),
+    lineColor: '#777',
+    lineWidth: 1,
+    circleColor: '#fff',
+    circleBorderColor: '#fff',
+    circleBorderWidth: 1,
+    boxColor: '#fff',
+    boxBorderWidth: 1,
+    boxBorderColor: '#777',
+    boxBorderRadius: 5,
+    textColor: 'black',
+    textFontSize: 10,
+  },
   insetY: 0,
   insetX: 0,
   interpolation: "none",
-  showTooltip: false,
   backgroundColor: "#fff"
 };
 ```

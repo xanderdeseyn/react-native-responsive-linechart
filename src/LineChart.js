@@ -13,7 +13,7 @@ class LineChart extends Component {
     this.state = { dimensions: undefined, tooltipIndex: undefined };
     this.recalculate = memoizeOne(this.recalculate);
 
-    if (props.config.showTooltip && !props.config.interpolation === "spline") {
+    if (_.get(props.config, 'tooltip.visible', false) && props.config.interpolation !== "spline") {
       this._panResponder = PanResponder.create({
         onStartShouldSetPanResponder: (evt, gestureState) => true,
         onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
@@ -174,6 +174,48 @@ class LineChart extends Component {
     this.setState({ dimensions: { width, height } });
   };
 
+
+  renderTooltip(mergedConfig) {
+    const { grid, line, area, yAxis, xAxis, insetX, insetY, backgroundColor, tooltip } = mergedConfig;
+
+    const dataX = this.points[this.state.tooltipIndex].x;
+    const dataY = this.points[this.state.tooltipIndex].y;
+
+    const dataValue = this.props.data[this.state.tooltipIndex]
+
+    const textWidth = tooltip.textFormatter(this.props.data[this.state.tooltipIndex]).length * tooltip.textFontSize * 0.43
+    const textHeight = tooltip.textFontSize * 1.5;
+
+    return(
+    <React.Fragment>
+      <Line  x1={dataX + this.gridOffset.x} x2={dataX + this.gridOffset.x}  y1={dataY} y2={dataY - 20} stroke={tooltip.lineColor} strokeWidth={tooltip.lineWidth} />
+      <Rect
+        x={this.gridOffset.x + dataX - textWidth/2}
+        y={this.gridOffset.y + dataY - 20 - textHeight}
+        rx={tooltip.boxBorderRadius}
+        width={textWidth}
+        height={textHeight}
+        fill={tooltip.boxColor}
+        strokeWidth={tooltip.boxBorderWidth}
+        stroke={tooltip.boxBorderColor}
+      />
+      <Text
+        fill={tooltip.textColor}
+        fontSize={tooltip.textFontSize}
+        x={dataX}
+        y={dataY - 16 - textHeight/2}
+        dx={this.gridOffset.x}
+        textAnchor="middle"
+        height={tooltip.textFontSize}
+        dy={tooltip.textFontSize}
+        fontWeight="400"
+      >
+        {dataValue}
+      </Text>
+    </React.Fragment>
+    );
+  }
+
   render() {
     if (this.state.dimensions) {
       const { dimensions } = this.state;
@@ -184,7 +226,7 @@ class LineChart extends Component {
 
     const { style, config, xLabels } = this.props;
     const mergedConfig = deepmerge(defaultConfig, config);
-    const { grid, line, area, yAxis, xAxis, insetX, insetY, backgroundColor } = mergedConfig;
+    const { grid, line, area, yAxis, xAxis, insetX, insetY, backgroundColor, tooltip } = mergedConfig;
     const yLabels = this.yLabels;
     const xLabelPoints = this.xLabelPoints;
     const gridSize = this.gridSize;
@@ -256,21 +298,7 @@ class LineChart extends Component {
                 />
               </React.Fragment>
             )}
-            {this.state.tooltipIndex && (
-              <Text
-                fill={xAxis.labelColor}
-                fontSize={xAxis.labelFontSize}
-                x={this.points[this.state.tooltipIndex].x}
-                y={this.points[this.state.tooltipIndex].y - 20}
-                dx={this.gridOffset.x}
-                textAnchor="middle"
-                height={xAxis.labelFontSize}
-                dy={xAxis.labelFontSize}
-                fontWeight="400"
-              >
-                {this.props.data[this.state.tooltipIndex]}
-              </Text>
-            )}
+            
 
             <Defs>
               <LinearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -289,6 +317,9 @@ class LineChart extends Component {
                 strokeWidth={line.strokeWidth}
               />
             )}
+            {this.state.tooltipIndex && 
+              this.renderTooltip(mergedConfig)
+            }
           </Svg>
         ) : (
           undefined
@@ -329,10 +360,24 @@ const defaultConfig = {
     labelFontSize: 12,
     labelColor: "#777"
   },
-  insetY: 10,
-  insetX: 10,
+  tooltip: {
+    visible: false,
+    textFormatter: v => v.toFixed(2),
+    lineColor: '#777',
+    lineWidth: 1,
+    circleColor: '#fff',
+    circleBorderColor: '#fff',
+    circleBorderWidth: 1,
+    boxColor: '#fff',
+    boxBorderWidth: 1,
+    boxBorderColor: '#777',
+    boxBorderRadius: 5,
+    textColor: 'black',
+    textFontSize: 10,
+  },
+  insetY: 0,
+  insetX: 0,
   interpolation: "none",
-  showTooltip: false,
   backgroundColor: "#fff"
 };
 
