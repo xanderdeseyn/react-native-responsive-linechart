@@ -10,7 +10,7 @@ import Svg, { Polyline, Rect, Text, Line, Polygon, LinearGradient, Defs, Stop } 
 class LineChart extends Component {
   constructor(props) {
     super(props);
-    this.state = { dimensions: undefined, tooltipIndex: undefined };
+    this.state = { dimensions: undefined, tooltipIndex: undefined, layoutX: 0 };
     this.recalculate = memoizeOne(this.recalculate);
 
     if (_.get(props.config, "tooltip.visible", false) && props.config.interpolation !== "spline") {
@@ -19,7 +19,8 @@ class LineChart extends Component {
           if (Math.abs(gestureState.dx) > 10) {
             return;
           }
-          const xTouch = gestureState.moveX - this.gridOffset.x + this.props.scrollOffset;
+
+          const xTouch = -this.state.layoutX + gestureState.moveX - this.gridOffset.x + this.props.scrollOffset;
           if (this.state.dimensions && this.points) {
             idx = Math.round((xTouch / this.gridSize.width) * (this.props.data.length - 1));
             if (this.state.tooltipIndex != idx) {
@@ -170,6 +171,7 @@ class LineChart extends Component {
   }
 
   onLayout = event => {
+    console.log(event.nativeEvent);
     const { width, height } = event.nativeEvent.layout;
     this.setState({ dimensions: { width, height } });
   };
@@ -223,6 +225,17 @@ class LineChart extends Component {
     );
   }
 
+  // We need absolute position for tooltip
+  componentDidMount() {
+    setTimeout(
+      () =>
+        this.myComponent.measure((fx, fy, width, height, px, py) => {
+          this.setState({ layoutX: px });
+        }),
+      500
+    );
+  }
+
   render() {
     if (this.state.dimensions) {
       const { dimensions } = this.state;
@@ -240,7 +253,14 @@ class LineChart extends Component {
     const gridOffset = this.gridOffset;
 
     return (
-      <View style={Object.assign({}, viewStyle, this.props.style)} onLayout={this.onLayout} {..._.get(this._panResponder, "panHandlers", {})}>
+      <View
+        style={Object.assign({}, viewStyle, this.props.style)}
+        onLayout={this.onLayout}
+        {..._.get(this._panResponder, "panHandlers", {})}
+        ref={view => {
+          this.myComponent = view;
+        }}
+      >
         {this.points ? (
           <Svg width={width} height={height}>
             <Rect x="0" y="0" width={width} height={height} fill={backgroundColor} />
