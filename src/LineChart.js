@@ -15,18 +15,18 @@ class LineChart extends Component {
 
     if (_.get(props.config, "tooltip.visible", false) && props.config.interpolation !== "spline") {
       this._panResponder = PanResponder.create({
-        onStartShouldSetPanResponder: (evt, gestureState) => true,
-        onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-        onMoveShouldSetPanResponder: (evt, gestureState) => true,
-        onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-        onPanResponderMove: (evt, gestureState) => {
-          const xTouch = gestureState.x0 + gestureState.dx - this.gridOffset.x;
+        onMoveShouldSetPanResponder: (evt, gestureState) => {
+          if (Math.abs(gestureState.dx) > 10) {
+            return;
+          }
+          const xTouch = gestureState.moveX - this.gridOffset.x + this.props.scrollOffset;
           if (this.state.dimensions && this.points) {
-            idx = Math.floor((xTouch / this.gridSize.width) * (this.props.data.length - 1));
+            idx = Math.round((xTouch / this.gridSize.width) * (this.props.data.length - 1));
             if (this.state.tooltipIndex != idx) {
-              this.setState({ tooltipIndex: idx }); // +1
+              this.setState({ tooltipIndex: idx });
             }
           }
+          return false;
         }
       });
     }
@@ -393,7 +393,8 @@ const viewStyle = {
 LineChart.defaultProps = {
   data: [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56],
   style: {},
-  config: {}
+  config: {},
+  scrollOffset: 0
 };
 
 export default LineChart;

@@ -51,11 +51,14 @@ const config = {
 
 ### LineChart
 
-| Property | Type   | Description                    | Example               |
-| -------- | ------ | ------------------------------ | --------------------- |
-| data     | array  | Your numeric data              | [10, 22, 13, 15, 25]  |
-| xLabels  | array  | Optional labels for the X axis | ['jan', 'feb', 'mar'] |
-| config   | object | Chart configuration object     | See next section      |
+| Property     | Type   | Description                             | Example               |
+| ------------ | ------ | --------------------------------------- | --------------------- |
+| data         | array  | Your numeric data                       | [10, 22, 13, 15, 25]  |
+| xLabels      | array  | Optional labels for the X axis          | ['jan', 'feb', 'mar'] |
+| config       | object | Chart configuration object              | See next section      |
+| scrollOffset | number | The x scrollOffset of parent scrollview | See next section      |
+
+scrollOffset is only necessary if you need tooltips in a sideways scrollable chart.
 
 ### Default Config
 
@@ -91,20 +94,21 @@ const defaultConfig = {
     labelFontSize: 12,
     labelColor: "#777"
   },
-  tooltip: { // ONLY WORKS WITHOUT INTERPOLATION
+  tooltip: {
+    // ONLY WORKS WITHOUT INTERPOLATION
     visible: false,
     textFormatter: v => v.toFixed(2),
-    lineColor: '#777',
+    lineColor: "#777",
     lineWidth: 1,
-    circleColor: '#fff',
-    circleBorderColor: '#fff',
+    circleColor: "#fff",
+    circleBorderColor: "#fff",
     circleBorderWidth: 1,
-    boxColor: '#fff',
+    boxColor: "#fff",
     boxBorderWidth: 1,
-    boxBorderColor: '#777',
+    boxBorderColor: "#777",
     boxBorderRadius: 5,
-    textColor: 'black',
-    textFontSize: 10,
+    textColor: "black",
+    textFontSize: 10
   },
   insetY: 0,
   insetX: 0,

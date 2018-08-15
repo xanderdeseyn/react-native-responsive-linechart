@@ -3,6 +3,11 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import LineChart from "./LineChart";
 
 export default class App extends React.Component {
+  state = { offset: 0 };
+
+  _onScroll(e) {
+    this.setState({ offset: e.nativeEvent.contentOffset.x });
+  }
   render() {
     return (
       <View style={{ flex: 1, marginTop: 50 }}>
@@ -10,9 +15,11 @@ export default class App extends React.Component {
           <View style={{ margin: 10, height: 200, elevation: 5, backgroundColor: "#fff", shadowColor: "black", shadowOpacity: 1 }}>
             <LineChart style={{ flex: 1 }} config={config1} data={data1} />
           </View>
-          <View style={{ margin: 10, height: 200, elevation: 5, backgroundColor: "#ff0", shadowColor: "black", shadowOpacity: 1 }}>
-            <LineChart style={{ flex: 1 }} config={config2} data={data2} xLabels={labels2} />
-          </View>
+          <ScrollView horizontal onScroll={e => this._onScroll(e)}>
+            <View style={{ margin: 10, height: 200, width: 1000, elevation: 5, backgroundColor: "#ff0", shadowColor: "black", shadowOpacity: 1 }}>
+              <LineChart scrollOffset={this.state.offset} style={{ flex: 1 }} config={config2} data={data2} xLabels={labels2} />
+            </View>
+          </ScrollView>
           <View style={{ margin: 10, height: 200, elevation: 5, backgroundColor: "#fff", shadowColor: "black", shadowOpacity: 1 }}>
             <LineChart style={{ flex: 1 }} config={config3} data={data3} />
           </View>
@@ -90,7 +97,7 @@ const config2 = {
     textFontSize: 10
   },
   insetY: 10,
-  insetX: 10
+  insetX: 100
 };
 
 const data3 = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
