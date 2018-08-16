@@ -184,8 +184,8 @@ class LineChart extends Component {
 
     const dataValue = this.props.data[this.state.tooltipIndex];
 
-    const textWidth = tooltip.textFormatter(dataValue).length * tooltip.textFontSize * 0.66;
-    const textHeight = tooltip.textFontSize * 1.5;
+    const textWidth = tooltip.textFormatter(dataValue).length * tooltip.textFontSize * 0.66 + tooltip.boxPaddingX;
+    const textHeight = tooltip.textFontSize * 1.5 + tooltip.boxPaddingY;
 
     return (
       <React.Fragment>
@@ -396,6 +396,8 @@ const defaultConfig = {
     boxBorderWidth: 1,
     boxBorderColor: "#777",
     boxBorderRadius: 5,
+    boxPaddingY: 0,
+    boxPaddingX: 0,
     textColor: "black",
     textFontSize: 10
   },

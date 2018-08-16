@@ -95,7 +95,6 @@ const defaultConfig = {
     labelColor: "#777"
   },
   tooltip: {
-    // ONLY WORKS WITHOUT INTERPOLATION
     visible: false,
     textFormatter: v => v.toFixed(2),
     lineColor: "#777",
@@ -107,6 +106,8 @@ const defaultConfig = {
     boxBorderWidth: 1,
     boxBorderColor: "#777",
     boxBorderRadius: 5,
+    boxPaddingY: 0,
+    boxPaddingX: 0,
     textColor: "black",
     textFontSize: 10
   },
