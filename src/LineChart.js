@@ -228,10 +228,13 @@ class LineChart extends Component {
   // We need absolute position for tooltip
   componentDidMount() {
     setTimeout(
-      () =>
+      () => {
+      if(this.myComponent) {
         this.myComponent.measure((fx, fy, width, height, px, py) => {
           this.setState({ layoutX: px });
-        }),
+        }
+      }
+    },
       500
     );
   }
