@@ -171,7 +171,6 @@ class LineChart extends Component {
   }
 
   onLayout = event => {
-    console.log(event.nativeEvent);
     const { width, height } = event.nativeEvent.layout;
     this.setState({ dimensions: { width, height } });
   };
