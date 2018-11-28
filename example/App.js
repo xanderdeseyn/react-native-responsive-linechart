@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import LineChart from "react-native-responsive-linechart";
 
 export default class App extends Component {

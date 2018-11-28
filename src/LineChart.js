@@ -2,7 +2,6 @@ import spline from "cubic-spline";
 import deepmerge from "deepmerge";
 import React, { Component } from "react";
 import { View, PanResponder } from "react-native";
-import { Dimensions } from "react-native";
 import memoizeOne from "memoize-one";
 import _ from "lodash";
 import Svg, { Polyline, Rect, Text, Line, Polygon, LinearGradient, Defs, Stop } from "react-native-svg";
