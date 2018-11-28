@@ -4,9 +4,7 @@
   "author": "Xander Deseyn",
   "license": "MIT",
   "description": "Customizable linechart for react-native that works with flex",
-  "devDependencies": {
-    "react-native-scripts": "^1.11.1"
-  },
+  "devDependencies": {},
   "keywords": [
     "react-native",
     "chart",
@@ -31,8 +29,9 @@
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios"
+    "start": "expo start",
+    "eject": "expo eject",
+    "android": "expo start --android",
+    "ios": "expo start --ios"
   }
 }
