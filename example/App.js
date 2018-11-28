@@ -1,8 +1,8 @@
-import React from "react";
-import { View, ScrollView } from "react-native";
+import React, { Component } from "react";
+import { ScrollView, Text, View } from "react-native";
 import LineChart from "react-native-responsive-linechart";
 
-export default class App extends React.Component {
+export default class App extends Component {
   state = { offset: 0 };
 
   _onScroll(e) {
@@ -13,8 +13,13 @@ export default class App extends React.Component {
       <View style={{ flex: 1, marginTop: 50 }}>
         <ScrollView style={{ height: "100%", flex: 1 }}>
           <View style={{ margin: 10, height: 200, elevation: 5, backgroundColor: "#fff", shadowColor: "black", shadowOpacity: 1 }}>
-            <LineChart style={{ flex: 1 }} config={config1} data={data1} />
+              <LineChart style={{ flex: 1 }} config={config1} data={data1} />
           </View>
+          <ScrollView style={{ height: "100%", flex: 1 }}>
+            <View style={{ margin: 10, height: 200, elevation: 5, backgroundColor: "#fff", shadowColor: "black", shadowOpacity: 1 }}>
+              <LineChart style={{ flex: 1 }} config={config1} data={data1} />
+            </View>
+          </ScrollView>
           <ScrollView horizontal onScroll={e => this._onScroll(e)}>
             <View style={{ margin: 10, height: 200, width: 1000, elevation: 5, backgroundColor: "#ff0", shadowColor: "black", shadowOpacity: 1 }}>
               <LineChart scrollOffset={this.state.offset} style={{ flex: 1 }} config={config2} data={data2} xLabels={labels2} />
@@ -34,25 +39,9 @@ export default class App extends React.Component {
     );
   }
 }
+
 const data1 = [0, 0];
-// const data1 = [
-//   0,
-//   7957,
-//   -986,
-//   10465,
-//   9076,
-//   23373,
-//   17436,
-//   9721,
-//   8658,
-//   24347,
-//   18553,
-//   23849,
-//   19721,
-//   39840,
-//   36740,
-//   29041,
-// ];
+
 const config1 = {
   line: {
     visible: true,

@@ -1,12 +1,14 @@
 {
+  "name": "linechartExample",
+  "displayName": "Linechart Example",
   "expo": {
-    "name": "react-native-responsive-linechart",
-    "description": "A responsive linechart for Expo, using react-native-svg",
-    "slug": "react-native-responsive-linechart",
+    "name": "react-native-responsive-linechart-example",
+    "description": "An example of a responsive linechart for Expo, using react-native-svg",
+    "slug": "react-native-responsive-linechart-example",
     "privacy": "public",
     "sdkVersion": "26.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "ios": {
       "supportsTablet": true

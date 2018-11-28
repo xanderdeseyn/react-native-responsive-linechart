@@ -4,7 +4,6 @@
   "author": "Xander Deseyn",
   "license": "MIT",
   "description": "Customizable linechart for react-native that works with flex",
-  "devDependencies": {},
   "keywords": [
     "react-native",
     "chart",
@@ -16,22 +15,31 @@
     "type": "git",
     "url": "https://github.com/N1ghtly/react-native-responsive-linechart"
   },
-  "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
-  },
-  "dependencies": {
-    "expo": "^26.0.0",
-    "memoize-one": "^4.0.0",
-    "react": "16.3.0-alpha.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
-    "react-native-responsive-linechart": "^1.2.1"
-  },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "expo start",
     "eject": "expo eject",
-    "android": "expo start --android",
-    "ios": "expo start --ios"
+    "expo-android": "expo start --android",
+    "expo-ios": "expo start --ios",
+    "clean": "rm -rf node_modules ios android",
+    "build": "yarn clean && yarn && react-native eject && react-native link",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android",
+    "test": "jest"
+  },
+  "dependencies": {
+    "expo": "^26.0.0",
+    "react": "16.6.1",
+    "react-native": "0.57.7",
+    "react-native-responsive-linechart": "^1.4.8",
+    "react-native-svg": "^8.0.8"
+  },
+  "devDependencies": {
+    "babel-jest": "23.6.0",
+    "jest": "23.6.0",
+    "metro-react-native-babel-preset": "0.49.2",
+    "react-test-renderer": "16.6.1"
+  },
+  "jest": {
+    "preset": "react-native"
   }
 }

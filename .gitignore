@@ -61,3 +61,7 @@ typings/
 # dotenv environment variables file
 .env
 
+
+# React Native
+ios
+android
