@@ -2,10 +2,20 @@ import spline from "cubic-spline";
 import deepmerge from "deepmerge";
 import React, { Component } from "react";
 import { View, PanResponder } from "react-native";
-import { Dimensions } from "react-native";
 import memoizeOne from "memoize-one";
 import _ from "lodash";
-import Svg, { Polyline, Rect, Text, Line, Polygon, LinearGradient, Defs, Stop } from "react-native-svg";
+import Svg, { Polyline, Rect, Text, Line, Polygon, LinearGradient, Defs, Stop, Circle } from "react-native-svg";
+
+const RenderValuePoint = ({ point, offset, color, radius }) => {
+  const dataX = point.x;
+  const dataY = point.y;
+
+  return (
+    <React.Fragment>
+      <Circle cx={dataX + offset.x} cy={dataY} r={radius} fill={color} />
+    </React.Fragment>
+  );
+};
 
 class LineChart extends Component {
   constructor(props) {
@@ -245,11 +255,16 @@ class LineChart extends Component {
 
     const { style, config, xLabels } = this.props;
     const mergedConfig = deepmerge(defaultConfig, config);
-    const { grid, line, area, yAxis, xAxis, insetX, insetY, backgroundColor, tooltip } = mergedConfig;
+    const { grid, line, area, yAxis, xAxis, insetX, insetY, backgroundColor, valuePoint } = mergedConfig;
     const yLabels = this.yLabels;
     const xLabelPoints = this.xLabelPoints;
     const gridSize = this.gridSize;
     const gridOffset = this.gridOffset;
+
+    const dots =
+      valuePoint.visible && this.points
+        ? this.points.map(point => <RenderValuePoint key={point.x} point={point} offset={gridOffset} color={valuePoint.color} radius={valuePoint.radius} />)
+        : undefined;
 
     return (
       <View
@@ -343,6 +358,7 @@ class LineChart extends Component {
               />
             )}
             {this.state.tooltipIndex && this.renderTooltip(mergedConfig)}
+            {dots}
           </Svg>
         ) : (
           undefined
@@ -399,6 +415,11 @@ const defaultConfig = {
     boxPaddingX: 0,
     textColor: "black",
     textFontSize: 10
+  },
+  valuePoint: {
+    visible: false,
+    color: "#777",
+    radius: 5
   },
   insetY: 0,
   insetX: 0,
