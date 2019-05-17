@@ -111,6 +111,11 @@ const defaultConfig = {
     textColor: "black",
     textFontSize: 10
   },
+  valuePoint: {
+    visible: false,
+    color: "#777",
+    radius: 5
+  },
   insetY: 0,
   insetX: 0,
   interpolation: "none",
