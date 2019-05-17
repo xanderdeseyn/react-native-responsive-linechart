@@ -278,7 +278,7 @@ class LineChart extends Component {
         {this.points ? (
           <Svg width={width} height={height}>
             <Rect x="0" y="0" width={width} height={height} fill={backgroundColor} />
-            <Rect x={insetX} y={insetY} width={this.yAxisWidth} height={height - insetY * 2} fill={"#fff"} />
+            <Rect x={insetX} y={insetY} width={this.yAxisWidth} height={height - insetY * 2} fill={backgroundColor} />
             <Rect x={gridOffset.x} y={gridOffset.y} width={gridSize.width} height={gridSize.height} fill={grid.backgroundColor} />
             {yAxis.visible &&
               yLabels &&
