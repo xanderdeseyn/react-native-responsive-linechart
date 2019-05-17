@@ -279,7 +279,7 @@ class LineChart extends Component {
 
     return (
       <View
-        style={Object.assign({}, viewStyle, this.props.style)}
+        style={Object.assign({}, viewStyle, this.props.style, { backgroundColor })}
         onLayout={this.onLayout}
         {..._.get(this._panResponder, "panHandlers", {})}
         ref={view => {
@@ -343,7 +343,7 @@ class LineChart extends Component {
                   strokeWidth={grid.strokeWidth}
                 />
               ))}
-            {/* Draw vertical grid lines */}
+            {/* Draw vertical grid lines on the sides */}
             {grid.visible && (
               <React.Fragment>
                 <Line x1={gridOffset.x} y1={this.highestLine} x2={gridOffset.x} y2={this.lowestLine} stroke={grid.strokeColor} strokeWidth={grid.strokeWidth} />
@@ -357,14 +357,14 @@ class LineChart extends Component {
                 />
               </React.Fragment>
             )}
-            {/* Define gradient used by data area */}
+            {/* Define gradient used by area under data line */}
             <Defs>
               <LinearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <Stop offset="0%" stopColor={area.gradientFrom} stopOpacity={area.gradientFromOpacity} />
                 <Stop offset="100%" stopColor={area.gradientTo} stopOpacity={area.gradientToOpacity} />
               </LinearGradient>
             </Defs>
-            {/* Draw data area */}
+            {/* Draw area under data line */}
             {area.visible && <Polygon x={gridOffset.x} points={this.areaPoints} fill="url(#grad)" strokeWidth="0" />}
             {/* Draw data line */}
             {line.visible && (
