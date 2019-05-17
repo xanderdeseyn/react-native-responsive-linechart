@@ -203,4 +203,4 @@ const config5 = {
 Note: the cards around the charts are not included.
 ````
 
-<a href="http://imgur.com/gallery/KdTuviJ"><img src="https://i.imgur.com/KdTuviJ.png" align="middle" width="500" ></a>
+<a href="http://imgur.com/gallery/KdTuviJ">Image for maintainers</a>
