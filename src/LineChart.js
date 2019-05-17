@@ -450,8 +450,7 @@ const defaultConfig = {
 };
 
 const viewStyle = {
-  alignSelf: "stretch",
-  backgroundColor: "#888"
+  alignSelf: "stretch"
 };
 
 LineChart.defaultProps = {
