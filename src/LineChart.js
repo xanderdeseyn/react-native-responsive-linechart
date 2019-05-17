@@ -21,11 +21,17 @@ class LineChart extends Component {
   constructor(props) {
     super(props);
     this.state = { dimensions: undefined, tooltipIndex: undefined, layoutX: 0 };
+
+    // Memoize data calculations for rendering
     this.recalculate = memoizeOne(this.recalculate);
 
+    // For tooltips to work we need to get funky with the PanResponder.
+    // Capturing touch and move events to calculate tooltip index
     if (_.get(props.config, "tooltip.visible", false) && props.config.interpolation !== "spline") {
       this._panResponder = PanResponder.create({
         onMoveShouldSetPanResponder: (evt, gestureState) => {
+          // Only capture if we are not actively swiping left or right, otherwise horizontal scrollviews are broken.
+          // TODO: maybe remove as it is probably never a good idea to put a chart in a horizontal scrollview
           if (Math.abs(gestureState.dx) > 10) {
             return;
           }
@@ -251,16 +257,21 @@ class LineChart extends Component {
       var { width, height } = dimensions;
     }
 
+    // Don't worry, this is memoized
     this.recalculate(this.state.dimensions, this.props.data, this.props.config);
 
     const { style, config, xLabels } = this.props;
+    // Merge default config with user provided config
     const mergedConfig = deepmerge(defaultConfig, config);
     const { grid, line, area, yAxis, xAxis, insetX, insetY, backgroundColor, valuePoint } = mergedConfig;
+
+    // Ease of use
     const yLabels = this.yLabels;
     const xLabelPoints = this.xLabelPoints;
     const gridSize = this.gridSize;
     const gridOffset = this.gridOffset;
 
+    //
     const dots =
       valuePoint.visible && this.points
         ? this.points.map(point => <RenderValuePoint key={point.x} point={point} offset={gridOffset} color={valuePoint.color} radius={valuePoint.radius} />)
@@ -277,9 +288,13 @@ class LineChart extends Component {
       >
         {this.points ? (
           <Svg width={width} height={height}>
+            {/* Draw background */}
             <Rect x="0" y="0" width={width} height={height} fill={backgroundColor} />
-            <Rect x={insetX} y={insetY} width={this.yAxisWidth} height={height - insetY * 2} fill={backgroundColor} />
+            {/* Draw Y axis label area | TODO: I think this is no longer needed */}
+            <Rect x={insetX} y={insetY} width={this.yAxisWidth} height={gridSize.height} fill={backgroundColor} />
+            {/* Draw background for actual chart area */}
             <Rect x={gridOffset.x} y={gridOffset.y} width={gridSize.width} height={gridSize.height} fill={grid.backgroundColor} />
+            {/* Draw Y axis labels */}
             {yAxis.visible &&
               yLabels &&
               yLabels.slice(1, yLabels.length - 1).map(yLabel => (
@@ -297,6 +312,7 @@ class LineChart extends Component {
                   {yAxis.labelFormatter(yLabel)}
                 </Text>
               ))}
+            {/* Draw X axis labels */}
             {xAxis.visible &&
               xLabels &&
               xLabelPoints.map((point, i) => (
@@ -314,6 +330,7 @@ class LineChart extends Component {
                   {xLabels[i]}
                 </Text>
               ))}
+            {/* Draw grid lines */}
             {grid.visible &&
               yLabels.map(yLabel => (
                 <Line
@@ -326,6 +343,7 @@ class LineChart extends Component {
                   strokeWidth={grid.strokeWidth}
                 />
               ))}
+            {/* Draw vertical grid lines */}
             {grid.visible && (
               <React.Fragment>
                 <Line x1={gridOffset.x} y1={this.highestLine} x2={gridOffset.x} y2={this.lowestLine} stroke={grid.strokeColor} strokeWidth={grid.strokeWidth} />
@@ -339,14 +357,16 @@ class LineChart extends Component {
                 />
               </React.Fragment>
             )}
-
+            {/* Define gradient used by data area */}
             <Defs>
               <LinearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <Stop offset="0%" stopColor={area.gradientFrom} stopOpacity={area.gradientFromOpacity} />
                 <Stop offset="100%" stopColor={area.gradientTo} stopOpacity={area.gradientToOpacity} />
               </LinearGradient>
             </Defs>
+            {/* Draw data area */}
             {area.visible && <Polygon x={gridOffset.x} points={this.areaPoints} fill="url(#grad)" strokeWidth="0" />}
+            {/* Draw data line */}
             {line.visible && (
               <Polyline
                 fill="none"
@@ -357,7 +377,9 @@ class LineChart extends Component {
                 strokeWidth={line.strokeWidth}
               />
             )}
+            {/* Draw tooltip */}
             {this.state.tooltipIndex && this.renderTooltip(mergedConfig)}
+            {/* Draw dots on data points */}
             {dots}
           </Svg>
         ) : (
