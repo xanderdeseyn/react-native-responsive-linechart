@@ -27,25 +27,8 @@ export default class App extends React.Component {
     );
   }
 }
-const data1 = [0, 0];
-// const data1 = [
-//   0,
-//   7957,
-//   -986,
-//   10465,
-//   9076,
-//   23373,
-//   17436,
-//   9721,
-//   8658,
-//   24347,
-//   18553,
-//   23849,
-//   19721,
-//   39840,
-//   36740,
-//   29041,
-// ];
+
+const data1 = [0, 7957, -986, 10465, 9076, 23373, 17436, 9721, 8658, 24347, 18553, 23849, 19721, 39840, 36740, 29041];
 const config1 = {
   line: {
     visible: true,
@@ -55,11 +38,16 @@ const config1 = {
   area: {
     visible: false
   },
-  grid: {},
+  tooltip: {
+    visible: true,
+    labelFontSize: 10
+  },
+  grid: {
+    stepSize: 10000
+  },
   yAxis: {
     labelColor: "#54a0ff"
   },
-  interpolation: "spline",
   insetY: 10,
   insetX: 10
 };
@@ -85,14 +73,11 @@ const config2 = {
   grid: {
     stepSize: 15
   },
-  tooltip: {
-    visible: true,
-    textFontSize: 10
-  },
-  valuePoint: {
+  dataPoint: {
     visible: true,
     color: "#777",
-    radius: 3
+    radius: 3,
+    label: { visible: true, marginBottom: 25 }
   },
   insetY: 10,
   insetX: 10
