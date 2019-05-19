@@ -96,7 +96,7 @@ const defaultConfig = {
   },
   tooltip: {
     visible: false,
-    textFormatter: v => v.toFixed(2),
+    labelFormatter: v => v.toFixed(2),
     lineColor: "#777",
     lineWidth: 1,
     circleColor: "#fff",
@@ -108,13 +108,20 @@ const defaultConfig = {
     boxBorderRadius: 5,
     boxPaddingY: 0,
     boxPaddingX: 0,
-    textColor: "black",
-    textFontSize: 10
+    labelColor: "black",
+    labelFontSize: 10
   },
-  valuePoint: {
+  dataPoint: {
     visible: false,
     color: "#777",
-    radius: 5
+    radius: 5,
+    label: {
+      visible: false,
+      labelFontSize: 12,
+      labelColor: "#777",
+      labelFormatter: v => String(v),
+      marginBottom: 25
+    }
   },
   insetY: 0,
   insetX: 0,
