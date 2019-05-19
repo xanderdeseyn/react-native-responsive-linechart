@@ -2,6 +2,10 @@
 
 <a href="https://badge.fury.io/js/react-native-responsive-linechart"><img src="https://badge.fury.io/js/react-native-responsive-linechart.svg" alt="npm version" height="18"></a>
 
+## Breaking changes in v2
+
+Tooltip and dataPoint (previously valuePoint) config is changed, check the default config for the correct keys.
+
 ## Installation
 
 ```js
