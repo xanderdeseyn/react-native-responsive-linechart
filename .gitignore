@@ -6,6 +6,66 @@ yarn-debug.log*
 yarn-error.log*
 
 example/node_modules
+exampleapp/node_modules
+exampleapp/android/Build
+exampleapp/ios/build
+
+# OSX
+#
+.DS_Store
+
+# Xcode
+#
+exampleapp/build/
+exampleapp/*.pbxuser
+exampleapp/!default.pbxuser
+exampleapp/*.mode1v3
+exampleapp/!default.mode1v3
+exampleapp/*.mode2v3
+exampleapp/!default.mode2v3
+exampleapp/*.perspectivev3
+exampleapp/!default.perspectivev3
+exampleapp/xcuserdata
+exampleapp/*.xccheckout
+exampleapp/*.moved-aside
+exampleapp/DerivedData
+exampleapp/*.hmap
+exampleapp/*.ipa
+exampleapp/*.xcuserstate
+exampleapp/project.xcworkspace
+
+# Android/IntelliJ
+#
+exampleapp/build/
+exampleapp/.idea
+exampleapp/.gradle
+exampleapp/local.properties
+exampleapp/*.iml
+
+# node.js
+#
+exampleapp/node_modules/
+exampleapp/npm-debug.log
+exampleapp/yarn-error.log
+
+# BUCK
+exampleapp/buck-out/
+exampleapp/\.buckd/
+exampleapp/*.keystore
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/
+
+exampleapp/*/fastlane/report.xml
+exampleapp/*/fastlane/Preview.html
+exampleapp/*/fastlane/screenshots
+
+# Bundle artifact
+exampleapp/*.jsbundle
 
 .expo
 
