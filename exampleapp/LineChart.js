@@ -34,7 +34,11 @@ class LineChart extends Component {
           if (this.state.dimensions && this.points) {
             idx = Math.round((xTouch / this.gridSize.width) * (this.props.data.length - 1));
             if (this.state.tooltipIndex != idx) {
-              this.setState({ tooltipIndex: idx });
+              if (idx >= 0 && idx <= this.props.data.length - 1) {
+                this.setState({ tooltipIndex: idx });
+              } else {
+                this.setState({ tooltipIndex: undefined });
+              }
             }
           }
           return false;
@@ -372,7 +376,7 @@ class LineChart extends Component {
               />
             )}
             {/* Draw tooltip */}
-            {!!this.state.tooltipIndex && this.renderTooltip(mergedConfig)}
+            {this.state.tooltipIndex !== undefined && this.renderTooltip(mergedConfig)}
             {/* Draw dots on data points */}
             {dots}
           </Svg>
