@@ -18,23 +18,26 @@ class LineChart extends Component {
     // Capturing touch and move events to calculate tooltip index
     if (_.get(props.config, "tooltip.visible", false) && props.config.interpolation !== "spline") {
       this._panResponder = PanResponder.create({
-        onMoveShouldSetPanResponder: (evt, gestureState) => {
-          const xTouch = -this.state.layoutX + gestureState.moveX - this.gridOffset.x;
-          if (this.state.dimensions && this.points) {
-            idx = Math.round((xTouch / this.gridSize.width) * (this.props.data.length - 1));
-            if (this.state.tooltipIndex != idx) {
-              if (idx >= 0 && idx <= this.props.data.length - 1) {
-                this.setState({ tooltipIndex: idx });
-              } else {
-                this.setState({ tooltipIndex: undefined });
-              }
-            }
-          }
-          return false;
-        }
+        onMoveShouldSetPanResponder: this.handleTouchEvent,
+        onStartShouldSetPanResponder: this.handleTouchEvent
       });
     }
   }
+
+  handleTouchEvent = (evt, gestureState) => {
+    const xTouch = -this.state.layoutX + evt.nativeEvent.locationX - this.gridOffset.x;
+    if (this.state.dimensions && this.points) {
+      idx = Math.round((xTouch / this.gridSize.width) * (this.props.data.length - 1));
+      if (this.state.tooltipIndex != idx) {
+        if (idx >= 0 && idx <= this.props.data.length - 1) {
+          this.setState({ tooltipIndex: idx });
+        } else {
+          this.setState({ tooltipIndex: undefined });
+        }
+      }
+    }
+    return false;
+  };
 
   recalculate(dimensions, data, config) {
     if (!dimensions) {
