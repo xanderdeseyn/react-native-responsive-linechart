@@ -9,7 +9,7 @@ import Svg, { Polyline, Rect, Text, Line, Polygon, LinearGradient, Defs, Stop, C
 class LineChart extends Component {
   constructor(props) {
     super(props);
-    this.state = { dimensions: undefined, tooltipIndex: undefined, layoutX: 0 };
+    this.state = { dimensions: undefined, tooltipIndex: undefined };
 
     // Memoize data calculations for rendering
     this.recalculate = memoizeOne(this.recalculate);
@@ -18,14 +18,16 @@ class LineChart extends Component {
     // Capturing touch and move events to calculate tooltip index
     if (_.get(props.config, "tooltip.visible", false) && props.config.interpolation !== "spline") {
       this._panResponder = PanResponder.create({
-        onMoveShouldSetPanResponder: this.handleTouchEvent,
+        onMoveShouldSetPanResponder: () => true,
+        onPanResponderGrant: this.handleTouchEvent,
+        onPanResponderMove: this.handleTouchEvent,
         onStartShouldSetPanResponder: this.handleTouchEvent
       });
     }
   }
 
   handleTouchEvent = (evt, gestureState) => {
-    const xTouch = -this.state.layoutX + evt.nativeEvent.locationX - this.gridOffset.x;
+    const xTouch = evt.nativeEvent.locationX - this.gridOffset.x;
     if (this.state.dimensions && this.points) {
       idx = Math.round((xTouch / this.gridSize.width) * (this.props.data.length - 1));
       if (this.state.tooltipIndex != idx) {
@@ -36,7 +38,7 @@ class LineChart extends Component {
         }
       }
     }
-    return false;
+    return true;
   };
 
   recalculate(dimensions, data, config) {
@@ -389,17 +391,6 @@ class LineChart extends Component {
       </React.Fragment>
     );
   };
-
-  // We need absolute position for tooltip
-  componentDidMount() {
-    setTimeout(() => {
-      if (this.myComponent) {
-        this.myComponent.measure((fx, fy, width, height, px, py) => {
-          this.setState({ layoutX: px });
-        });
-      }
-    }, 500);
-  }
 
   mergeConfigs = memoizeOne((c1, c2) => deepmerge(c1, c2));
 

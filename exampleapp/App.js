@@ -28,7 +28,7 @@ export default class App extends React.Component {
   }
 }
 
-const data1 = [0, 7957, -986, 10465, 9076, 23373, 17436, 9721, 8658, 24347, 18553, 23849, 19721, 39840, 36740, 29041];
+const data1 = [0, 7957, -986, 2400, 3200]; //, 10465, 9076, 23373, 17436, 9721, 8658, 24347, 18553, 23849, 19721, 39840, 36740, 29041];
 const config1 = {
   line: {
     visible: true,
@@ -49,7 +49,7 @@ const config1 = {
     labelColor: "#54a0ff"
   },
   insetY: 10,
-  insetX: 10
+  insetX: 50
 };
 
 const data2 = [-10, -15, 40, 60, 78, 42, 56];
