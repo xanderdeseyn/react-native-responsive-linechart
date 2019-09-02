@@ -350,8 +350,9 @@ class LineChart extends Component {
     const dataY = this.points[this.state.tooltipIndex].y;
 
     const dataValue = this.props.data[this.state.tooltipIndex];
+    const label = tooltip.labelFormatter(dataValue, this.state.tooltipIndex)
 
-    const textWidth = tooltip.labelFormatter(dataValue).length * tooltip.labelFontSize * 0.66 + tooltip.boxPaddingX;
+    const textWidth = label.length * tooltip.labelFontSize * 0.66 + tooltip.boxPaddingX;
     const textHeight = tooltip.labelFontSize * 1.5 + tooltip.boxPaddingY;
 
     return (
@@ -386,7 +387,7 @@ class LineChart extends Component {
           dy={tooltip.labelFontSize * 0.3}
           fontWeight="400"
         >
-          {tooltip.labelFormatter(dataValue)}
+          {label}
         </Text>
       </React.Fragment>
     );
