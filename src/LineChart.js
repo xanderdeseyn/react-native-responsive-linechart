@@ -406,7 +406,7 @@ class LineChart extends Component {
     const { style, xLabels } = this.props;
     // Merge default config with user provided config
     const config = this.mergeConfigs(defaultConfig, this.props.config);
-    const { grid, insetX, insetY, backgroundColor } = config;
+    const { grid, insetX, insetY, backgroundColor, backgroundOpacity } = config;
 
     // Ease of use
     const gridSize = this.gridSize;
@@ -424,11 +424,18 @@ class LineChart extends Component {
         {this.points ? (
           <Svg width={width} height={height}>
             {/* Draw background */}
-            <Rect x="0" y="0" width={width} height={height} fill={backgroundColor} />
+            <Rect x="0" y="0" width={width} height={height} fill={backgroundColor} fillOpacity={backgroundOpacity} />
             {/* Draw Y axis label area | TODO: I think this is no longer needed */}
-            <Rect x={insetX} y={insetY} width={this.yAxisWidth} height={gridSize.height} fill={backgroundColor} />
+            <Rect x={insetX} y={insetY} width={this.yAxisWidth} height={gridSize.height} fill={backgroundColor} fillOpacity={backgroundOpacity} />
             {/* Draw background for actual chart area */}
-            <Rect x={gridOffset.x} y={gridOffset.y} width={gridSize.width} height={gridSize.height} fill={grid.backgroundColor} />
+            <Rect
+              x={gridOffset.x}
+              y={gridOffset.y}
+              width={gridSize.width}
+              height={gridSize.height}
+              fill={grid.backgroundColor}
+              fillOpacity={backgroundOpacity}
+            />
             {this.renderYAxisLabels(config)}
             {this.renderXAxisLabels(config)}
             {this.renderGrid(config)}
@@ -508,7 +515,8 @@ const defaultConfig = {
   insetY: 0,
   insetX: 0,
   interpolation: "none",
-  backgroundColor: "#fff"
+  backgroundColor: "#fff",
+  backgroundOpacity: 1
 };
 
 const viewStyle = {
