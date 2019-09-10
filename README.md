@@ -126,7 +126,8 @@ const defaultConfig = {
   insetY: 0,
   insetX: 0,
   interpolation: "none",
-  backgroundColor: "#fff"
+  backgroundColor: "#fff",
+  backgroundOpacity: 1
 };
 ```
 
