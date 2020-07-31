@@ -39,8 +39,6 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios"
+    "setup-wml": "yarn global add wml && echo 'n' | wml add src LineChartDemo/node_modules/react-native-responsive-linechart"
   }
 }

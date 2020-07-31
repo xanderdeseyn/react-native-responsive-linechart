@@ -13,13 +13,13 @@ type Props = {
   style?: ViewStyle
 }
 
-const NewLineChart: React.FC<Props> = ({ config, style }) => {
+const LineChart: React.FC<Props> = ({ config, style }) => {
   const { dimensions, onLayout } = useComponentDimensions()
   const [tooltipIndex, setTooltipIndex] = useState<number | undefined>(undefined)
 
   return (
     <View style={style} onLayout={onLayout}>
-      {dimensions && (
+      {!!dimensions && (
         <Svg width={dimensions.width} height={dimensions.height}>
           <Rect x="0" y="0" width={dimensions.width} height={dimensions.height} fill={config.backgroundColor} fillOpacity={config.backgroundOpacity} />
         </Svg>
@@ -28,4 +28,4 @@ const NewLineChart: React.FC<Props> = ({ config, style }) => {
   )
 }
 
-export { NewLineChart }
+export { LineChart }
