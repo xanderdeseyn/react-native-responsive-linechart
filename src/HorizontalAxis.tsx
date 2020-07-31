@@ -2,14 +2,11 @@ import deepmerge from 'deepmerge'
 import React, { useContext } from 'react'
 import { Line } from 'react-native-svg'
 import ChartContext from './ChartContext'
-import { Padding } from './types'
+import { Padding, Stroke } from './types'
 
 type Props = {
   style?: {
-    stroke?: {
-      color?: string
-      width?: number
-    }
+    stroke?: Stroke
     padding?: Padding
   }
 }
@@ -32,6 +29,7 @@ const HorizontalAxis: React.FC<Props> = (props) => {
       y2={dimensions.height - padding.bottom - padding.top}
       stroke={stroke.color}
       strokeWidth={stroke.width}
+      strokeOpacity={stroke.opacity}
     />
   )
 }

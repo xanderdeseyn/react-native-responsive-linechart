@@ -8,6 +8,8 @@ export type AxisDomain = { min: number; max: number }
 
 export type ChartDomain = { x: AxisDomain; y: AxisDomain }
 
+export type Stroke = { color?: string; width?: number; opacity?: number }
+
 export type ChartContext = {
   data: ChartData
   dimensions: Dimensions | undefined
