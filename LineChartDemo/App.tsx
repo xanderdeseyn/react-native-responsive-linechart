@@ -11,6 +11,8 @@ const App = () => {
         style={{ height: 200, flex: 1, backgroundColor: '#bbb', margin: 20, marginTop: 100 }}
         data={data}
         padding={{ left: 20, bottom: 20, right: 20, top: 20 }}
+        xDomain={{ min: -2, max: 10 }}
+        yDomain={{ min: -2, max: 10 }}
       >
         <VerticalAxis />
         <HorizontalAxis />
