@@ -15,7 +15,7 @@
     "react-native-svg": "^9.4.0",
     "cubic-spline": "^1.0.4",
     "deepmerge": "^3.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "memoize-one": "^5.0.4"
   },
   "devDependencies": {
