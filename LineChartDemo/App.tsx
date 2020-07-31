@@ -1,14 +1,16 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { SafeAreaView, StatusBar } from 'react-native'
-import { LineChart } from 'react-native-responsive-linechart'
+import { StatusBar } from 'react-native'
+import { Chart, HorizontalAxis, VerticalAxis } from 'react-native-responsive-linechart'
 
 const App = () => {
-  console.log(LineChart)
   return (
     <Container>
       <StatusBar barStyle="dark-content" />
-      <LineChart style={{ height: 200, width: '100%' }} config={{ backgroundColor: 'red', backgroundOpacity: 0.5 }} />
+      <Chart style={{ height: 200, flex: 1, backgroundColor: '#bbb', marginTop: 100 }} data={data} padding={{ left: 20, bottom: 20 }}>
+        <VerticalAxis />
+        <HorizontalAxis />
+      </Chart>
     </Container>
   )
 }
@@ -17,6 +19,16 @@ export default App
 
 const Container = styled.View`
   width: 100%;
+  flex-direction: row
   flex: 1;
   background-color: #eee;
 `
+
+const data = [
+  { x: 0, y: 1 },
+  { x: 1, y: 2 },
+  { x: 2, y: 3 },
+  { x: 3, y: 1 },
+  { x: 4, y: 6 },
+  { x: 5, y: 8 },
+]
