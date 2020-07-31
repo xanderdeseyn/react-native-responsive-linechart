@@ -4,26 +4,30 @@ import { View, ViewStyle } from 'react-native'
 import _ from 'lodash'
 import Svg, { G } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
-import { ChartData, Padding } from './types'
+import { AxisDomain, ChartData, Padding } from './types'
 import { ChartContextProvider } from './ChartContext'
 
 type Props = {
   style?: ViewStyle
   data: ChartData
-  padding: Padding
+  xDomain?: AxisDomain
+  yDomain?: AxisDomain
+  padding?: Padding
 }
 
 const Chart: React.FC<Props> = (props) => {
-  const { style, children, data, padding } = deepmerge(defaultProps, props)
+  const { style, children, data, padding, xDomain, yDomain } = deepmerge(computeDefaultProps(props.data), props)
   const { dimensions, onLayout } = useComponentDimensions()
-
-  console.log(padding)
 
   return (
     <View style={style} onLayout={onLayout}>
       <ChartContextProvider
         value={{
           data,
+          domain: {
+            x: xDomain,
+            y: yDomain,
+          },
           dimensions: dimensions
             ? {
                 top: 0,
@@ -50,11 +54,19 @@ const Chart: React.FC<Props> = (props) => {
 
 export { Chart }
 
-const defaultProps = {
+const computeDefaultProps = (data: ChartData) => ({
   padding: {
     left: 0,
     top: 0,
     bottom: 0,
     right: 0,
   },
-}
+  xDomain: {
+    min: _.minBy(data, (d) => d.x)!.x,
+    max: _.maxBy(data, (d) => d.x)!.x,
+  },
+  yDomain: {
+    min: _.minBy(data, (d) => d.y)!.y,
+    max: _.maxBy(data, (d) => d.y)!.y,
+  },
+})

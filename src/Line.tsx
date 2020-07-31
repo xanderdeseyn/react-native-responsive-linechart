@@ -3,6 +3,7 @@ import React, { useContext } from 'react'
 import { Polyline } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { Padding } from './types'
+import { formatDataForSVG, scalePointsToDimensions } from './utils'
 
 type Props = {
   strokeColor?: string
@@ -11,14 +12,16 @@ type Props = {
 }
 
 const Line: React.FC<Props> = (props) => {
-  const { padding, strokeColor, strokeWidth } = deepmerge(defaultProps, props)
-  const { data, dimensions } = useContext(ChartContext)
+  const { strokeColor, strokeWidth } = deepmerge(defaultProps, props)
+  const { data, dimensions, domain } = useContext(ChartContext)
 
   if (!dimensions) {
     return null
   }
 
-  return <Polyline fill="none" strokeLinecap="round" points={this.formattedPoints} x={0} stroke={strokeColor} strokeWidth={strokeWidth} />
+  const points = scalePointsToDimensions(data, domain, dimensions)
+
+  return <Polyline fill="none" strokeLinecap="round" points={formatDataForSVG(points)} x={0} stroke={strokeColor} strokeWidth={strokeWidth} />
 }
 
 export { Line }

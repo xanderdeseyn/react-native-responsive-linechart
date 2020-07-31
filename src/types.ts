@@ -11,4 +11,5 @@ export type ChartDomain = { x: AxisDomain; y: AxisDomain }
 export type ChartContext = {
   data: ChartData
   dimensions: Dimensions | undefined
+  domain: ChartDomain
 }
