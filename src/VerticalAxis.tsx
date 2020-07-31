@@ -5,13 +5,19 @@ import ChartContext from './ChartContext'
 import { Padding } from './types'
 
 type Props = {
-  strokeColor?: string
-  strokeWidth?: number
-  padding?: Padding
+  style?: {
+    stroke?: {
+      color?: string
+      width?: number
+    }
+    padding?: Padding
+  }
 }
 
 const VerticalAxis: React.FC<Props> = (props) => {
-  const { padding, strokeColor, strokeWidth } = deepmerge(defaultProps, props)
+  const {
+    style: { padding, stroke },
+  } = deepmerge(defaultProps, props)
   const { data, dimensions } = useContext(ChartContext)
 
   if (!dimensions) {
@@ -24,8 +30,8 @@ const VerticalAxis: React.FC<Props> = (props) => {
       y1={padding.top}
       x2={padding.left}
       y2={dimensions.height - padding.bottom - padding.top}
-      stroke={strokeColor}
-      strokeWidth={strokeWidth}
+      stroke={stroke.color}
+      strokeWidth={stroke.width}
     />
   )
 }
@@ -33,7 +39,11 @@ const VerticalAxis: React.FC<Props> = (props) => {
 export { VerticalAxis }
 
 const defaultProps = {
-  strokeColor: '#000',
-  strokeWidth: 1,
-  padding: { left: 0, right: 0, top: 0, bottom: 0 },
+  style: {
+    stroke: {
+      color: '#000',
+      width: 1,
+    },
+    padding: { left: 0, right: 0, top: 0, bottom: 0 },
+  },
 }

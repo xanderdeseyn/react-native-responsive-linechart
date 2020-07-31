@@ -7,7 +7,11 @@ const App = () => {
   return (
     <Container>
       <StatusBar barStyle="dark-content" />
-      <Chart style={{ height: 200, flex: 1, backgroundColor: '#bbb', marginTop: 100 }} data={data} padding={{ left: 20, bottom: 20 }}>
+      <Chart
+        style={{ height: 200, flex: 1, backgroundColor: '#bbb', margin: 20, marginTop: 100 }}
+        data={data}
+        padding={{ left: 20, bottom: 20, right: 20, top: 20 }}
+      >
         <VerticalAxis />
         <HorizontalAxis />
         <Line />
