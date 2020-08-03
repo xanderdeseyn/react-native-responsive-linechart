@@ -10,7 +10,7 @@ export const calculateTickValues = (tickValues: number[] | undefined, tickCount:
   const difference = Math.abs(domain.max - domain.min)
 
   if (!ticks && tickCount) {
-    ticks = new Array(tickCount).fill(undefined).map((v, i) => (difference * i) / tickCount)
+    ticks = new Array(tickCount).fill(undefined).map((v, i) => domain.min + (difference * (i + 1)) / tickCount)
   }
 
   if (ticks) {

@@ -4,7 +4,7 @@ import { Line } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { Stroke } from './types'
 import { scalePointToDimensions } from './utils'
-import { calculateTickValues } from './VerticalAxis.utils'
+import { calculateTickValues } from './Axis.utils'
 
 type Props = {
   theme?: {

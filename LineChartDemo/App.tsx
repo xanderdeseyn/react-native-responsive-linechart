@@ -25,9 +25,9 @@ const App = () => {
         xDomain={{ min: -2, max: 10 }}
         yDomain={{ min: -2, max: 20 }}
       >
-        <VerticalAxis tickCount={10} />
-        <HorizontalAxis />
-        <Line />
+        <VerticalAxis tickCount={10} theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } } }} />
+        <HorizontalAxis tickCount={3} theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } } }} />
+        <Line theme={{ stroke: { color: 'green', width: 3 } }} />
       </Chart>
     </Container>
   )
