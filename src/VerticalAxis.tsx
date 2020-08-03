@@ -17,6 +17,9 @@ type Props = {
       length?: number
       dx?: number
     }
+    grid?: {
+      stroke?: Stroke
+    }
   }
   tickValues?: number[]
   tickCount?: number
@@ -24,7 +27,7 @@ type Props = {
 
 const VerticalAxis: React.FC<Props> = (props) => {
   const {
-    theme: { axis, ticks },
+    theme: { axis, ticks, grid },
     tickValues,
     tickCount,
   } = deepmerge(defaultProps, props)
@@ -39,6 +42,7 @@ const VerticalAxis: React.FC<Props> = (props) => {
 
   return (
     <>
+      {/* Render Axis */}
       <Line
         x1={axis.dx}
         y1={0}
@@ -50,16 +54,30 @@ const VerticalAxis: React.FC<Props> = (props) => {
       />
       {finalTickValues.map((value) => {
         return (
-          <Line
-            key={value}
-            x1={ticks.dx}
-            y1={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
-            x2={ticks.dx + ticks.length}
-            y2={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
-            stroke={ticks.stroke.color}
-            strokeWidth={ticks.stroke.width}
-            strokeOpacity={ticks.stroke.opacity}
-          />
+          <>
+            {/* Render Grid */}
+            <Line
+              key={`grid-${value}`}
+              x1={0}
+              y1={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
+              x2={dimensions.width}
+              y2={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
+              stroke={grid.stroke.color}
+              strokeWidth={grid.stroke.width}
+              strokeOpacity={grid.stroke.opacity}
+            />
+            {/* Render Tick */}
+            <Line
+              key={`tick-${value}`}
+              x1={ticks.dx}
+              y1={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
+              x2={ticks.dx + ticks.length}
+              y2={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
+              stroke={ticks.stroke.color}
+              strokeWidth={ticks.stroke.width}
+              strokeOpacity={ticks.stroke.opacity}
+            />
+          </>
         )
       })}
     </>
@@ -77,6 +95,13 @@ const defaultProps = {
         opacity: 1,
       },
       dx: 0,
+    },
+    grid: {
+      stroke: {
+        color: '#ccc',
+        width: 1,
+        opacity: 1,
+      },
     },
     ticks: {
       stroke: {

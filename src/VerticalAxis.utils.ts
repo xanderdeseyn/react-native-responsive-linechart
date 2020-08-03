@@ -4,7 +4,7 @@ export const filterValuesForDomain = (values: number[], domain: AxisDomain) => {
   return values.filter((v) => v >= domain.min && v <= domain.max)
 }
 
-export const calculateTickValues = (tickValues: number[] | undefined, tickCount?: number, domain: AxisDomain): number[] => {
+export const calculateTickValues = (tickValues: number[] | undefined, tickCount: number | undefined, domain: AxisDomain): number[] => {
   let ticks = tickValues
 
   const difference = Math.abs(domain.max - domain.min)
