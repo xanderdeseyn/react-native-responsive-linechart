@@ -2,46 +2,90 @@ import deepmerge from 'deepmerge'
 import React, { useContext } from 'react'
 import { Line } from 'react-native-svg'
 import ChartContext from './ChartContext'
-import { Padding, Stroke } from './types'
+import { Stroke } from './types'
+import { scalePointToDimensions } from './utils'
+import { calculateTickValues } from './VerticalAxis.utils'
 
 type Props = {
-  style?: {
-    stroke?: Stroke
-    padding?: Padding
+  theme?: {
+    axis?: {
+      stroke?: Stroke
+      dx?: number
+    }
+    ticks?: {
+      stroke?: Stroke
+      length?: number
+      dx?: number
+    }
   }
+  tickValues?: number[]
+  tickCount?: number
 }
 
 const VerticalAxis: React.FC<Props> = (props) => {
   const {
-    style: { padding, stroke },
+    theme: { axis, ticks },
+    tickValues,
+    tickCount,
   } = deepmerge(defaultProps, props)
-  const { data, dimensions } = useContext(ChartContext)
+
+  const { dimensions, domain } = useContext(ChartContext)
 
   if (!dimensions) {
     return null
   }
 
+  const finalTickValues = calculateTickValues(tickValues, tickCount, domain.y)
+
   return (
-    <Line
-      x1={padding.left}
-      y1={padding.top}
-      x2={padding.left}
-      y2={dimensions.height - padding.bottom - padding.top}
-      stroke={stroke.color}
-      strokeWidth={stroke.width}
-      strokeOpacity={stroke.opacity}
-    />
+    <>
+      <Line
+        x1={axis.dx}
+        y1={0}
+        x2={axis.dx}
+        y2={dimensions.height}
+        stroke={axis.stroke.color}
+        strokeWidth={axis.stroke.width}
+        strokeOpacity={axis.stroke.opacity}
+      />
+      {finalTickValues.map((value) => {
+        return (
+          <Line
+            key={value}
+            x1={ticks.dx}
+            y1={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
+            x2={ticks.dx + ticks.length}
+            y2={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
+            stroke={ticks.stroke.color}
+            strokeWidth={ticks.stroke.width}
+            strokeOpacity={ticks.stroke.opacity}
+          />
+        )
+      })}
+    </>
   )
 }
 
 export { VerticalAxis }
 
 const defaultProps = {
-  style: {
-    stroke: {
-      color: '#000',
-      width: 1,
+  theme: {
+    axis: {
+      stroke: {
+        color: '#000',
+        width: 1,
+        opacity: 1,
+      },
+      dx: 0,
     },
-    padding: { left: 0, right: 0, top: 0, bottom: 0 },
+    ticks: {
+      stroke: {
+        color: '#000',
+        width: 1,
+        opacity: 1,
+      },
+      dx: 0,
+      length: 6,
+    },
   },
 }

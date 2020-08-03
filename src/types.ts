@@ -1,4 +1,4 @@
-export type ChartData = { x: number; y: number }[]
+export type ChartDataPoint = { x: number; y: number }
 
 export type Padding = { top?: number; left?: number; right?: number; bottom?: number }
 
@@ -11,7 +11,7 @@ export type ChartDomain = { x: AxisDomain; y: AxisDomain }
 export type Stroke = { color?: string; width?: number; opacity?: number }
 
 export type ChartContext = {
-  data: ChartData
+  data: ChartDataPoint[]
   dimensions: Dimensions | undefined
   domain: ChartDomain
 }
