@@ -64,11 +64,10 @@ const VerticalAxis: React.FC<Props> = (props) => {
       )}
       {finalTickValues.map((value) => {
         return (
-          <>
+          <React.Fragment key={value}>
             {/* Render Grid */}
             {grid.visible && (
               <Line
-                key={`grid-${value}`}
                 x1={0}
                 y1={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
                 x2={dimensions.width}
@@ -81,7 +80,6 @@ const VerticalAxis: React.FC<Props> = (props) => {
             {/* Render Tick */}
             {ticks.visible && (
               <Line
-                key={`tick-${value}`}
                 x1={ticks.dx}
                 y1={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
                 x2={ticks.dx + ticks.length}
@@ -94,18 +92,18 @@ const VerticalAxis: React.FC<Props> = (props) => {
             {/* Render Label */}
             {labels.visible && (
               <Text
-                key={`label-${value}`}
                 x={labels.label.dx}
                 y={labels.label.dy + scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
                 fontSize={labels.label.fontSize}
                 fontWeight={labels.label.fontWeight}
+                fill={labels.label.color}
                 opacity={labels.label.opacity}
                 textAnchor={labels.label.textAnchor}
               >
                 {labels.formatter(value)}
               </Text>
             )}
-          </>
+          </React.Fragment>
         )
       })}
     </>
@@ -146,9 +144,9 @@ const defaultProps = {
     labels: {
       visible: true,
       label: {
-        color: 'black',
+        color: '#000',
         fontSize: 10,
-        fontWeight: 'normal',
+        fontWeight: 300,
         textAnchor: 'end',
         opacity: 1,
         dx: -4,

@@ -60,7 +60,7 @@ const HorizontalAxis: React.FC<Props> = (props) => {
       )}
       {finalTickValues.map((value) => {
         return (
-          <>
+          <React.Fragment key={value}>
             {/* Render Grid */}
             {grid.visible && (
               <Line
@@ -87,7 +87,7 @@ const HorizontalAxis: React.FC<Props> = (props) => {
                 strokeOpacity={ticks.stroke.opacity}
               />
             )}
-          </>
+          </React.Fragment>
         )
       })}
     </>
