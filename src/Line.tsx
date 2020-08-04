@@ -6,14 +6,14 @@ import { Stroke } from './types'
 import { formatDataForSVG, scalePointsToDimensions } from './utils'
 
 type Props = {
-  style?: {
+  theme?: {
     stroke?: Stroke
   }
 }
 
 const Line: React.FC<Props> = (props) => {
   const {
-    style: { stroke },
+    theme: { stroke },
   } = deepmerge(defaultProps, props)
   const { data, dimensions, domain } = useContext(ChartContext)
 
@@ -39,7 +39,7 @@ const Line: React.FC<Props> = (props) => {
 export { Line }
 
 const defaultProps = {
-  style: {
+  theme: {
     stroke: {
       color: 'black',
       width: 1,

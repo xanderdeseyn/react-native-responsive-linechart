@@ -10,6 +10,12 @@ export type ChartDomain = { x: AxisDomain; y: AxisDomain }
 
 export type Stroke = { color?: string; width?: number; opacity?: number }
 
+export type FontWeight = 'normal' | 'bold'
+
+export type TextAnchor = 'start' | 'middle' | 'end'
+
+export type Label = { color?: string; fontSize?: number; opacity?: number; dy?: number; dx?: number; fontWeight?: FontWeight; textAnchor?: TextAnchor }
+
 export type ChartContext = {
   data: ChartDataPoint[]
   dimensions: Dimensions | undefined

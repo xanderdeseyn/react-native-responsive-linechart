@@ -27,7 +27,7 @@ const App = () => {
       >
         <VerticalAxis tickCount={10} theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } } }} />
         <HorizontalAxis tickCount={3} theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } } }} />
-        <Line theme={{ stroke: { color: 'green', width: 3 } }} />
+        <Line theme={{ stroke: { color: 'red', width: 3 } }} />
       </Chart>
     </Container>
   )
