@@ -33,7 +33,7 @@ const Chart: React.FC<Props> = (props) => {
                 top: 0,
                 left: 0,
                 width: dimensions.width - padding.left - padding.right,
-                height: dimensions.height - padding.left - padding.right,
+                height: dimensions.height - padding.top - padding.bottom,
               }
             : undefined,
         }}

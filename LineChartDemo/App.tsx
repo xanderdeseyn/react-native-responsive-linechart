@@ -12,7 +12,7 @@ const App = () => {
         data={data}
         xDomain={{ min: -2, max: 10 }}
         yDomain={{ min: -2, max: 20 }}
-        padding={{ left: 20, top: 10, bottom: 10 }}
+        padding={{ left: 20, top: 10, bottom: 10, right: 10 }}
       >
         <VerticalAxis tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]} theme={{ axis: { dx: 0 }, ticks: { dx: 0 } }} />
         <HorizontalAxis />
@@ -21,11 +21,11 @@ const App = () => {
       <Chart
         style={{ height: 200, width: '100%', backgroundColor: '#eee', marginTop: 100 }}
         data={data}
-        padding={{ left: 20, bottom: 20, right: 20, top: 20 }}
+        padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
         xDomain={{ min: -2, max: 10 }}
         yDomain={{ min: -2, max: 20 }}
       >
-        <VerticalAxis tickCount={10} theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } } }} />
+        <VerticalAxis tickCount={10} theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } }, labels: { formatter: v => v.toFixed(2) } }} />
         <HorizontalAxis tickCount={3} theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } } }} />
         <Line theme={{ stroke: { color: 'red', width: 3 } }} />
       </Chart>
