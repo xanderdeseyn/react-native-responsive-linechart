@@ -16,7 +16,8 @@ const App = () => {
       >
         <VerticalAxis tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]} theme={{ axis: { dx: 0 }, ticks: { dx: 0 } }} />
         <HorizontalAxis />
-        <Line data={data2} />
+        <Line data={data2} theme={{ stroke: { color: 'blue', width: 1 } }} />
+        <Line data={data1} theme={{ stroke: { color: 'red', width: 1 } }} />
       </Chart>
       <Chart
         style={{ height: 200, width: '100%', backgroundColor: '#eee', marginTop: 100 }}
@@ -72,8 +73,8 @@ const data2 = [
   { x: 4, y: 5 },
   { x: 5, y: 8 },
   { x: 6, y: 12 },
-  { x: 7, y: 15 },
-  { x: 8, y: 13 },
-  { x: 9, y: 11.5 },
-  { x: 10, y: 12 },
+  { x: 7, y: 14 },
+  { x: 8, y: 12 },
+  { x: 9, y: 13.5 },
+  { x: 10, y: 18 },
 ]
