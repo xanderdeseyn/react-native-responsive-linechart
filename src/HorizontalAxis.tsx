@@ -1,8 +1,8 @@
 import deepmerge from 'deepmerge'
 import React, { useContext } from 'react'
-import { Line } from 'react-native-svg'
+import { Line, Text } from 'react-native-svg'
 import ChartContext from './ChartContext'
-import { Stroke } from './types'
+import { Stroke, Label } from './types'
 import { scalePointToDimensions } from './utils'
 import { calculateTickValues } from './Axis.utils'
 
@@ -19,6 +19,11 @@ type Props = {
       length?: number
       dy?: number
     }
+    labels?: {
+      visible?: boolean
+      label?: Label
+      formatter?: (value: number) => string
+    }
     grid?: {
       visible?: boolean
       stroke?: Stroke
@@ -26,13 +31,15 @@ type Props = {
   }
   tickValues?: number[]
   tickCount?: number
+  includeOriginTick?: boolean
 }
 
 const HorizontalAxis: React.FC<Props> = (props) => {
   const {
-    theme: { axis, ticks, grid },
+    theme: { axis, ticks, grid, labels },
     tickValues,
     tickCount,
+    includeOriginTick,
   } = deepmerge(defaultProps, props)
 
   const { dimensions, domain } = useContext(ChartContext)
@@ -41,7 +48,7 @@ const HorizontalAxis: React.FC<Props> = (props) => {
     return null
   }
 
-  const finalTickValues = calculateTickValues(tickValues, tickCount, domain.x)
+  const finalTickValues = calculateTickValues(tickValues, tickCount, domain.x, includeOriginTick)
 
   console
   return (
@@ -87,6 +94,20 @@ const HorizontalAxis: React.FC<Props> = (props) => {
                 strokeOpacity={ticks.stroke.opacity}
               />
             )}
+            {/* Render Label */}
+            {labels.visible && (
+              <Text
+                x={labels.label.dx + scalePointToDimensions({ x: value, y: 0 }, domain, dimensions).x}
+                y={dimensions.height - labels.label.dy}
+                fontSize={labels.label.fontSize}
+                fontWeight={labels.label.fontWeight}
+                fill={labels.label.color}
+                opacity={labels.label.opacity}
+                textAnchor={labels.label.textAnchor}
+              >
+                {labels.formatter(value)}
+              </Text>
+            )}
           </React.Fragment>
         )
       })}
@@ -124,6 +145,20 @@ const defaultProps = {
       },
       dy: 0,
       length: 6,
+      includeOriginTick: false,
+    },
+    labels: {
+      visible: true,
+      label: {
+        color: '#000',
+        fontSize: 10,
+        fontWeight: 300,
+        textAnchor: 'middle',
+        opacity: 1,
+        dx: 0,
+        dy: -12,
+      },
+      formatter: (v: number) => String(v),
     },
   },
 }
