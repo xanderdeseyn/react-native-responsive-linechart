@@ -10,6 +10,8 @@ export type ChartDomain = { x: AxisDomain; y: AxisDomain }
 
 export type Stroke = { color?: string; width?: number; opacity?: number }
 
+export type Gradient = { from?: { color?: string; opacity?: number }; to?: { color?: string; opacity?: number } }
+
 export type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700
 
 export type TextAnchor = 'start' | 'middle' | 'end'

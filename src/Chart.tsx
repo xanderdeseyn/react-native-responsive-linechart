@@ -4,19 +4,19 @@ import { View, ViewStyle } from 'react-native'
 import _ from 'lodash'
 import Svg, { G } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
-import { AxisDomain, ChartData, Padding } from './types'
+import { AxisDomain, ChartDataPoint, Padding } from './types'
 import { ChartContextProvider } from './ChartContext'
 
 type Props = {
   style?: ViewStyle
-  data: ChartData
+  data?: ChartDataPoint[]
   xDomain?: AxisDomain
   yDomain?: AxisDomain
   padding?: Padding
 }
 
 const Chart: React.FC<Props> = (props) => {
-  const { style, children, data, padding, xDomain, yDomain } = deepmerge(computeDefaultProps(props.data), props)
+  const { style, children, data = [], padding, xDomain, yDomain } = deepmerge(computeDefaultProps(props.data), props)
   const { dimensions, onLayout } = useComponentDimensions()
 
   return (
@@ -54,7 +54,7 @@ const Chart: React.FC<Props> = (props) => {
 
 export { Chart }
 
-const computeDefaultProps = (data: ChartData) => ({
+const computeDefaultProps = (data: ChartDataPoint[] = []) => ({
   padding: {
     left: 0,
     top: 0,
