@@ -1,4 +1,4 @@
-export type ChartDataPoint = { x: number; y: number }
+export type ChartDataPoint = { x: number; y: number; meta?: any }
 
 export type Padding = { top?: number; left?: number; right?: number; bottom?: number }
 
