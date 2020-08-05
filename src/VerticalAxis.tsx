@@ -31,6 +31,7 @@ type Props = {
   }
   tickValues?: number[]
   tickCount?: number
+  includeOriginTick?: boolean
 }
 
 const VerticalAxis: React.FC<Props> = (props) => {
@@ -38,6 +39,7 @@ const VerticalAxis: React.FC<Props> = (props) => {
     theme: { axis, ticks, grid, labels },
     tickValues,
     tickCount,
+    includeOriginTick,
   } = deepmerge(defaultProps, props)
 
   const { dimensions, domain } = useContext(ChartContext)
@@ -46,7 +48,7 @@ const VerticalAxis: React.FC<Props> = (props) => {
     return null
   }
 
-  const finalTickValues = calculateTickValues(tickValues, tickCount, domain.y)
+  const finalTickValues = calculateTickValues(tickValues, tickCount, domain.y, includeOriginTick)
 
   return (
     <>
