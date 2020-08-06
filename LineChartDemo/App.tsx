@@ -31,7 +31,7 @@ const App = () => {
           theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } }, labels: { formatter: (v) => v.toFixed(2) } }}
         />
         <HorizontalAxis tickCount={3} theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } } }} />
-        <Line theme={{ stroke: { color: 'red', width: 3 } }} />
+        <Line theme={{ stroke: { color: 'red', width: 10 } }} />
         <Area />
       </Chart>
     </Container>

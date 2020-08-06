@@ -2,6 +2,7 @@ import deepmerge from 'deepmerge'
 import React, { useContext } from 'react'
 import { Polyline } from 'react-native-svg'
 import ChartContext from './ChartContext'
+import { adjustPointsForThickStroke } from './Line.utils'
 import { ChartDataPoint, Stroke } from './types'
 import { formatDataForSVG, scalePointsToDimensions } from './utils'
 
@@ -24,7 +25,8 @@ const Line: React.FC<Props> = (props) => {
     return null
   }
 
-  const points = scalePointsToDimensions(data, domain, dimensions)
+  const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
+  const points = adjustPointsForThickStroke(scaledPoints, stroke)
 
   return (
     <Polyline
