@@ -2,7 +2,7 @@ import deepmerge from 'deepmerge'
 import React, { useContext } from 'react'
 import { Polyline } from 'react-native-svg'
 import ChartContext from './ChartContext'
-import { adjustPointsForThickStroke } from './Line.utils'
+import { adjustPointsForThickStroke, calculateTooltipIndex } from './Line.utils'
 import { ChartDataPoint, Stroke } from './types'
 import { formatDataForSVG, scalePointsToDimensions } from './utils'
 
@@ -14,7 +14,7 @@ type Props = {
 }
 
 const Line: React.FC<Props> = (props) => {
-  const { data: contextData, dimensions, domain } = useContext(ChartContext)
+  const { data: contextData, dimensions, domain, lastTouch } = useContext(ChartContext)
 
   const {
     theme: { stroke },
@@ -26,6 +26,8 @@ const Line: React.FC<Props> = (props) => {
   }
 
   const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
+  const tooltipIndex = calculateTooltipIndex(scaledPoints, lastTouch)
+
   const points = adjustPointsForThickStroke(scaledPoints, stroke)
 
   return (

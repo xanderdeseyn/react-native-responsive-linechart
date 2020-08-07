@@ -1,202 +1,41 @@
 # react-native-responsive-linechart
 
-<a href="https://badge.fury.io/js/react-native-responsive-linechart"><img src="https://badge.fury.io/js/react-native-responsive-linechart.svg" alt="npm version" height="18"></a>
+### Installation
 
-## Breaking changes in v2
+`yarn add react-native-responsive-linechart` or `npm install react-native-responsive-linechart`
 
-Tooltip and dataPoint (previously valuePoint) config is changed, check the default config for the correct keys.
+This lib depends on [react-native-svg](https://github.com/react-native-community/react-native-svg), so make sure that is installed correctly.
 
-## Installation
+### Quick example
 
-```js
-npm install react-native-responsive-linechart
+```javascript
+;<Chart
+  style={{ height: 200, width: '100%', backgroundColor: '#eee' }}
+  xDomain={{ min: -2, max: 10 }}
+  yDomain={{ min: -2, max: 20 }}
+  padding={{ left: 20, top: 10, bottom: 10, right: 10 }}
+>
+  <VerticalAxis tickValues={[0, 4, 8, 12, 16, 20]} />
+  <HorizontalAxis tickCount={3} />
+  <Line data={data1} theme={{ stroke: { color: 'red', width: 1 } }} />
+  <Line data={data2} theme={{ stroke: { color: 'blue', width: 1 } }} />
+</Chart>
+
+const data1 = [
+  { x: -2, y: 1 },
+  { x: -1, y: 0 },
+  { x: 8, y: 13 },
+  { x: 9, y: 11.5 },
+  { x: 10, y: 12 },
+]
+
+const data2 = [
+  { x: -2, y: 15 },
+  { x: -1, y: 10 },
+  { x: 0, y: 12 },
+  { x: 1, y: 7 },
+  { x: 8, y: 12 },
+  { x: 9, y: 13.5 },
+  { x: 10, y: 18 },
+]
 ```
-
-```js
-import LineChart from "react-native-responsive-linechart";
-```
-
-No need to set an explicit width and height! Percentages or `flex` work just fine.
-
-## Quick example
-
-<a href="url"><img src="https://i.imgur.com/alSOfYb.png" align="middle" width="500" ></a>
-
-```jsx
-<LineChart style={{ flex: 1 }} config={config} data={data} />;
-
-const data = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
-const config = {
-  line: {
-    visible: true,
-    strokeWidth: 1,
-    strokeColor: "#54a0ff"
-  },
-  area: {
-    visible: false
-  },
-  tooltip: {
-    visible: true,
-    labelFontSize: 10
-  },
-  grid: {
-    stepSize: 10000
-  },
-  yAxis: {
-    labelColor: "#54a0ff"
-  },
-  insetY: 10,
-  insetX: 10
-};
-```
-
-## Reference
-
-### LineChart
-
-| Property | Type   | Description                    | Example               |
-| -------- | ------ | ------------------------------ | --------------------- |
-| data     | array  | Your numeric data              | [10, 22, 13, 15, 25]  |
-| xLabels  | array  | Optional labels for the X axis | ['jan', 'feb', 'mar'] |
-| config   | object | Chart configuration object     | See next section      |
-
-### Default Config
-
-```js
-const defaultConfig = {
-  grid: {
-    visible: true,
-    backgroundColor: "#fff",
-    strokeWidth: 1,
-    strokeColor: "#ededed",
-    stepSize: 15
-  },
-  line: {
-    visible: true,
-    strokeWidth: 1,
-    strokeColor: "#333"
-  },
-  area: {
-    visible: true,
-    gradientFrom: "#be2ddd",
-    gradientFromOpacity: 1,
-    gradientTo: "#e056fd",
-    gradientToOpacity: 0.4
-  },
-  yAxis: {
-    visible: true,
-    labelFontSize: 12,
-    labelColor: "#777",
-    labelFormatter: v => String(v)
-  },
-  xAxis: {
-    visible: false,
-    labelFontSize: 12,
-    labelColor: "#777"
-  },
-  tooltip: {
-    visible: false,
-    labelFormatter: v => v.toFixed(2),
-    lineColor: "#777",
-    lineWidth: 1,
-    circleColor: "#fff",
-    circleBorderColor: "#fff",
-    circleBorderWidth: 1,
-    boxColor: "#fff",
-    boxBorderWidth: 1,
-    boxBorderColor: "#777",
-    boxBorderRadius: 5,
-    boxPaddingY: 0,
-    boxPaddingX: 0,
-    labelColor: "black",
-    labelFontSize: 10
-  },
-  dataPoint: {
-    visible: false,
-    color: "#777",
-    radius: 5,
-    label: {
-      visible: false,
-      labelFontSize: 12,
-      labelColor: "#777",
-      labelFormatter: v => String(v),
-      marginBottom: 25
-    }
-  },
-  insetY: 0,
-  insetX: 0,
-  interpolation: "none",
-  backgroundColor: "#fff",
-  backgroundOpacity: 1
-};
-```
-
-## More examples
-
-<a href="url"><img src="https://i.imgur.com/fKWp3eZ.png" align="middle" width="500" ></a>
-
-```jsx
-const data = [-10, -15, 40, 60, 78, 42, 56];
-const labels = ["jan", "feb", "mar", "apr", "may", "jun", "jul"];
-const config = {
-  line: {
-    visible: true,
-    strokeWidth: 2,
-    strokeColor: "#341f97"
-  },
-  area: {
-    visible: false
-  },
-  yAxis: {
-    visible: true,
-    labelFormatter: v => String(v) + " °C"
-  },
-  xAxis: {
-    visible: true
-  },
-  grid: {
-    stepSize: 15
-  },
-  dataPoint: {
-    visible: true,
-    color: "#777",
-    radius: 3,
-    label: { visible: true, marginBottom: 25 }
-  },
-  insetY: 10
-};
-```
-
-<a href="url"><img src="https://i.imgur.com/gFdef89.png" align="middle" width="500" ></a>
-
-```jsx
-const data4 = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
-const config4 = {
-  interpolation: "spline",
-  line: { strokeColor: "#be2ddd", strokeWidth: 2 },
-  yAxis: { visible: false },
-  grid: { visible: false }
-};
-```
-
-<a href="url"><img src="https://i.imgur.com/rWaUzB3.png" align="middle" width="500" ></a>
-
-````jsx
-const data5 = [-10, -15, 40, 19, 32, 15, 52, 55, 20, 60, 78, 42, 56];
-const config5 = {
-  interpolation: 'spline',
-  area: {
-    gradientFrom: '#10ac84',
-    gradientFromOpacity: 1,
-    gradientTo: '#10ac84',
-    gradientToOpacity: 0.4,
-  },
-  line: {
-    visible: false
-  }
-}```
-
-Note: the cards around the charts are not included.
-````
-
-<a href="http://imgur.com/gallery/KdTuviJ">Image for maintainers</a>

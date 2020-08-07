@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState, useMemo } from 'react'
 import deepmerge from 'deepmerge'
 import { View, ViewStyle } from 'react-native'
+import { GestureResponderEvent, PanResponder } from 'react-native'
 import _ from 'lodash'
 import Svg, { G } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
-import { AxisDomain, ChartDataPoint, Padding } from './types'
+import { AxisDomain, ChartDataPoint, Padding, XYValue } from './types'
 import { ChartContextProvider } from './ChartContext'
+import { calculateDataDimensions } from './Chart.utils'
 
 type Props = {
   style?: ViewStyle
@@ -18,28 +20,46 @@ type Props = {
 const Chart: React.FC<Props> = (props) => {
   const { style, children, data = [], padding, xDomain, yDomain } = deepmerge(computeDefaultProps(props.data), props)
   const { dimensions, onLayout } = useComponentDimensions()
+  const dataDimensions = calculateDataDimensions(dimensions, padding)
+
+  const [lastTouch, setLastTouch] = useState<XYValue | undefined>(undefined)
+
+  const handleTouchEvent = (evt: GestureResponderEvent) => {
+    if (dataDimensions) {
+      setLastTouch({
+        x: _.clamp(evt.nativeEvent.locationX - padding.left, 0, dataDimensions.width),
+        y: _.clamp(evt.nativeEvent.locationY - padding.top, 0, dataDimensions.height),
+      })
+    }
+    return true
+  }
+
+  const panResponder = useMemo(
+    () =>
+      PanResponder.create({
+        onMoveShouldSetPanResponder: () => true,
+        onPanResponderGrant: handleTouchEvent,
+        onPanResponderMove: handleTouchEvent,
+        onStartShouldSetPanResponder: handleTouchEvent,
+      }),
+    []
+  )
 
   return (
     <View style={style} onLayout={onLayout}>
       <ChartContextProvider
         value={{
           data,
+          dimensions: dataDimensions,
           domain: {
             x: xDomain,
             y: yDomain,
           },
-          dimensions: dimensions
-            ? {
-                top: 0,
-                left: 0,
-                width: dimensions.width - padding.left - padding.right,
-                height: dimensions.height - padding.top - padding.bottom,
-              }
-            : undefined,
+          lastTouch,
         }}
       >
         {!!dimensions && (
-          <View style={{ width: dimensions.width, height: dimensions.height }}>
+          <View style={{ width: dimensions.width, height: dimensions.height }} {...panResponder.panHandlers}>
             <Svg width={dimensions.width} height={dimensions.height}>
               <G translateX={padding.left} translateY={padding.top}>
                 {children}

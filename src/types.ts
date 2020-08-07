@@ -1,4 +1,6 @@
-export type ChartDataPoint = { x: number; y: number; meta?: any }
+export type XYValue = { x: number; y: number }
+
+export type ChartDataPoint = XYValue & { meta?: any }
 
 export type Padding = { top?: number; left?: number; right?: number; bottom?: number }
 
@@ -22,4 +24,5 @@ export type ChartContext = {
   data: ChartDataPoint[]
   dimensions: Dimensions | undefined
   domain: ChartDomain
+  lastTouch: XYValue | undefined
 }
