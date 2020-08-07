@@ -10,6 +10,7 @@ type Props = {
   theme?: {
     stroke?: Stroke
   }
+  tooltipComponent?: React.ReactNode
   data?: ChartDataPoint[]
 }
 
@@ -18,6 +19,7 @@ const Line: React.FC<Props> = (props) => {
 
   const {
     theme: { stroke },
+    tooltipComponent,
     data = contextData,
   } = deepmerge(defaultProps, props)
 
@@ -28,18 +30,24 @@ const Line: React.FC<Props> = (props) => {
   const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
   const tooltipIndex = calculateTooltipIndex(scaledPoints, lastTouch)
 
+  console.log(lastTouch)
+  console.log(tooltipIndex)
+
   const points = adjustPointsForThickStroke(scaledPoints, stroke)
 
   return (
-    <Polyline
-      fill="none"
-      strokeLinecap="round"
-      points={formatDataForSVG(points)}
-      x={0}
-      stroke={stroke.color}
-      strokeWidth={stroke.width}
-      strokeOpacity={stroke.opacity}
-    />
+    <React.Fragment>
+      <Polyline
+        fill="none"
+        strokeLinecap="round"
+        points={formatDataForSVG(points)}
+        x={0}
+        stroke={stroke.color}
+        strokeWidth={stroke.width}
+        strokeOpacity={stroke.opacity}
+      />
+      {tooltipIndex !== undefined && React.cloneElement(tooltipComponent, { value: data[tooltipIndex] })}
+    </React.Fragment>
   )
 }
 

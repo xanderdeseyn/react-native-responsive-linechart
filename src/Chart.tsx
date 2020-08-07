@@ -45,6 +45,8 @@ const Chart: React.FC<Props> = (props) => {
     []
   )
 
+  console.log(lastTouch)
+
   return (
     <View style={style} onLayout={onLayout}>
       <ChartContextProvider

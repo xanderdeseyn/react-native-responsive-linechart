@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { StatusBar } from 'react-native'
-import { Chart, HorizontalAxis, VerticalAxis, Line, Area } from 'react-native-responsive-linechart'
+import { Chart, HorizontalAxis, VerticalAxis, Line, Area, BoxTooltip } from 'react-native-responsive-linechart'
 
 const App = () => {
   return (
     <Container>
       <StatusBar barStyle="dark-content" />
-      <Chart
+      {/* <Chart
         style={{ height: 200, width: '100%', backgroundColor: '#eee', marginTop: 100 }}
         data={data1}
         xDomain={{ min: -2, max: 10 }}
@@ -18,7 +18,7 @@ const App = () => {
         <HorizontalAxis />
         <Line data={data1} theme={{ stroke: { color: 'red', width: 1 } }} />
         <Line data={data2} theme={{ stroke: { color: 'blue', width: 1 } }} />
-      </Chart>
+      </Chart> */}
       <Chart
         style={{ height: 200, width: '100%', backgroundColor: '#eee', marginTop: 100 }}
         data={data2}
@@ -31,7 +31,7 @@ const App = () => {
           theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } }, labels: { formatter: (v) => v.toFixed(2) } }}
         />
         <HorizontalAxis tickCount={3} theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } } }} />
-        <Line theme={{ stroke: { color: 'red', width: 10 } }} />
+        <Line theme={{ stroke: { color: 'red', width: 10 } }} tooltipComponent={<BoxTooltip />} />
         <Area />
       </Chart>
     </Container>
