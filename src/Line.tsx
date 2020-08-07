@@ -30,9 +30,6 @@ const Line: React.FC<Props> = (props) => {
   const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
   const tooltipIndex = calculateTooltipIndex(scaledPoints, lastTouch)
 
-  console.log(lastTouch)
-  console.log(tooltipIndex)
-
   const points = adjustPointsForThickStroke(scaledPoints, stroke)
 
   return (
@@ -46,7 +43,7 @@ const Line: React.FC<Props> = (props) => {
         strokeWidth={stroke.width}
         strokeOpacity={stroke.opacity}
       />
-      {tooltipIndex !== undefined && React.cloneElement(tooltipComponent, { value: data[tooltipIndex] })}
+      {tooltipIndex !== undefined && React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: points[tooltipIndex] })}
     </React.Fragment>
   )
 }

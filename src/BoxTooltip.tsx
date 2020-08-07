@@ -2,34 +2,44 @@ import deepmerge from 'deepmerge'
 import React, { useContext } from 'react'
 import { Text, Rect } from 'react-native-svg'
 import ChartContext from './ChartContext'
-import { ChartDataPoint, Label } from './types'
-import { scalePointToDimensions } from './utils'
+import { ChartDataPoint, Label, Box, XYValue } from './types'
 
 type Props = {
   theme?: {
     label?: Label
+    box?: Box
     formatter?: (value: ChartDataPoint) => string
   }
-  value: ChartDataPoint
+  value?: ChartDataPoint
+  position?: XYValue
 }
 
 const BoxTooltip: React.FC<Props> = (props) => {
-  const { dimensions, domain } = useContext(ChartContext)
+  const { dimensions } = useContext(ChartContext)
 
   const {
-    theme: { label, formatter },
+    theme: { label, formatter, box },
     value,
+    position,
   } = deepmerge(defaultProps, props)
 
-  if (!dimensions) {
+  if (!dimensions || !value || !position) {
     return null
   }
 
   return (
     <React.Fragment>
+      <Rect
+        x={position.x - box.width / 2 + box.dx}
+        y={position.y - box.height / 2 - box.dy}
+        fill={box.color}
+        opacity={box.opacity}
+        height={box.height}
+        width={box.width}
+      />
       <Text
-        x={scalePointToDimensions(value, domain, dimensions).x}
-        y={scalePointToDimensions(value, domain, dimensions).y}
+        x={position.x + label.dx}
+        y={position.y - label.dy}
         fontSize={label.fontSize}
         fontWeight={label.fontWeight}
         fill={label.color}
@@ -47,13 +57,20 @@ export { BoxTooltip }
 const defaultProps = {
   theme: {
     label: {
-      color: '#000',
-      fontSize: 10,
-      fontWeight: 300,
+      color: 'white',
+      fontSize: 12,
+      fontWeight: 700,
       textAnchor: 'middle',
       opacity: 1,
       dx: 0,
-      dy: -12,
+      dy: 16.5,
+    },
+    box: {
+      width: 30,
+      height: 20,
+      dx: 0,
+      dy: 20,
+      color: 'black',
     },
     formatter: (v: ChartDataPoint) => String(v.y),
   },
