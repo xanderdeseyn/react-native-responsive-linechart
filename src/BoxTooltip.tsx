@@ -32,6 +32,7 @@ const BoxTooltip: React.FC<Props> = (props) => {
       <Rect
         x={position.x - box.width / 2 + box.dx}
         y={position.y - box.height / 2 - box.dy}
+        rx={box.rx}
         fill={box.color}
         opacity={box.opacity}
         height={box.height}
@@ -70,6 +71,7 @@ const defaultProps = {
       height: 20,
       dx: 0,
       dy: 20,
+      rx: 4,
       color: 'black',
     },
     formatter: (v: ChartDataPoint) => String(v.y),
