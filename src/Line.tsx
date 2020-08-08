@@ -10,7 +10,7 @@ type Props = {
   theme?: {
     stroke?: Stroke
   }
-  tooltipComponent?: React.ReactNode
+  tooltipComponent?: JSX.Element
   data?: ChartDataPoint[]
 }
 

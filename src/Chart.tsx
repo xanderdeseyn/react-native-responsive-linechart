@@ -47,27 +47,27 @@ const Chart: React.FC<Props> = (props) => {
 
   return (
     <View style={style} onLayout={onLayout}>
-      <ChartContextProvider
-        value={{
-          data,
-          dimensions: dataDimensions,
-          domain: {
-            x: xDomain,
-            y: yDomain,
-          },
-          lastTouch,
-        }}
-      >
-        {!!dimensions && (
-          <View style={{ width: dimensions.width, height: dimensions.height }} {...panResponder.panHandlers}>
+      {!!dimensions && (
+        <View style={{ width: dimensions.width, height: dimensions.height }} {...panResponder.panHandlers}>
+          <ChartContextProvider
+            value={{
+              data,
+              dimensions: dataDimensions,
+              domain: {
+                x: xDomain,
+                y: yDomain,
+              },
+              lastTouch,
+            }}
+          >
             <Svg width={dimensions.width} height={dimensions.height}>
               <G translateX={padding.left} translateY={padding.top}>
                 {children}
               </G>
             </Svg>
-          </View>
-        )}
-      </ChartContextProvider>
+          </ChartContextProvider>
+        </View>
+      )}
     </View>
   )
 }
