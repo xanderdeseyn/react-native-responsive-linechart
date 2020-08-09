@@ -5,15 +5,22 @@
   "license": "MIT",
   "description": "Customizable linechart for react-native that works with flex",
   "devDependencies": {
+    "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.10.4",
+    "@babel/runtime": "^7.11.2",
     "@types/jest": "^26.0.8",
     "@types/lodash": "^4.14.158",
     "@types/memoize-one": "^5.1.2",
     "@types/react": "^16.9.43",
     "@types/react-native": "^0.63.2",
+    "docz": "^2.3.1",
     "jest": "^26.2.2",
+    "react-art": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-native-scripts": "^1.11.1",
+    "react-native-svg-web-transform": "^1.2.0",
+    "react-native-web": "^0.13.5",
     "typescript": "^3.9.7"
   },
   "files": [
@@ -39,10 +46,16 @@
     "cubic-spline": "^3.0.3",
     "deepmerge": "^4.2.2",
     "lodash": "^4.17.19",
-    "memoize-one": "^5.1.1"
+    "memoize-one": "^5.1.1",
+    "react": "^16.13.1",
+    "react-native": "^0.63.2",
+    "react-native-svg": "^12.1.0"
   },
   "main": "index.js",
   "scripts": {
-    "wml": "yarn global add wml && echo 'n' | wml add src LineChartDemo/node_modules/react-native-responsive-linechart"
+    "wml": "yarn global add wml && echo 'n' | wml add src LineChartDemo/node_modules/react-native-responsive-linechart",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve"
   }
 }

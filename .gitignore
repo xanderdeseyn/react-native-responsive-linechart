@@ -71,6 +71,8 @@ exampleapp/*.jsbundle
 
 .expo
 
+.docz
+
 # Runtime data
 pids
 *.pid
