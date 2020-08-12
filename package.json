@@ -21,6 +21,9 @@
     "react-native-scripts": "^1.11.1",
     "react-native-svg-web-transform": "^1.2.0",
     "react-native-web": "^0.13.5",
+    "react": "^16.13.1",
+    "react-native": "^0.63.2",
+    "react-native-svg": "^12.1.0",
     "typescript": "^3.9.7"
   },
   "files": [
@@ -46,14 +49,10 @@
     "cubic-spline": "^3.0.3",
     "deepmerge": "^4.2.2",
     "lodash": "^4.17.19",
-    "memoize-one": "^5.1.1",
-    "react": "^16.13.1",
-    "react-native": "^0.63.2",
-    "react-native-svg": "^12.1.0"
+    "memoize-one": "^5.1.1"
   },
   "main": "index.js",
   "scripts": {
-    "wml": "yarn global add wml && echo 'n' | wml add src LineChartDemo/node_modules/react-native-responsive-linechart",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve"

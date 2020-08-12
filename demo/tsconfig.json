@@ -56,5 +56,10 @@
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
+  "paths": {
+    "react-native-responsive-linechart": ["../src/index.ts"],
+    "react-native-responsive-linechart/*": ["../src/*"]
+  },
+  "include": ["../src/**/*.tsx", "../src/**/*.ts", "./**/*.ts", "./**/*.tsx"],
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }

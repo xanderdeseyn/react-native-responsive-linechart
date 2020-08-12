@@ -1,11 +1,11 @@
 {
-  "name": "LineChartDemo",
+  "name": "react-native-responsive-linechart-demo",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "wml start & react-native start",
+    "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
