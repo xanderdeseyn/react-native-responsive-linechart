@@ -1,7 +1,7 @@
 ---
 
-name: Line
-route: /line
+name: Area
+route: /area
 
 ---
 
@@ -9,15 +9,15 @@ import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from '..'
 import { Playground, Props } from 'docz'
 
 
-# Line
+# Area
 
-This component draws a line. Multiple lines can be drawn on one chart.
+This component draws an area. Multiple areas can be drawn on one chart.
 
-### Line Props
+### Area Props
 
-<Props of={Line} table={true} />
+<Props of={Area} table={true} />
 
-### Example combined with area
+### Example combined with line
 
 <Playground>
 <Chart
@@ -48,7 +48,7 @@ This component draws a line. Multiple lines can be drawn on one chart.
 </Chart>
 </Playground>
 
-### Example multiple lines
+### Example multiple areas
 
 <Playground>
 <Chart
@@ -62,8 +62,8 @@ This component draws a line. Multiple lines can be drawn on one chart.
     theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
   />
   <HorizontalAxis  />
-  <Line 
-    theme={{ stroke: { color: 'red', width: 3 } }} 
+  <Area 
+    theme={{ gradient: { from : { color: '#1abc9c', opacity: 0.4 }, to : { color: '#1abc9c' , opacity: 0.4 } } }} 
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -74,8 +74,8 @@ This component draws a line. Multiple lines can be drawn on one chart.
       { x: 10, y: 18 },
     ]} 
   />
-  <Line 
-    theme={{ stroke: { color: 'blue', width: 3 } }} 
+  <Area 
+    theme={{ gradient: { from : { color: '#f39c12', opacity: 0.4 }, to : { color: '#f39c12' , opacity: 0.4 } } }} 
     data={[
       { x: -2, y: 0 },
       { x: -1, y: 2 },
@@ -87,32 +87,5 @@ This component draws a line. Multiple lines can be drawn on one chart.
       { x: 10, y: 12 },
     ]} 
   />
-</Chart>
-</Playground>
-
-### Example with tooltip
-
-Be advised this doesn't work in the browser, but it will work in an app!
-
-<Playground>
-<Chart
-  style={{ height: 200, width: 400 }}
-  data={[
-    { x: -2, y: 5 },
-    { x: -1, y: 10 },
-    { x: 0, y: 12 },
-    { x: 4, y: 11 },
-    { x: 8, y: 12 },
-    { x: 9, y: 13.5 },
-    { x: 10, y: 18 },
-  ]}
-  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
-  yDomain={{ min: 0, max: 20 }}
->
-  <VerticalAxis
-    tickCount={5}
-  />
-  <HorizontalAxis tickCount={3} />
-  <Line theme={{ stroke: { color: '#c0392b', width: 2 } }} tooltipComponent={<BoxTooltip />} />
 </Chart>
 </Playground>
