@@ -21,7 +21,7 @@ This component draws a line. Multiple lines can be drawn on one chart.
 
 <Playground>
 <Chart
-  style={{ height: 200, width: 400, backgroundColor: '#f8f8f8' }}
+  style={{ height: 200, width: 400 }}
   data={[
     { x: -2, y: 15 },
     { x: -1, y: 10 },
@@ -41,10 +41,7 @@ This component draws a line. Multiple lines can be drawn on one chart.
   xDomain={{ min: -2, max: 10 }}
   yDomain={{ min: -4, max: 20 }}
 >
-  <VerticalAxis
-    tickCount={10}
-    theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
-  />
+  <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
   <HorizontalAxis tickCount={3} />
   <Area />
   <Line theme={{ stroke: { color: 'red', width: 10 } }} />
@@ -55,7 +52,7 @@ This component draws a line. Multiple lines can be drawn on one chart.
 
 <Playground>
 <Chart
-  style={{ height: 200, width: 400, backgroundColor: '#f8f8f8'}}
+  style={{ height: 200, width: 400}}
   padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
   xDomain={{ min: -2, max: 10 }}
   yDomain={{ min: 0, max: 20 }}
@@ -99,7 +96,7 @@ Be advised this doesn't work in the browser, but it will work in an app!
 
 <Playground>
 <Chart
-  style={{ height: 200, width: 400, backgroundColor: '#f8f8f8' }}
+  style={{ height: 200, width: 400 }}
   data={[
     { x: -2, y: 5 },
     { x: -1, y: 10 },
@@ -114,9 +111,8 @@ Be advised this doesn't work in the browser, but it will work in an app!
 >
   <VerticalAxis
     tickCount={5}
-    theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
   />
   <HorizontalAxis tickCount={3} />
-  <Line theme={{ stroke: { color: 'red', width: 2 } }} tooltipComponent={BoxTooltip} />
+  <Line theme={{ stroke: { color: 'red', width: 2 } }} tooltipComponent={<BoxTooltip />} />
 </Chart>
 </Playground>

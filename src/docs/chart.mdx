@@ -21,7 +21,7 @@ This component should **always** be wrapped around any other component from this
 
 <Playground>
 <Chart
-  style={{ height: 200, width: 400, backgroundColor: '#eee'}}
+  style={{ height: 200, width: 400 }}
   data={[
   { x: -2, y: 15 },
   { x: -1, y: 10 },
@@ -39,10 +39,10 @@ This component should **always** be wrapped around any other component from this
 >
   <VerticalAxis
     tickCount={10}
-    theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } }, labels: { formatter: (v) => v.toFixed(2) } }}
+    theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
   />
-  <HorizontalAxis tickCount={3} theme={{ axis: { stroke: { color: '#aaa', width: 2 } }, ticks: { stroke: { color: '#aaa', width: 2 } } }} />
-  <Area />
-  <Line theme={{ stroke: { color: 'red', width: 5 } }} />
+  <HorizontalAxis tickCount={3} />
+  <Area theme={{ gradient: { from: { color: '#27ae60' }, to: { color: '#27ae60', opacity: 0.2 } }}} />
+  <Line theme={{ stroke: { color: '#27ae60', width: 5 } }} />
 </Chart>
 </Playground>
