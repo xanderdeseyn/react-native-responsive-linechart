@@ -34,12 +34,12 @@ type Props = {
   includeOriginTick?: boolean
 }
 
-const HorizontalAxis: React.FC<Props> = (props) => {
+const HorizontalAxis: React.FC<Props> = props => {
   const {
     theme: { axis, ticks, grid, labels },
     tickValues,
     tickCount,
-    includeOriginTick,
+    includeOriginTick
   } = deepmerge(defaultProps, props)
 
   const { dimensions, domain } = useContext(ChartContext)
@@ -65,7 +65,7 @@ const HorizontalAxis: React.FC<Props> = (props) => {
           strokeOpacity={axis.stroke.opacity}
         />
       )}
-      {finalTickValues.map((value) => {
+      {finalTickValues.map(value => {
         return (
           <React.Fragment key={value}>
             {/* Render Grid */}
@@ -122,30 +122,30 @@ const defaultProps = {
     axis: {
       visible: true,
       stroke: {
-        color: '#000',
-        width: 1,
-        opacity: 1,
+        color: '#bbb',
+        width: 2,
+        opacity: 1
       },
-      dy: 0,
+      dy: 0
     },
     grid: {
       visible: true,
       stroke: {
         color: '#ccc',
         width: 1,
-        opacity: 1,
-      },
+        opacity: 1
+      }
     },
     ticks: {
       visible: true,
       stroke: {
         color: '#000',
         width: 1,
-        opacity: 1,
+        opacity: 1
       },
       dy: 0,
       length: 6,
-      includeOriginTick: false,
+      includeOriginTick: false
     },
     labels: {
       visible: true,
@@ -156,9 +156,9 @@ const defaultProps = {
         textAnchor: 'middle',
         opacity: 1,
         dx: 0,
-        dy: -12,
+        dy: -12
       },
-      formatter: (v: number) => String(v),
-    },
-  },
+      formatter: (v: number) => String(v)
+    }
+  }
 }

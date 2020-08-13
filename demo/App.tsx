@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Container>
       <StatusBar barStyle="dark-content" />
-      {/* <Chart
+      <Chart
         style={{ height: 200, width: '100%', backgroundColor: '#eee', marginTop: 100 }}
         data={data1}
         xDomain={{ min: -2, max: 10 }}
@@ -18,7 +18,7 @@ const App = () => {
         <HorizontalAxis />
         <Line data={data1} theme={{ stroke: { color: 'red', width: 1 } }} />
         <Line data={data2} theme={{ stroke: { color: 'blue', width: 1 } }} />
-      </Chart> */}
+      </Chart>
       <Chart
         style={{ height: 200, width: '100%', backgroundColor: '#eee', marginTop: 100 }}
         data={data2}

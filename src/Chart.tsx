@@ -17,7 +17,7 @@ type Props = {
   padding?: Padding
 }
 
-const Chart: React.FC<Props> = (props) => {
+const Chart: React.FC<Props> = props => {
   const { style, children, data = [], padding, xDomain, yDomain } = deepmerge(computeDefaultProps(props.data), props)
   const { dimensions, onLayout } = useComponentDimensions()
   const dataDimensions = calculateDataDimensions(dimensions, padding)
@@ -28,7 +28,7 @@ const Chart: React.FC<Props> = (props) => {
     if (dataDimensions) {
       setLastTouch({
         x: _.clamp(evt.nativeEvent.locationX - padding.left, 0, dataDimensions.width),
-        y: _.clamp(evt.nativeEvent.locationY - padding.top, 0, dataDimensions.height),
+        y: _.clamp(evt.nativeEvent.locationY - padding.top, 0, dataDimensions.height)
       })
     }
     return true
@@ -40,7 +40,7 @@ const Chart: React.FC<Props> = (props) => {
         onMoveShouldSetPanResponder: () => true,
         onPanResponderGrant: handleTouchEvent,
         onPanResponderMove: handleTouchEvent,
-        onStartShouldSetPanResponder: handleTouchEvent,
+        onStartShouldSetPanResponder: handleTouchEvent
       }),
     []
   )
@@ -55,9 +55,9 @@ const Chart: React.FC<Props> = (props) => {
               dimensions: dataDimensions,
               domain: {
                 x: xDomain,
-                y: yDomain,
+                y: yDomain
               },
-              lastTouch,
+              lastTouch
             }}
           >
             <Svg width={dimensions.width} height={dimensions.height}>
@@ -79,14 +79,14 @@ const computeDefaultProps = (data: ChartDataPoint[] = []) => ({
     left: 0,
     top: 0,
     bottom: 0,
-    right: 0,
+    right: 0
   },
   xDomain: {
-    min: _.minBy(data, (d) => d.x)!.x,
-    max: _.maxBy(data, (d) => d.x)!.x,
+    min: data.length > 0 ? _.minBy(data, d => d.x)!.x : 0,
+    max: data.length > 0 ? _.maxBy(data, d => d.x)!.x : 10
   },
   yDomain: {
-    min: _.minBy(data, (d) => d.y)!.y,
-    max: _.maxBy(data, (d) => d.y)!.y,
-  },
+    min: data.length > 0 ? _.minBy(data, d => d.y)!.y : 0,
+    max: data.length > 0 ? _.maxBy(data, d => d.y)!.y : 10
+  }
 })
