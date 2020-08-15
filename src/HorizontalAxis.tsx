@@ -118,6 +118,7 @@ const HorizontalAxis: React.FC<Props> = props => {
 export { HorizontalAxis }
 
 const defaultProps = {
+  includeOriginTick: true,
   theme: {
     axis: {
       visible: true,

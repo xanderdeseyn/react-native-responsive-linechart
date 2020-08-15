@@ -115,6 +115,7 @@ const VerticalAxis: React.FC<Props> = props => {
 export { VerticalAxis }
 
 const defaultProps = {
+  includeOriginTick: true,
   theme: {
     axis: {
       visible: true,
