@@ -7,20 +7,23 @@ import { ChartDataPoint, Stroke } from './types'
 import { formatDataForSVG, scalePointsToDimensions } from './utils'
 
 type Props = {
+  /** Theme for the line */
   theme?: {
     stroke?: Stroke
   }
+  /** Component to render tooltips. An example component is included: <BoxTooltip />. */
   tooltipComponent?: JSX.Element
+  /** Data for the chart. Overrides optional data provided in `<Chart />`. */
   data?: ChartDataPoint[]
 }
 
-const Line: React.FC<Props> = (props) => {
+const Line: React.FC<Props> = props => {
   const { data: contextData, dimensions, domain, lastTouch } = useContext(ChartContext)
 
   const {
     theme: { stroke },
     tooltipComponent,
-    data = contextData,
+    data = contextData
   } = deepmerge(defaultProps, props)
 
   if (!dimensions) {
@@ -55,7 +58,7 @@ const defaultProps = {
     stroke: {
       color: 'black',
       width: 1,
-      opacity: 1,
-    },
-  },
+      opacity: 1
+    }
+  }
 }

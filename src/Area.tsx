@@ -6,18 +6,20 @@ import { ChartDataPoint, Gradient } from './types'
 import { formatDataForSVG, scalePointsToDimensions } from './utils'
 
 type Props = {
+  /** Theme for the area */
   theme?: {
     gradient?: Gradient
   }
+  /** Data for the chart. Overrides optional data provided in `<Chart />`. */
   data?: ChartDataPoint[]
 }
 
-const Area: React.FC<Props> = (props) => {
+const Area: React.FC<Props> = props => {
   const { data: contextData, dimensions, domain } = useContext(ChartContext)
 
   const {
     theme: { gradient },
-    data = contextData,
+    data = contextData
   } = deepmerge(defaultProps, props)
 
   if (!dimensions) {
@@ -46,12 +48,12 @@ const defaultProps = {
     gradient: {
       from: {
         color: 'red',
-        opacity: 1,
+        opacity: 1
       },
       to: {
         color: 'red',
-        opacity: 0.2,
-      },
-    },
-  },
+        opacity: 0.2
+      }
+    }
+  }
 }
