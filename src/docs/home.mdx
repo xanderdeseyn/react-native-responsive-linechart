@@ -1,0 +1,155 @@
+---
+
+name: Home
+route: /
+
+---
+
+import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from '..'
+import { Playground, Props } from 'docz'
+
+
+# react-native-responsive-linechart
+
+## Installation
+
+`npm install react-native-responsive-linechart` or `yarn add react-native-responsive-linechart`
+
+
+This lib depends on [react-native-svg](https://github.com/react-native-community/react-native-svg), so make sure that is installed correctly.
+
+## Examples
+
+<div style={{ width: '100%',  flexWrap: 'wrap', flexDirection: 'row', display: 'flex'}} >
+<Chart
+  style={{ height: 200, width: 400}}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  xDomain={{ min: -2, max: 10 }}
+  yDomain={{ min: 0, max: 20 }}
+>
+  <VerticalAxis
+    tickCount={10}
+    theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
+  />
+  <HorizontalAxis  />
+  <Line 
+    theme={{ stroke: { color: 'red', width: 3 } }} 
+    data={[
+      { x: -2, y: 15 },
+      { x: -1, y: 10 },
+      { x: 0, y: 12 },
+      { x: 5, y: 8 },
+      { x: 6, y: 12 },
+      { x: 9, y: 13.5 },
+      { x: 10, y: 18 },
+    ]} 
+  />
+  <Line 
+    theme={{ stroke: { color: 'blue', width: 3 } }} 
+    data={[
+      { x: -2, y: 0 },
+      { x: -1, y: 2 },
+      { x: 0, y: 7 },
+      { x: 2, y: 5 },
+      { x: 3, y: 12 },
+      { x: 7, y: 16 },
+      { x: 9, y: 17 },
+      { x: 10, y: 12 },
+    ]} 
+  />
+</Chart>
+<Chart
+  style={{ height: 200, width: 400 }}
+  data={[
+    { x: -2, y: 15 },
+    { x: -1, y: 10 },
+    { x: 0, y: 12 },
+    { x: 1, y: 7 },
+    { x: 2, y: 6 },
+    { x: 3, y: 3 },
+    { x: 4, y: 5 },
+    { x: 5, y: 8 },
+    { x: 6, y: 12 },
+    { x: 7, y: 14 },
+    { x: 8, y: 12 },
+    { x: 9, y: 13.5 },
+    { x: 10, y: 18 },
+  ]}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  xDomain={{ min: -2, max: 10 }}
+  yDomain={{ min: -4, max: 20 }}
+>
+  <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+  <HorizontalAxis tickCount={3} />
+  <Area theme={{ gradient: { from: { color: '#16a085' }, to: { color: '#16a085', opacity: 0.2 } }}} />
+  <Line theme={{ stroke: { color: '#16a085', width: 10 } }} />
+</Chart>
+<Chart
+  style={{ height: 200, width: 400}}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  xDomain={{ min: -2, max: 10 }}
+  yDomain={{ min: 0, max: 20 }}
+>
+  <VerticalAxis
+    tickCount={10}
+    theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
+  />
+  <HorizontalAxis  />
+  <Area 
+    theme={{ gradient: { from : { color: '#1abc9c', opacity: 0.4 }, to : { color: '#1abc9c' , opacity: 0.4 } } }} 
+    data={[
+      { x: -2, y: 15 },
+      { x: -1, y: 10 },
+      { x: 0, y: 12 },
+      { x: 5, y: 8 },
+      { x: 6, y: 12 },
+      { x: 9, y: 13.5 },
+      { x: 10, y: 18 },
+    ]} 
+  />
+  <Area 
+    theme={{ gradient: { from : { color: '#f39c12', opacity: 0.4 }, to : { color: '#f39c12' , opacity: 0.4 } } }} 
+    data={[
+      { x: -2, y: 0 },
+      { x: -1, y: 2 },
+      { x: 0, y: 7 },
+      { x: 2, y: 5 },
+      { x: 3, y: 12 },
+      { x: 7, y: 16 },
+      { x: 9, y: 17 },
+      { x: 10, y: 12 },
+    ]} 
+  />
+</Chart>
+</div>
+
+### Live editor example
+
+<Playground>
+<Chart
+  style={{ height: 200, width: 400 }}
+  data={[
+    { x: -2, y: 15 },
+    { x: -1, y: 10 },
+    { x: 0, y: 12 },
+    { x: 1, y: 7 },
+    { x: 2, y: 6 },
+    { x: 3, y: 3 },
+    { x: 4, y: 5 },
+    { x: 5, y: 8 },
+    { x: 6, y: 12 },
+    { x: 7, y: 14 },
+    { x: 8, y: 12 },
+    { x: 9, y: 13.5 },
+    { x: 10, y: 18 },
+  ]}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  xDomain={{ min: -2, max: 10 }}
+  yDomain={{ min: -4, max: 20 }}
+>
+  <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+  <HorizontalAxis tickCount={3} />
+  <Area theme={{ gradient: { from: { color: '#16a085' }, to: { color: '#16a085', opacity: 0.2 } }}} />
+  <Line theme={{ stroke: { color: '#16a085', width: 10 } }} />
+</Chart>
+</Playground>
