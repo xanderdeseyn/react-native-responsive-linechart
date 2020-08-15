@@ -13,9 +13,16 @@ import { Playground, Props } from 'docz'
 
 This component should **always** be wrapped around any other component from this library, since it is responsible for constructing the chart context.
 
-### Chart Props
+## Chart Props
+| Prop        | Type | Required | Description
+| ----------- | ----------- | ------------- | ------ |
+| `data`      | `{ x: number, y: number, meta?: any }[]` | No | Chart data points to be passed to `Area` or `Line` children. Not required, and can be overridden in child components.  |
+| `style`   | `ViewStyle`        | No | All styling can be used except for padding. If you need padding, use the explicit `padding` prop below  |
+| `xDomain`   | `{ min: number, max: number }`        | Yes* | Domain for the horizontal (X) axis.  |
+| `yDomain`   | `{ min: number, max: number }`        | Yes* | Domain for the horizontal (Y) axis.  |
+| `padding`   | `{ left?: number; right?: number; top?: number; bottom?: number }`        | No | Padding of the chart. Use this instead of setting padding in the `style` prop.  |
 
-<Props of={Chart} table={true} />
+\* Props can be left out if `data` prop is provided. Domain will automatically be set to the data bounds.
 
 ### Example
 
@@ -46,3 +53,5 @@ This component should **always** be wrapped around any other component from this
   <Line theme={{ stroke: { color: '#16a085', width: 5 } }} />
 </Chart>
 </Playground>
+
+For more advanced examples, check out the Area and Line pages.

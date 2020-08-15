@@ -13,11 +13,34 @@ import { Playground, Props } from 'docz'
 
 This component draws a line. Multiple lines can be drawn on one chart.
 
-### Line Props
 
-<Props of={Line} table={true} />
+## Line Props
+| Prop        | Type | Required | Description
+| ----------- | ----------- | ------------- | ------ |
+| `data`      | `{ x: number, y: number, meta?: any }[]` | Yes* | Data for the chart. Overrides optional data provided in `<Chart />`.  |
+| `tooltipComponent`   | JSX.Element | No | Component to be used to draw tooltips. This library provides a basic tooltip with the `BoxTooltip` component. Example below.  |
+| `theme`   | Defined below        | No | Theme for the line.  |
 
-### Example combined with area
+\* unless provided in parent `<Chart />` component
+
+### Line default theme
+Any part of this theme can be overridden through the `theme` prop.
+
+```
+theme: {
+  stroke: {
+    color: 'black',
+    width: 1,
+    opacity: 1
+  }
+}
+```
+
+## Examples
+
+All examples are live editable in the browser!
+
+### Combined with area
 
 <Playground>
 <Chart
@@ -48,7 +71,7 @@ This component draws a line. Multiple lines can be drawn on one chart.
 </Chart>
 </Playground>
 
-### Example multiple lines
+### Multiple lines
 
 <Playground>
 <Chart
