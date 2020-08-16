@@ -55,6 +55,7 @@
   "scripts": {
     "docz:dev": "docz dev",
     "docz:build": "docz build",
-    "docz:serve": "docz build && docz serve"
+    "docz:serve": "docz build && docz serve",
+    "docz:deploy": "./deploy_docz.sh"
   }
 }
