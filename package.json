@@ -1,6 +1,6 @@
 {
   "name": "react-native-responsive-linechart",
-  "version": "3.0.1",
+  "version": "3.0.2-0",
   "author": "Xander Deseyn",
   "license": "MIT",
   "main": "lib/index.js",
