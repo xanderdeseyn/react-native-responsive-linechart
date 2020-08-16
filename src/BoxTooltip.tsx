@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge'
-import React, { useContext } from 'react'
+import * as React from 'react'
 import { Text, Rect } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { ChartDataPoint, Label, Box, XYValue } from './types'
@@ -14,13 +14,13 @@ type Props = {
   position?: XYValue
 }
 
-const BoxTooltip: React.FC<Props> = (props) => {
-  const { dimensions } = useContext(ChartContext)
+const BoxTooltip: React.FC<Props> = props => {
+  const { dimensions } = React.useContext(ChartContext)
 
   const {
     theme: { label, formatter, box },
     value,
-    position,
+    position
   } = deepmerge(defaultProps, props)
 
   if (!dimensions || !value || !position) {
@@ -64,7 +64,7 @@ const defaultProps = {
       textAnchor: 'middle',
       opacity: 1,
       dx: 0,
-      dy: 16.5,
+      dy: 16.5
     },
     box: {
       width: 30,
@@ -72,8 +72,8 @@ const defaultProps = {
       dx: 0,
       dy: 20,
       rx: 4,
-      color: 'black',
+      color: 'black'
     },
-    formatter: (v: ChartDataPoint) => String(v.y),
-  },
+    formatter: (v: ChartDataPoint) => String(v.y)
+  }
 }

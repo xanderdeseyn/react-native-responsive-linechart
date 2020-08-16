@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge'
-import React, { useContext } from 'react'
+import * as React from 'react'
 import { Defs, Stop, LinearGradient, Polygon } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { ChartDataPoint, Gradient } from './types'
@@ -15,7 +15,7 @@ type Props = {
 }
 
 const Area: React.FC<Props> = props => {
-  const { data: contextData, dimensions, domain } = useContext(ChartContext)
+  const { data: contextData, dimensions, domain } = React.useContext(ChartContext)
 
   const {
     theme: { gradient },

@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge'
-import React, { useContext } from 'react'
+import * as React from 'react'
 import { Line, Text } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { Stroke, Label } from './types'
@@ -42,7 +42,7 @@ const HorizontalAxis: React.FC<Props> = props => {
     includeOriginTick
   } = deepmerge(defaultProps, props)
 
-  const { dimensions, domain } = useContext(ChartContext)
+  const { dimensions, domain } = React.useContext(ChartContext)
 
   if (!dimensions) {
     return null
