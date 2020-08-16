@@ -1,20 +1,29 @@
 # react-native-responsive-linechart
 
-![npm](https://img.shields.io/npm/v/react-native-responsive-linechart?style=flat-square) ![npm](https://img.shields.io/npm/dt/react-native-responsive-linechart?style=flat-square) ![GitHub stars](https://img.shields.io/github/stars/n1ghtly/react-native-responsive-linechart?style=social) ![GitHub](https://img.shields.io/github/license/n1ghtly/react-native-responsive-linechart?style=flat-square)
+![npm](https://img.shields.io/npm/v/react-native-responsive-linechart?style=flat-square) ![npm](https://img.shields.io/npm/dt/react-native-responsive-linechart?style=flat-square) ![GitHub](https://img.shields.io/github/license/n1ghtly/react-native-responsive-linechart?style=flat-square) ![GitHub stars](https://img.shields.io/github/stars/n1ghtly/react-native-responsive-linechart?style=social)
 
-## View docs & examples here
+## PSA
 
-### Installation
+Version 3 is a complete re-write from the ground up with the following exciting features:
 
-`yarn add react-native-responsive-linechart` or `npm install react-native-responsive-linechart`
+- Completely written in Typescript
+- Composable API, every part of the chart is its own component.
+- New documentation website with extensive examples
 
-This lib depends on [react-native-svg](https://github.com/react-native-community/react-native-svg), so make sure that is installed correctly.
+Due to the nature of the changes, version 2.2 and below is now no longer supported.
+
+## [View installation docs & examples here](https://react-native-responsive-linechart.surge.sh)
+
+### Screenshots
+
+![Preview](./src/docs/home.png | width=500)
 
 ### Quick example
 
 ```javascript
 import { Chart, VerticalAxis, HorizontalAxis, Line } from 'react-native-responsive-linechart'
-;<Chart
+
+<Chart
   style={{ height: 200, width: '100%', backgroundColor: '#eee' }}
   xDomain={{ min: -2, max: 10 }}
   yDomain={{ min: -2, max: 20 }}
