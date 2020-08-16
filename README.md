@@ -1,6 +1,8 @@
 # react-native-responsive-linechart
 
-[NPM Downloads](https://img.shields.io/npm/dm/react-native-responsive-linechart)
+![npm](https://img.shields.io/npm/dm/react-native-responsive-linechart)
+
+## View docs & examples here
 
 ### Installation
 
@@ -11,6 +13,7 @@ This lib depends on [react-native-svg](https://github.com/react-native-community
 ### Quick example
 
 ```javascript
+import { Chart, VerticalAxis, HorizontalAxis, Line } from 'react-native-responsive-linechart'
 ;<Chart
   style={{ height: 200, width: '100%', backgroundColor: '#eee' }}
   xDomain={{ min: -2, max: 10 }}
