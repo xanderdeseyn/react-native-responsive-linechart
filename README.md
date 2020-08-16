@@ -16,7 +16,7 @@ Due to the nature of the changes, version 2.2 and below is now no longer support
 
 ### Screenshots
 
-![Preview](src/docs/home.png)
+![Preview](src/docs/screenshots/home.png)
 
 ### Quick example
 
