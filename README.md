@@ -1,5 +1,7 @@
 # react-native-responsive-linechart
 
+[NPM Downloads](https://img.shields.io/npm/dm/react-native-responsive-linechart)
+
 ### Installation
 
 `yarn add react-native-responsive-linechart` or `npm install react-native-responsive-linechart`
@@ -26,7 +28,7 @@ const data1 = [
   { x: -1, y: 0 },
   { x: 8, y: 13 },
   { x: 9, y: 11.5 },
-  { x: 10, y: 12 },
+  { x: 10, y: 12 }
 ]
 
 const data2 = [
@@ -36,6 +38,6 @@ const data2 = [
   { x: 1, y: 7 },
   { x: 8, y: 12 },
   { x: 9, y: 13.5 },
-  { x: 10, y: 18 },
+  { x: 10, y: 18 }
 ]
 ```
