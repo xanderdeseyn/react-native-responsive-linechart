@@ -59,8 +59,10 @@
     "lodash.minby": "^4.6.0"
   },
   "jest": {
+    "rootDir": "./src",
     "testMatch": [
-      "src/**/*.spec.ts"
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
     ]
   },
   "scripts": {
