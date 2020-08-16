@@ -8,6 +8,7 @@ Version 3 is a complete re-write from the ground up with the following exciting 
 
 - Completely written in Typescript
 - Composable API, every part of the chart is its own component.
+- Very few dependencies
 - New documentation website with extensive examples
 
 Due to the nature of the changes, version 2.2 and below is now no longer supported.
