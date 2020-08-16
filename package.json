@@ -58,6 +58,11 @@
     "lodash.maxby": "^4.6.0",
     "lodash.minby": "^4.6.0"
   },
+  "jest": {
+    "testMatch": [
+      "src/**/*.spec.ts"
+    ]
+  },
   "scripts": {
     "docz:dev": "docz dev",
     "docz:build": "docz build",
