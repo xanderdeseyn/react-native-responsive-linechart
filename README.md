@@ -1,6 +1,6 @@
 # react-native-responsive-linechart
 
-![npm](https://img.shields.io/npm/dm/react-native-responsive-linechart)
+![npm](https://img.shields.io/npm/v/react-native-responsive-linechart?style=flat-square) ![npm](https://img.shields.io/npm/dt/react-native-responsive-linechart?style=flat-square) ![GitHub stars](https://img.shields.io/github/stars/n1ghtly/react-native-responsive-linechart?style=social) ![GitHub](https://img.shields.io/github/license/n1ghtly/react-native-responsive-linechart?style=flat-square)
 
 ## View docs & examples here
 
