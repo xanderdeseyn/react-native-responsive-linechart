@@ -2,7 +2,9 @@ import React, { useState, useMemo } from 'react'
 import deepmerge from 'deepmerge'
 import { View, ViewStyle } from 'react-native'
 import { GestureResponderEvent, PanResponder } from 'react-native'
-import _ from 'lodash'
+import clamp from 'lodash.clamp'
+import minBy from 'lodash.minby'
+import maxBy from 'lodash.maxby'
 import Svg, { G } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
 import { AxisDomain, ChartDataPoint, Padding, XYValue } from './types'
@@ -32,8 +34,8 @@ const Chart: React.FC<Props> = props => {
   const handleTouchEvent = (evt: GestureResponderEvent) => {
     if (dataDimensions) {
       setLastTouch({
-        x: _.clamp(evt.nativeEvent.locationX - padding.left, 0, dataDimensions.width),
-        y: _.clamp(evt.nativeEvent.locationY - padding.top, 0, dataDimensions.height)
+        x: clamp(evt.nativeEvent.locationX - padding.left, 0, dataDimensions.width),
+        y: clamp(evt.nativeEvent.locationY - padding.top, 0, dataDimensions.height)
       })
     }
     return true
@@ -87,11 +89,11 @@ const computeDefaultProps = (data: ChartDataPoint[] = []) => ({
     right: 0
   },
   xDomain: {
-    min: data.length > 0 ? _.minBy(data, d => d.x)!.x : 0,
-    max: data.length > 0 ? _.maxBy(data, d => d.x)!.x : 10
+    min: data.length > 0 ? minBy(data, d => d.x)!.x : 0,
+    max: data.length > 0 ? maxBy(data, d => d.x)!.x : 10
   },
   yDomain: {
-    min: data.length > 0 ? _.minBy(data, d => d.y)!.y : 0,
-    max: data.length > 0 ? _.maxBy(data, d => d.y)!.y : 10
+    min: data.length > 0 ? minBy(data, d => d.y)!.y : 0,
+    max: data.length > 0 ? maxBy(data, d => d.y)!.y : 10
   }
 })

@@ -1,8 +1,8 @@
-import _ from 'lodash'
+import cloneDeep from 'lodash.clonedeep'
 import { Stroke, XYValue } from './types'
 
 export const adjustPointsForThickStroke = (originalPoints: XYValue[], stroke: Required<Stroke>) => {
-  let points = _.cloneDeep(originalPoints)
+  let points = cloneDeep(originalPoints)
 
   // First and last points are adjusted to prevent "fat" lines from flowing out of the chart
   if (points.length >= 2) {
@@ -27,5 +27,5 @@ export const calculateTooltipIndex = (points: XYValue[], lastTouch?: XYValue) =>
     return undefined
   }
 
-  return smallestIndex(points.map((p) => Math.abs(p.x - lastTouch.x)))
+  return smallestIndex(points.map(p => Math.abs(p.x - lastTouch.x)))
 }

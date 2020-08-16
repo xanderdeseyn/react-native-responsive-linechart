@@ -12,7 +12,10 @@
     "@babel/preset-typescript": "^7.10.4",
     "@babel/runtime": "^7.11.2",
     "@types/jest": "^26.0.8",
-    "@types/lodash": "^4.14.158",
+    "@types/lodash.clamp": "^4.0.6",
+    "@types/lodash.clonedeep": "^4.5.6",
+    "@types/lodash.maxby": "^4.6.6",
+    "@types/lodash.minby": "^4.6.6",
     "@types/memoize-one": "^5.1.2",
     "@types/react": "^16.9.43",
     "@types/react-native": "^0.63.8",
@@ -49,7 +52,10 @@
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
-    "lodash": "^4.17.19"
+    "lodash.clamp": "^4.0.3",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.maxby": "^4.6.0",
+    "lodash.minby": "^4.6.0"
   },
   "scripts": {
     "docz:dev": "docz dev",
