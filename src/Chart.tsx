@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import * as React from 'react'
 import deepmerge from 'deepmerge'
 import { View, ViewStyle } from 'react-native'
 import { GestureResponderEvent, PanResponder } from 'react-native'
@@ -29,7 +29,7 @@ const Chart: React.FC<Props> = props => {
   const { dimensions, onLayout } = useComponentDimensions()
   const dataDimensions = calculateDataDimensions(dimensions, padding)
 
-  const [lastTouch, setLastTouch] = useState<XYValue | undefined>(undefined)
+  const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)
 
   const handleTouchEvent = (evt: GestureResponderEvent) => {
     if (dataDimensions) {
@@ -41,7 +41,7 @@ const Chart: React.FC<Props> = props => {
     return true
   }
 
-  const panResponder = useMemo(
+  const panResponder = React.useMemo(
     () =>
       PanResponder.create({
         onMoveShouldSetPanResponder: () => true,

@@ -1,6 +1,6 @@
 {
   "name": "react-native-responsive-linechart",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": "Xander Deseyn",
   "license": "MIT",
   "main": "lib/index.js",
@@ -21,6 +21,7 @@
     "@types/react-native": "^0.63.8",
     "docz": "^2.3.1",
     "jest": "^26.2.2",
+    "np": "^6.4.0",
     "react": "^16.13.1",
     "react-art": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -62,6 +63,7 @@
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
     "docz:deploy": "./deploy_docz.sh",
-    "prepublish": "yarn tsc"
+    "prepublish": "yarn tsc",
+    "release": "yarn np"
   }
 }
