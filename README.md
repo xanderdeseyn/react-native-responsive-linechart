@@ -8,7 +8,7 @@ Version 3 is a complete re-write from the ground up with the following exciting 
 
 - Completely written in Typescript
 - Composable API, every part of the chart is its own component.
-- Very few dependencies
+- Very few dependencies (Total package size is only 62 kilobytes)
 - New documentation website with extensive examples
 
 Due to the nature of the changes, version 2.2 and below is now no longer supported. You can find the [old README here](https://github.com/N1ghtly/react-native-responsive-linechart/blob/master/README-v2.2.md).
