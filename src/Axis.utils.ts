@@ -17,7 +17,9 @@ export const calculateTickValues = (
   const originTickOffset = includeOriginTick ? 1 : 0
 
   if (!ticks && tickCount) {
-    ticks = new Array(tickCount).fill(undefined).map((v, i) => domain.min + (difference * (i + 1 - originTickOffset)) / (tickCount - originTickOffset))
+    ticks = new Array(tickCount)
+      .fill(undefined)
+      .map((v: any, i: number) => domain.min + (difference * (i + 1 - originTickOffset)) / (tickCount - originTickOffset))
   }
 
   if (ticks) {

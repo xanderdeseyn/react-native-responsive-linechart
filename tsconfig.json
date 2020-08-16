@@ -6,7 +6,9 @@
     "outDir": "./lib",
     "jsx": "react-native",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "typeRoots": ["node_modules/@types"],
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*"]

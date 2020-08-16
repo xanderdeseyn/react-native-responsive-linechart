@@ -1,1 +1,4 @@
-exampleapp
+demo
+src
+.docz
+deploy_docz.sh
