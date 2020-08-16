@@ -100,7 +100,7 @@ All examples are live editable in the browser!
   yDomain={{ min: -4, max: 20 }}
 >
   <HorizontalAxis tickValues={[-2, 0, 2, 6, 8, 10]} />
-  <Line theme={{ stroke: { color: '#16a085', width: 10 } }} />
+  <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
 </Playground>
 
@@ -127,8 +127,8 @@ All examples are live editable in the browser!
   xDomain={{ min: -2, max: 10 }}
   yDomain={{ min: -4, max: 20 }}
 >
-  <HorizontalAxis tickCount={5} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-  <Line theme={{ stroke: { color: '#16a085', width: 10 } }} />
+  <HorizontalAxis tickCount={5} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} includeOriginTick={false} />
+  <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
 </Playground>
 
@@ -156,6 +156,6 @@ All examples are live editable in the browser!
   yDomain={{ min: -4, max: 20 }}
 >
   <HorizontalAxis tickCount={5} includeOriginTick theme={{ labels: { formatter: (v) => v.toFixed(2) } }}/>
-  <Line theme={{ stroke: { color: '#16a085', width: 10 } }} />
+  <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
 </Playground>

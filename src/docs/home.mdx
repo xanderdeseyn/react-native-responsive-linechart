@@ -18,7 +18,7 @@ import { Playground, Props } from 'docz'
 
 This lib depends on [react-native-svg](https://github.com/react-native-community/react-native-svg), so make sure that is installed correctly.
 
-## Examples
+## Screenshots
 
 <div style={{ width: '100%',  flexWrap: 'wrap', flexDirection: 'row', display: 'flex'}} >
 <Chart
@@ -33,7 +33,7 @@ This lib depends on [react-native-svg](https://github.com/react-native-community
   />
   <HorizontalAxis  />
   <Line 
-    theme={{ stroke: { color: 'red', width: 3 } }} 
+    theme={{ stroke: { color: '#e84118', width: 3 } }} 
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -45,7 +45,7 @@ This lib depends on [react-native-svg](https://github.com/react-native-community
     ]} 
   />
   <Line 
-    theme={{ stroke: { color: 'blue', width: 3 } }} 
+    theme={{ stroke: { color: '#44bd32', width: 3 } }} 
     data={[
       { x: -2, y: 0 },
       { x: -1, y: 2 },
@@ -73,7 +73,7 @@ This lib depends on [react-native-svg](https://github.com/react-native-community
     { x: 7, y: 14 },
     { x: 8, y: 12 },
     { x: 9, y: 13.5 },
-    { x: 10, y: 18 },
+    { x: 10, y: 10 },
   ]}
   padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
   xDomain={{ min: -2, max: 10 }}
@@ -81,8 +81,8 @@ This lib depends on [react-native-svg](https://github.com/react-native-community
 >
   <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
   <HorizontalAxis tickCount={3} />
-  <Area theme={{ gradient: { from: { color: '#16a085' }, to: { color: '#16a085', opacity: 0.2 } }}} />
-  <Line theme={{ stroke: { color: '#16a085', width: 10 } }} />
+  <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } }}} />
+  <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
 <Chart
   style={{ height: 200, width: 400}}
@@ -96,7 +96,7 @@ This lib depends on [react-native-svg](https://github.com/react-native-community
   />
   <HorizontalAxis  />
   <Area 
-    theme={{ gradient: { from : { color: '#1abc9c', opacity: 0.4 }, to : { color: '#1abc9c' , opacity: 0.4 } } }} 
+    theme={{ gradient: { from : { color: '#7f8fa6', opacity: 0.4 }, to : { color: '#7f8fa6' , opacity: 0.4 } } }} 
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -108,7 +108,7 @@ This lib depends on [react-native-svg](https://github.com/react-native-community
     ]} 
   />
   <Area 
-    theme={{ gradient: { from : { color: '#f39c12', opacity: 0.4 }, to : { color: '#f39c12' , opacity: 0.4 } } }} 
+    theme={{ gradient: { from : { color: '#0097e6', opacity: 0.4 }, to : { color: '#0097e6' , opacity: 0.4 } } }} 
     data={[
       { x: -2, y: 0 },
       { x: -1, y: 2 },
@@ -134,8 +134,8 @@ This lib depends on [react-native-svg](https://github.com/react-native-community
     { x: 0, y: 12 },
     { x: 1, y: 7 },
     { x: 2, y: 6 },
-    { x: 3, y: 3 },
-    { x: 4, y: 5 },
+    { x: 3, y: 8 },
+    { x: 4, y: 10 },
     { x: 5, y: 8 },
     { x: 6, y: 12 },
     { x: 7, y: 14 },
@@ -145,11 +145,11 @@ This lib depends on [react-native-svg](https://github.com/react-native-community
   ]}
   padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
   xDomain={{ min: -2, max: 10 }}
-  yDomain={{ min: -4, max: 20 }}
+  yDomain={{ min: 0, max: 20 }}
 >
-  <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-  <HorizontalAxis tickCount={3} />
-  <Area theme={{ gradient: { from: { color: '#16a085' }, to: { color: '#16a085', opacity: 0.2 } }}} />
-  <Line theme={{ stroke: { color: '#16a085', width: 10 } }} />
+  <VerticalAxis tickCount={11} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
+  <HorizontalAxis tickCount={5} />
+  <Area theme={{ gradient: { from: { color: '#ffa502' }, to: { color: '#ffa502', opacity: 0.4 } }}} />
+  <Line theme={{ stroke: { color: '#ffa502', width: 10 } }} />
 </Chart>
 </Playground>
