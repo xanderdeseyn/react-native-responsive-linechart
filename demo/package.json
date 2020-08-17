@@ -10,6 +10,11 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "deepmerge": "^4.2.2",
+    "lodash.clamp": "^4.0.3",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.maxby": "^4.6.0",
+    "lodash.minby": "^4.6.0",
     "react": "16.13.1",
     "react-native": "0.63.0",
     "react-native-svg": "^12.1.0",
