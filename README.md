@@ -17,7 +17,7 @@ Due to the nature of the changes, version 2.2 and below is now no longer support
 
 ### Screenshots
 
-![Preview](src/docs/screenshots/home.png)
+![Preview](docusaurus/static/img/home.png)
 
 ### Quick example
 
