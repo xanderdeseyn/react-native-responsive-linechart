@@ -62,7 +62,7 @@ function Home() {
       <main>
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <h2 style={{ textAlign: 'center', marginTop: 24 }}>Screenshots</h2>
-          <img style={{ width: 1000 }} src="https://github.com/N1ghtly/react-native-responsive-linechart/raw/master/src/docs/screenshots/home.png" />
+          <img style={{ width: 1000 }} src="img/home.png" />
         </div>
         <h2 style={{ textAlign: 'center', marginTop: 64 }}>Features</h2>
         {features && features.length > 0 && (
