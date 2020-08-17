@@ -17,7 +17,7 @@ This component draws an axis on the X plane.
 | ----------- | ----------- | ------------- | ------ |
 | `tickValues`      | `number[]` | No | Use this to explicitly set the ticks which should be drawn on the axis. |
 | `tickCount`      | `number[]` | No | Use this if you always want to render X amount of ticks on the axis. The lib will calculate the tick values itself. |
-| `includeOriginTick`   | boolean | No | Only relevant in combination with the `tickCount` prop. Defaults to `true`. Check example below.  |
+| `includeOriginTick`   | `boolean` | No | Only relevant in combination with the `tickCount` prop. Defaults to `true`. Check example below.  |
 | `theme`   | Defined below        | No | Theme for the line.  |
 
 ### HorizontalAxis default theme
