@@ -8140,11 +8140,12 @@ react-native-responsive-linechart@^3.0.2:
     lodash.maxby "^4.6.0"
     lodash.minby "^4.6.0"
 
-react-native-svg-web-transform@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-svg-web-transform/-/react-native-svg-web-transform-1.2.0.tgz#9e3f953edcd9aafd16806d59c6d8d032cb86b117"
-  integrity sha512-aHx1G56GM1y7JtSgPbtda3tOCyg5Ku7eUC+mRl/+iqmKmqE0YNU1pawxSLca9YeU6/dYMbACLY0B8+fqupAI9g==
+react-native-svg-web-transform@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-svg-web-transform/-/react-native-svg-web-transform-1.3.2.tgz#a50e9f574ccabc1e26ca78e8115f107eacad0495"
+  integrity sha512-IaxSbMGoRuxw6FiqPCuWWvHPpa8zjGVi2aLFGtkrw8YmQTYd64YuM3nhkHCqJsU78N8UADT7uJuxt9eong/Ocw==
   dependencies:
+    lodash.clonedeep "^4.5.0"
     lodash.get "^4.4.2"
     lodash.omit "^4.5.0"
 

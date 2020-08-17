@@ -52,12 +52,34 @@ Your tooltip component will be provided with the following props:
 | `value`      | `{ x: number, y: number, meta?: any }` | The value that the tooltip should represent.  |
 | `position`   | `{ x: number, y: number }` | The exact position of the data point on the chart. You can offset your component from this position. Check out the source of `BoxTooltip` for an example.  |
 
+You can then simply substitute `<BoxTooltip />` with your own component in the `tooltipComponent` prop!
 
 ## Example
 
 Be advised this doesn't work in the browser, but it will work in an app!
 
-<Playground>
+<Chart
+  style={{ height: 200, width: 400, marginBottom: 40 }}
+  data={[
+    { x: -2, y: 5 },
+    { x: -1, y: 10 },
+    { x: 0, y: 12 },
+    { x: 4, y: 11 },
+    { x: 8, y: 12 },
+    { x: 9, y: 13.5 },
+    { x: 10, y: 18 },
+  ]}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  yDomain={{ min: 0, max: 20 }}
+>
+  <VerticalAxis
+    tickCount={5}
+  />
+  <HorizontalAxis tickCount={3} />
+  <Line theme={{ stroke: { color: '#c0392b', width: 4 } }} tooltipComponent={<BoxTooltip theme={{ box: { width: 35 } }} />} />
+</Chart>
+
+```jsx
 <Chart
   style={{ height: 200, width: 400 }}
   data={[
@@ -78,4 +100,4 @@ Be advised this doesn't work in the browser, but it will work in an app!
   <HorizontalAxis tickCount={3} />
   <Line theme={{ stroke: { color: '#c0392b', width: 4 } }} tooltipComponent={<BoxTooltip theme={{ box: { width: 35 } }} />} />
 </Chart>
-</Playground>
+```

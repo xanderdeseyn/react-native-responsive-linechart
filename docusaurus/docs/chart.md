@@ -23,7 +23,33 @@ This component should **always** be wrapped around any other component from this
 
 ### Example
 
-<Playground>
+<Chart
+  style={{ height: 200, width: 400, marginBottom: 40 }}
+  data={[
+    { x: -2, y: 15 },
+    { x: -1, y: 10 },
+    { x: 0, y: 12 },
+    { x: 5, y: 8 },
+    { x: 6, y: 12 },
+    { x: 7, y: 14 },
+    { x: 8, y: 12 },
+    { x: 9, y: 13.5 },
+    { x: 10, y: 18 },
+  ]}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  xDomain={{ min: -2, max: 10 }}
+  yDomain={{ min: -4, max: 20 }}
+>
+  <VerticalAxis
+    tickCount={10}
+    theme={{ labels: { formatter: (v) => v.toFixed(2) } }}
+  />
+  <HorizontalAxis tickCount={3} />
+  <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } }}} />
+  <Line theme={{ stroke: { color: '#44bd32', width: 5 } }} />
+</Chart>
+
+```jsx
 <Chart
   style={{ height: 200, width: 400 }}
   data={[
@@ -49,6 +75,6 @@ This component should **always** be wrapped around any other component from this
   <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } }}} />
   <Line theme={{ stroke: { color: '#44bd32', width: 5 } }} />
 </Chart>
-</Playground>
+```
 
 For more advanced examples, check out the Area and Line pages.

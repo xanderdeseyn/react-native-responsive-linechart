@@ -1,5 +1,7 @@
 module.exports = {
-  someSidebar: {
-    Components: ['chart', 'line', 'area', 'verticalaxis', 'horizontalaxis', 'tooltip', 'types'],
-  },
+  docs: [
+    'gettingstarted',
+    'screenshots',
+    { type: 'category', label: 'Components', items: ['chart', 'line', 'area', 'verticalaxis', 'horizontalaxis', 'tooltip', 'types'] },
+  ],
 }

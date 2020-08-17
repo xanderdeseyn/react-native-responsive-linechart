@@ -19,6 +19,7 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    sidebarCollapsible: true,
     navbar: {
       title: 'react-native-responsive-linechart',
       logo: {
@@ -27,7 +28,7 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
+          to: 'docs/gettingstarted',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
@@ -96,7 +97,7 @@ module.exports = {
       {
         docs: {
           // It is recommended to set document id as docs home page (`docs/` path).
-          homePageId: 'doc1',
+          homePageId: 'gettingstarted',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',

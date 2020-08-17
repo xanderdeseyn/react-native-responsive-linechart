@@ -71,11 +71,36 @@ Any part of this theme can be overridden through the `theme` prop.
 
 ## Examples
 
-All examples are live editable in the browser!
 
-### `tickValues`
 
-<Playground>
+### with `tickValues`
+
+<Chart
+  style={{ height: 200, width: 400, marginBottom: 40 }}
+  data={[
+    { x: -2, y: 15 },
+    { x: -1, y: 10 },
+    { x: 0, y: 12 },
+    { x: 1, y: 7 },
+    { x: 2, y: 6 },
+    { x: 3, y: 3 },
+    { x: 4, y: 5 },
+    { x: 5, y: 8 },
+    { x: 6, y: 12 },
+    { x: 7, y: 14 },
+    { x: 8, y: 12 },
+    { x: 9, y: 13.5 },
+    { x: 10, y: 18 },
+  ]}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  xDomain={{ min: -2, max: 10 }}
+  yDomain={{ min: -4, max: 20 }}
+>
+  <HorizontalAxis tickValues={[-2, 0, 2, 6, 8, 10]} />
+  <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
+</Chart>
+
+```jsx
 <Chart
   style={{ height: 200, width: 400 }}
   data={[
@@ -100,10 +125,36 @@ All examples are live editable in the browser!
   <HorizontalAxis tickValues={[-2, 0, 2, 6, 8, 10]} />
   <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
-</Playground>
+```
 
-### `tickCount` and `includeOriginTick=false`
-<Playground>
+### with `tickCount` and `includeOriginTick=false`
+
+<Chart
+  style={{ height: 200, width: 400, marginBottom: 40 }}
+  data={[
+    { x: -2, y: 15 },
+    { x: -1, y: 10 },
+    { x: 0, y: 12 },
+    { x: 1, y: 7 },
+    { x: 2, y: 6 },
+    { x: 3, y: 3 },
+    { x: 4, y: 5 },
+    { x: 5, y: 8 },
+    { x: 6, y: 12 },
+    { x: 7, y: 14 },
+    { x: 8, y: 12 },
+    { x: 9, y: 13.5 },
+    { x: 10, y: 18 },
+  ]}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  xDomain={{ min: -2, max: 10 }}
+  yDomain={{ min: -4, max: 20 }}
+>
+  <HorizontalAxis tickCount={5} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} includeOriginTick={false} />
+  <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
+</Chart>
+
+```jsx
 <Chart
   style={{ height: 200, width: 400 }}
   data={[
@@ -128,10 +179,36 @@ All examples are live editable in the browser!
   <HorizontalAxis tickCount={5} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} includeOriginTick={false} />
   <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
-</Playground>
+```
 
-### `tickCount` and `includeOriginTick=true`
-<Playground>
+### with `tickCount` and `includeOriginTick=true`
+
+<Chart
+  style={{ height: 200, width: 400, marginBottom: 40 }}
+  data={[
+    { x: -2, y: 15 },
+    { x: -1, y: 10 },
+    { x: 0, y: 12 },
+    { x: 1, y: 7 },
+    { x: 2, y: 6 },
+    { x: 3, y: 3 },
+    { x: 4, y: 5 },
+    { x: 5, y: 8 },
+    { x: 6, y: 12 },
+    { x: 7, y: 14 },
+    { x: 8, y: 12 },
+    { x: 9, y: 13.5 },
+    { x: 10, y: 18 },
+  ]}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  xDomain={{ min: -2, max: 10 }}
+  yDomain={{ min: -4, max: 20 }}
+>
+  <HorizontalAxis tickCount={5} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} includeOriginTick={false} />
+  <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
+</Chart>
+
+```jsx
 <Chart
   style={{ height: 200, width: 400 }}
   data={[
@@ -156,4 +233,4 @@ All examples are live editable in the browser!
   <HorizontalAxis tickCount={5} includeOriginTick theme={{ labels: { formatter: (v) => v.toFixed(2) } }}/>
   <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
-</Playground>
+```

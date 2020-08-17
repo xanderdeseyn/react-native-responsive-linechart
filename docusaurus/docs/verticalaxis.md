@@ -69,11 +69,11 @@ Any part of this theme can be overridden through the `theme` prop.
 
 ## Examples
 
-All examples are live editable in the browser!
+
 
 ### with `tickValues`
 <Chart
-  style={{ height: 200, width: 400 }}
+  style={{ height: 200, width: 400, marginBottom: 40 }}
   data={[
     { x: -2, y: 15 },
     { x: -1, y: 10 },
@@ -127,7 +127,7 @@ All examples are live editable in the browser!
 ### with `tickCount` and `includeOriginTick=false`
 
 <Chart
-  style={{ height: 200, width: 400 }}
+  style={{ height: 200, width: 400, marginBottom: 40 }}
   data={[
     { x: -2, y: 15 },
     { x: -1, y: 10 },
@@ -183,7 +183,7 @@ All examples are live editable in the browser!
 ### with `tickCount` and `includeOriginTick=true`
 
 <Chart
-  style={{ height: 200, width: 400 }}
+  style={{ height: 200, width: 400, marginBottom: 40 }}
   data={[
     { x: -2, y: 15 },
     { x: -1, y: 10 },
