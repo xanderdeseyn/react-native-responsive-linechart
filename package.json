@@ -23,7 +23,6 @@
     "np": "^6.4.0",
     "react": "^16.13.1",
     "react-native": "^0.63.2",
-    "react-native-scripts": "^1.11.1",
     "react-native-svg": "^12.1.0",
     "typescript": "^3.9.7"
   },
