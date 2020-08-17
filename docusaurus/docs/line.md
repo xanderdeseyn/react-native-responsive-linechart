@@ -15,7 +15,7 @@ This component draws a line. Multiple lines can be drawn on one chart.
 | Prop        | Type | Required | Description
 | ----------- | ----------- | ------------- | ------ |
 | `data`      | `{ x: number, y: number, meta?: any }[]` | Yes* | Data for the chart. Overrides optional data provided in `<Chart />`.  |
-| `tooltipComponent`   | JSX.Element | No | Component to be used to draw tooltips. This library provides a basic tooltip with the `BoxTooltip` component. Example below.  |
+| `tooltipComponent`   | `JSX.Element` | No | Component to be used to draw tooltips. This library provides a basic tooltip with the `BoxTooltip` component. Example below.  |
 | `theme`   | Defined below        | No | Theme for the line.  |
 
 \* unless provided in parent `<Chart />` component
