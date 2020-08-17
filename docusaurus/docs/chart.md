@@ -1,15 +1,12 @@
 ---
 
-name: Chart
+title: Chart
+id: chart
 route: /chart
 
 ---
 
-import { Chart, HorizontalAxis, VerticalAxis, Line, Area, BoxTooltip } from '..'
-import { Playground, Props } from 'docz'
-
-
-# Chart
+import { Chart, HorizontalAxis, VerticalAxis, Line, Area, BoxTooltip } from '../../src'
 
 This component should **always** be wrapped around any other component from this library, since it is responsible for constructing the chart context.
 

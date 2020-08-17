@@ -1,13 +1,13 @@
 ---
 
-name: Home
+title: Home
+id: home
 route: /
+
 
 ---
 
-import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from '..'
-import { Playground, Props } from 'docz'
-
+import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from '../../src'
 
 # react-native-responsive-linechart v3
 

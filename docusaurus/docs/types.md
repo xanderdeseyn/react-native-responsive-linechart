@@ -1,9 +1,8 @@
 ---
-name: Types
+title: Types
+id: types
 route: /types
 ---
-
-# Types
 
 Straight export from types.ts file. Some internal types may also be found here.
 

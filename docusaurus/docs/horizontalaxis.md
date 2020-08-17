@@ -1,20 +1,18 @@
 ---
 
-name: Vertical Axis
-route: /verticalaxis
+title: HorizontalAxis
+id: horizontalaxis
+route: /horizontalaxis
 
 ---
 
-import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from '..'
-import { Playground, Props } from 'docz'
+import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from '../../src'
 
 
-# VerticalAxis
-
-This component draws an axis on the Y plane.
+This component draws an axis on the X plane.
 
 
-## VerticalAxis Props
+## HorizontalAxis Props
 | Prop        | Type | Required | Description
 | ----------- | ----------- | ------------- | ------ |
 | `tickValues`      | `number[]` | No | Use this to explicitly set the ticks which should be drawn on the axis. |
@@ -22,7 +20,7 @@ This component draws an axis on the Y plane.
 | `includeOriginTick`   | boolean | No | Only relevant in combination with the `tickCount` prop. Defaults to `true`. Check example below.  |
 | `theme`   | Defined below        | No | Theme for the line.  |
 
-### VerticalAxis default theme
+### HorizontalAxis default theme
 Any part of this theme can be overridden through the `theme` prop.
 
 ```json
@@ -99,7 +97,7 @@ All examples are live editable in the browser!
   xDomain={{ min: -2, max: 10 }}
   yDomain={{ min: -4, max: 20 }}
 >
-  <VerticalAxis tickValues={[-2, 0, 2, 6, 8, 10, 16, 18]} />
+  <HorizontalAxis tickValues={[-2, 0, 2, 6, 8, 10]} />
   <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
 </Playground>
@@ -127,7 +125,7 @@ All examples are live editable in the browser!
   xDomain={{ min: -2, max: 10 }}
   yDomain={{ min: -4, max: 20 }}
 >
-  <VerticalAxis tickCount={5} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} includeOriginTick={false} />
+  <HorizontalAxis tickCount={5} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} includeOriginTick={false} />
   <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
 </Playground>
@@ -155,7 +153,7 @@ All examples are live editable in the browser!
   xDomain={{ min: -2, max: 10 }}
   yDomain={{ min: -4, max: 20 }}
 >
-  <VerticalAxis tickCount={5} includeOriginTick theme={{ labels: { formatter: (v) => v.toFixed(2) } }}/>
+  <HorizontalAxis tickCount={5} includeOriginTick theme={{ labels: { formatter: (v) => v.toFixed(2) } }}/>
   <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
 </Playground>
