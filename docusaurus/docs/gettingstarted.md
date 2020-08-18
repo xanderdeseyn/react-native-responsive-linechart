@@ -5,7 +5,7 @@ id: gettingstarted
 
 ---
 
-import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from '../../src'
+import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from 'react-native-responsive-linechart'
 
 If you are looking for the documentation of version 2, [you can find it here](https://github.com/react-native-community/react-native-svg).
 Version 3 is a complete re-write from the ground up, in typescript.

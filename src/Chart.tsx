@@ -24,9 +24,13 @@ type Props = {
   padding?: Padding
 }
 
-const Chart: React.FC<Props> = props => {
+const Chart: React.FC<Props> = (props) => {
+  console.log('testtest')
   const { style, children, data = [], padding, xDomain, yDomain } = deepmerge(computeDefaultProps(props.data), props)
+  console.log('component dims')
+  console.log('component dims 2')
   const { dimensions, onLayout } = useComponentDimensions()
+  console.log('component dims done')
   const dataDimensions = calculateDataDimensions(dimensions, padding)
 
   const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)
@@ -35,7 +39,7 @@ const Chart: React.FC<Props> = props => {
     if (dataDimensions) {
       setLastTouch({
         x: clamp(evt.nativeEvent.locationX - padding.left, 0, dataDimensions.width),
-        y: clamp(evt.nativeEvent.locationY - padding.top, 0, dataDimensions.height)
+        y: clamp(evt.nativeEvent.locationY - padding.top, 0, dataDimensions.height),
       })
     }
     return true
@@ -47,7 +51,7 @@ const Chart: React.FC<Props> = props => {
         onMoveShouldSetPanResponder: () => true,
         onPanResponderGrant: handleTouchEvent,
         onPanResponderMove: handleTouchEvent,
-        onStartShouldSetPanResponder: handleTouchEvent
+        onStartShouldSetPanResponder: handleTouchEvent,
       }),
     []
   )
@@ -62,9 +66,9 @@ const Chart: React.FC<Props> = props => {
               dimensions: dataDimensions,
               domain: {
                 x: xDomain,
-                y: yDomain
+                y: yDomain,
               },
-              lastTouch
+              lastTouch,
             }}
           >
             <Svg width={dimensions.width} height={dimensions.height}>
@@ -86,14 +90,14 @@ const computeDefaultProps = (data: ChartDataPoint[] = []) => ({
     left: 0,
     top: 0,
     bottom: 0,
-    right: 0
+    right: 0,
   },
   xDomain: {
-    min: data.length > 0 ? minBy(data, d => d.x)!.x : 0,
-    max: data.length > 0 ? maxBy(data, d => d.x)!.x : 10
+    min: data.length > 0 ? minBy(data, (d) => d.x)!.x : 0,
+    max: data.length > 0 ? maxBy(data, (d) => d.x)!.x : 10,
   },
   yDomain: {
-    min: data.length > 0 ? minBy(data, d => d.y)!.y : 0,
-    max: data.length > 0 ? maxBy(data, d => d.y)!.y : 10
-  }
+    min: data.length > 0 ? minBy(data, (d) => d.y)!.y : 0,
+    max: data.length > 0 ? maxBy(data, (d) => d.y)!.y : 10,
+  },
 })
