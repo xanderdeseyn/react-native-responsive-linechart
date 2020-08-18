@@ -20,7 +20,7 @@ const App = () => {
         <Line data={data2} tension={0.3} theme={{ stroke: { color: 'blue', width: 1 } }} />
       </Chart>
       <Chart
-        style={{ height: 200, width: '100%', backgroundColor: '#eee', marginTop: 100 }}
+        style={{ height: 200, width: '100%', marginTop: 100 }}
         data={data2}
         padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
         xDomain={{ min: 0, max: 500 }}

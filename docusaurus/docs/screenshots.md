@@ -135,3 +135,5 @@ To give you and idea of the options this library offers, here are some end resul
   />
 </Chart>
 </div>
+
+![Tooltip example](/img/tooltip.png)

@@ -14,6 +14,7 @@ This component draws an area. Multiple areas can be drawn on one chart.
 | Prop        | Type | Required | Description
 | ----------- | ----------- | ------------- | ------ |
 | `data`      | `{ x: number, y: number, meta?: any }[]` | Yes* | Data for the chart. Overrides optional data provided in `<Chart />`.  |
+| `tension`      | `number` | No | Setting this prop will smooth out the line with bézier curves. Value between 0 and 1, recommended somewhere around `0.3`. |
 | `theme`   | Defined below        | No | Theme for the area.  |
 
 \* unless provided in parent `<Chart />` component

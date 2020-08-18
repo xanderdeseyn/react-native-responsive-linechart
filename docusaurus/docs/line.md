@@ -15,6 +15,7 @@ This component draws a line. Multiple lines can be drawn on one chart.
 | Prop        | Type | Required | Description
 | ----------- | ----------- | ------------- | ------ |
 | `data`      | `{ x: number, y: number, meta?: any }[]` | Yes* | Data for the chart. Overrides optional data provided in `<Chart />`.  |
+| `tension`      | `number` | No | Setting this prop will smooth out the line with bézier curves. Value between 0 and 1, recommended somewhere around `0.3`. |
 | `tooltipComponent`   | `JSX.Element` | No | Component to be used to draw tooltips. This library provides a basic tooltip with the `BoxTooltip` component. Example below.  |
 | `theme`   | Defined below        | No | Theme for the line.  |
 
@@ -175,50 +176,35 @@ Any part of this theme can be overridden through the `theme` prop.
 </Chart>
 ```
 
-### Example with tooltip
+### Example with tooltip and large number of datapoints
 
-Be advised this doesn't work in the browser, but it will work in an app!
-
-<Chart
-  style={{ height: 200, width: 400, marginBottom: 40 }}
-  data={[
-    { x: -2, y: 5 },
-    { x: -1, y: 10 },
-    { x: 0, y: 12 },
-    { x: 4, y: 11 },
-    { x: 8, y: 12 },
-    { x: 9, y: 13.5 },
-    { x: 10, y: 18 },
-  ]}
-  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
-  yDomain={{ min: 0, max: 20 }}
->
-  <VerticalAxis
-    tickCount={5}
-  />
-  <HorizontalAxis tickCount={3} />
-  <Line theme={{ stroke: { color: '#c0392b', width: 2 } }} tooltipComponent={<BoxTooltip />} />
-</Chart>
+![Tooltip example](/img/tooltip.png)
 
 ```jsx
 <Chart
-  style={{ height: 200, width: 400 }}
-  data={[
-    { x: -2, y: 5 },
-    { x: -1, y: 10 },
-    { x: 0, y: 12 },
-    { x: 4, y: 11 },
-    { x: 8, y: 12 },
-    { x: 9, y: 13.5 },
-    { x: 10, y: 18 },
-  ]}
+  style={{ height: 200, width: '100%', marginTop: 100 }}
+  data={/* LOTS OF DATA */}
   padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
-  yDomain={{ min: 0, max: 20 }}
+  xDomain={{ min: 0, max: 500 }}
+  yDomain={{ min: -4, max: 20 }}
 >
   <VerticalAxis
-    tickCount={5}
+    tickCount={10}
+    theme={{
+      axis: { stroke: { color: '#aaa', width: 2 } },
+      ticks: { stroke: { color: '#aaa', width: 2 } },
+      labels: { formatter: (v: number) => v.toFixed(2) },
+    }}
   />
-  <HorizontalAxis tickCount={3} />
-  <Line theme={{ stroke: { color: '#c0392b', width: 2 } }} tooltipComponent={<BoxTooltip />} />
+  <HorizontalAxis
+    tickCount={9}
+    theme={{
+      axis: { stroke: { color: '#aaa', width: 2 } },
+      ticks: { stroke: { color: '#aaa', width: 2 } },
+      labels: { label: { rotation: 50 }, formatter: Math.round },
+    }}
+  />
+  <Area />
+  <Line theme={{ stroke: { color: 'red', width: 1 } }} tooltipComponent={<BoxTooltip theme={{ formatter: ({ y }) => y.toFixed(2) }} />} />
 </Chart>
 ```
