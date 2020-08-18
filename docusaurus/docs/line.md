@@ -111,7 +111,7 @@ Any part of this theme can be overridden through the `theme` prop.
   <HorizontalAxis  />
   <Line 
     theme={{ stroke: { color: 'red', width: 3 } }}
-    tension={0.3}
+    
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -124,6 +124,7 @@ Any part of this theme can be overridden through the `theme` prop.
   />
   <Line 
     theme={{ stroke: { color: 'blue', width: 3 } }} 
+    tension={0.2}
     data={[
       { x: -2, y: 0 },
       { x: -1, y: 2 },
@@ -132,14 +133,14 @@ Any part of this theme can be overridden through the `theme` prop.
       { x: 3, y: 12 },
       { x: 7, y: 16 },
       { x: 9, y: 17 },
-      { x: 10, y: 12 },
+      { x: 10, y: 19 },
     ]} 
   />
 </Chart>
 
 ```jsx
 <Chart
-  style={{ height: 200, width: 400}}
+  style={{ height: 200, width: 400, marginBottom: 40 }}
   padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
   xDomain={{ min: -2, max: 10 }}
   yDomain={{ min: 0, max: 20 }}
@@ -150,7 +151,8 @@ Any part of this theme can be overridden through the `theme` prop.
   />
   <HorizontalAxis  />
   <Line 
-    theme={{ stroke: { color: 'red', width: 3 } }} 
+    theme={{ stroke: { color: 'red', width: 3 } }}
+    
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -163,6 +165,7 @@ Any part of this theme can be overridden through the `theme` prop.
   />
   <Line 
     theme={{ stroke: { color: 'blue', width: 3 } }} 
+    tension={0.2}
     data={[
       { x: -2, y: 0 },
       { x: -1, y: 2 },
@@ -171,7 +174,7 @@ Any part of this theme can be overridden through the `theme` prop.
       { x: 3, y: 12 },
       { x: 7, y: 16 },
       { x: 9, y: 17 },
-      { x: 10, y: 12 },
+      { x: 10, y: 19 },
     ]} 
   />
 </Chart>

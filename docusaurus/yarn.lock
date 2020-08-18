@@ -7124,6 +7124,11 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
+paths-js@^0.4.11:
+  version "0.4.11"
+  resolved "https://registry.yarnpkg.com/paths-js/-/paths-js-0.4.11.tgz#b2a9d5f94ee9949aa8fee945f78a12abff44599e"
+  integrity sha512-3mqcLomDBXOo7Fo+UlaenG6f71bk1ZezPQy2JCmYHy2W2k5VKpP+Jbin9H0bjXynelTbglCqdFhSEkeIkKTYUA==
+
 pbkdf2@^3.0.3:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.1.1.tgz#cb8724b0fada984596856d1a6ebafd3584654b94"
@@ -8129,16 +8134,17 @@ react-loadable@^5.5.0:
   dependencies:
     prop-types "^15.5.0"
 
-react-native-responsive-linechart@^3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-3.1.3.tgz#32103047ce022ef3f38ce0ea35b30058bb36fff7"
-  integrity sha512-l2+nqowXmW0PMv2wRBpE5jCLxQddBBX5oyA445snnr5TwL90RZfCQTljbGpy8ShEXDXQWFyi31XdncB+91YQhg==
+react-native-responsive-linechart@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-3.2.0.tgz#8d9e23cac9bed44084790828169eed09873b8409"
+  integrity sha512-K4OmAynzpMwtl+4I7k7EJx7VnveHPfmK3Anhi83SVl5RR0geek3SXeO9l3JJgjpXp7zP2WWbstm413bZIyvhPQ==
   dependencies:
     deepmerge "^4.2.2"
     lodash.clamp "^4.0.3"
     lodash.clonedeep "^4.5.0"
     lodash.maxby "^4.6.0"
     lodash.minby "^4.6.0"
+    paths-js "^0.4.11"
 
 react-native-svg-web-transform@^1.3.2:
   version "1.3.2"

@@ -113,7 +113,7 @@ Any part of this theme can be overridden through the `theme` prop.
   <HorizontalAxis  />
   <Area 
     theme={{ gradient: { from : { color: '#1abc9c', opacity: 0.4 }, to : { color: '#1abc9c' , opacity: 0.4 } } }} 
-    tension={0.3}
+    tension={0.2}
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -121,12 +121,12 @@ Any part of this theme can be overridden through the `theme` prop.
       { x: 5, y: 8 },
       { x: 6, y: 12 },
       { x: 9, y: 13.5 },
-      { x: 10, y: 18 },
+      { x: 10, y: 15 },
     ]} 
   />
   <Area 
     theme={{ gradient: { from : { color: '#f39c12', opacity: 0.4 }, to : { color: '#f39c12' , opacity: 0.4 } } }} 
-    tension={0.3}
+    tension={0.2}
     data={[
       { x: -2, y: 0 },
       { x: -1, y: 2 },
@@ -142,7 +142,7 @@ Any part of this theme can be overridden through the `theme` prop.
 
 ```jsx
 <Chart
-  style={{ height: 200, width: 400}}
+  style={{ height: 200, width: 400, marginBottom: 40 }}
   padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
   xDomain={{ min: -2, max: 10 }}
   yDomain={{ min: 0, max: 20 }}
@@ -154,6 +154,7 @@ Any part of this theme can be overridden through the `theme` prop.
   <HorizontalAxis  />
   <Area 
     theme={{ gradient: { from : { color: '#1abc9c', opacity: 0.4 }, to : { color: '#1abc9c' , opacity: 0.4 } } }} 
+    tension={0.2}
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -161,11 +162,12 @@ Any part of this theme can be overridden through the `theme` prop.
       { x: 5, y: 8 },
       { x: 6, y: 12 },
       { x: 9, y: 13.5 },
-      { x: 10, y: 18 },
+      { x: 10, y: 15 },
     ]} 
   />
   <Area 
     theme={{ gradient: { from : { color: '#f39c12', opacity: 0.4 }, to : { color: '#f39c12' , opacity: 0.4 } } }} 
+    tension={0.2}
     data={[
       { x: -2, y: 0 },
       { x: -1, y: 2 },
