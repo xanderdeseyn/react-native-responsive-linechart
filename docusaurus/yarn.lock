@@ -8082,7 +8082,7 @@ react-dev-utils@^10.2.1:
     strip-ansi "6.0.0"
     text-table "0.2.0"
 
-react-dom@^16.8.4:
+react-dom@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"
   integrity sha512-81PIMmVLnCNLO/fFOQxdQkvEq/+Hfpv24XNJfpyZhTRfO0QcmQIF/PgCa1zCOj2w1hrn12MFLyaJ/G0+Mxtfag==
@@ -8129,10 +8129,10 @@ react-loadable@^5.5.0:
   dependencies:
     prop-types "^15.5.0"
 
-react-native-responsive-linechart@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-3.0.2.tgz#7e87615f091cc58b69f7cb156bfaea4901c35092"
-  integrity sha512-x+b6GS4mZvcq4uQa9hX9+Hw0wu6MBZA9pgBNKge1KtMoM9iDpTDpO/4l6Yr3ZrF1G2ciSKCE43PsE/qSNboF1g==
+react-native-responsive-linechart@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-3.1.0.tgz#fb9b4ef5328ff25a799a026b5f9790c8095883f5"
+  integrity sha512-xt8qsBmIyfOnDxL4sde/vy4BWwpv11hzvX5QDgZomS216GUFcRfIf8qBayonH4ipehhGRYG9mL8qlw+eoeNUpw==
   dependencies:
     deepmerge "^4.2.2"
     lodash.clamp "^4.0.3"
@@ -8218,7 +8218,7 @@ react-toggle@^4.1.1:
   dependencies:
     classnames "^2.2.5"
 
-react@^16.8.4:
+react@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
