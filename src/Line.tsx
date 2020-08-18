@@ -1,29 +1,34 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
-import { Polyline } from 'react-native-svg'
+import { Path } from 'react-native-svg'
+import Bezier from 'paths-js/bezier'
+import Polygon from 'paths-js/polygon'
 import ChartContext from './ChartContext'
 import { adjustPointsForThickStroke, calculateTooltipIndex } from './Line.utils'
 import { ChartDataPoint, Stroke } from './types'
-import { formatDataForSVG, scalePointsToDimensions } from './utils'
+import { scalePointsToDimensions } from './utils'
 
 type Props = {
   /** Theme for the line */
   theme?: {
     stroke?: Stroke
   }
+  /** Setting this prop will smooth out the line with bézier curves. Value between 0 and 1. */
+  tension?: number
   /** Component to render tooltips. An example component is included: <BoxTooltip />. */
   tooltipComponent?: JSX.Element
   /** Data for the chart. Overrides optional data provided in `<Chart />`. */
   data?: ChartDataPoint[]
 }
 
-const Line: React.FC<Props> = props => {
+const Line: React.FC<Props> = (props) => {
   const { data: contextData, dimensions, domain, lastTouch } = React.useContext(ChartContext)
 
   const {
     theme: { stroke },
     tooltipComponent,
-    data = contextData
+    data = contextData,
+    tension,
   } = deepmerge(defaultProps, props)
 
   if (!dimensions) {
@@ -35,17 +40,16 @@ const Line: React.FC<Props> = props => {
 
   const points = adjustPointsForThickStroke(scaledPoints, stroke)
 
+  let path
+  if (tension) {
+    path = Bezier({ points: points.map((p) => [p.x, p.y]), tension }).path
+  } else {
+    path = Polygon({ points: points.map((p) => [p.x, p.y]) }).path
+  }
+
   return (
     <React.Fragment>
-      <Polyline
-        fill="none"
-        strokeLinecap="round"
-        points={formatDataForSVG(points)}
-        x={0}
-        stroke={stroke.color}
-        strokeWidth={stroke.width}
-        strokeOpacity={stroke.opacity}
-      />
+      <Path d={path.print()} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
       {tooltipIndex !== undefined && React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: points[tooltipIndex] })}
     </React.Fragment>
   )
@@ -58,7 +62,7 @@ const defaultProps = {
     stroke: {
       color: 'black',
       width: 1,
-      opacity: 1
-    }
-  }
+      opacity: 1,
+    },
+  },
 }

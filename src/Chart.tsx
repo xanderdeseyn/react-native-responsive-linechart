@@ -41,16 +41,12 @@ const Chart: React.FC<Props> = (props) => {
     return true
   }
 
-  const panResponder = React.useMemo(
-    () =>
-      PanResponder.create({
-        onMoveShouldSetPanResponder: () => true,
-        onPanResponderGrant: handleTouchEvent,
-        onPanResponderMove: handleTouchEvent,
-        onStartShouldSetPanResponder: handleTouchEvent,
-      }),
-    []
-  )
+  const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderGrant: handleTouchEvent,
+    onPanResponderMove: handleTouchEvent,
+    onStartShouldSetPanResponder: handleTouchEvent,
+  })
 
   return (
     <View style={style} onLayout={onLayout}>

@@ -15,6 +15,7 @@
     "lodash.clonedeep": "^4.5.0",
     "lodash.maxby": "^4.6.0",
     "lodash.minby": "^4.6.0",
+    "paths-js": "^0.4.11",
     "react": "16.13.1",
     "react-native": "0.63.0",
     "react-native-svg": "^12.1.0",
