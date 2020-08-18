@@ -1,6 +1,6 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
-import { Line, Text } from 'react-native-svg'
+import { Line, Text, G } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { Stroke, Label } from './types'
 import { scalePointToDimensions } from './utils'
@@ -34,12 +34,12 @@ type Props = {
   includeOriginTick?: boolean
 }
 
-const HorizontalAxis: React.FC<Props> = props => {
+const HorizontalAxis: React.FC<Props> = (props) => {
   const {
     theme: { axis, ticks, grid, labels },
     tickValues,
     tickCount,
-    includeOriginTick
+    includeOriginTick,
   } = deepmerge(defaultProps, props)
 
   const { dimensions, domain } = React.useContext(ChartContext)
@@ -65,7 +65,7 @@ const HorizontalAxis: React.FC<Props> = props => {
           strokeOpacity={axis.stroke.opacity}
         />
       )}
-      {finalTickValues.map(value => {
+      {finalTickValues.map((value) => {
         return (
           <React.Fragment key={value}>
             {/* Render Grid */}
@@ -96,17 +96,18 @@ const HorizontalAxis: React.FC<Props> = props => {
             )}
             {/* Render Label */}
             {labels.visible && (
-              <Text
-                x={labels.label.dx + scalePointToDimensions({ x: value, y: 0 }, domain, dimensions).x}
-                y={dimensions.height - labels.label.dy}
-                fontSize={labels.label.fontSize}
-                fontWeight={labels.label.fontWeight}
-                fill={labels.label.color}
-                opacity={labels.label.opacity}
-                textAnchor={labels.label.textAnchor}
-              >
-                {labels.formatter(value)}
-              </Text>
+              <G x={labels.label.dx + scalePointToDimensions({ x: value, y: 0 }, domain, dimensions).x} y={dimensions.height - labels.label.dy}>
+                <Text
+                  fontSize={labels.label.fontSize}
+                  fontWeight={labels.label.fontWeight}
+                  fill={labels.label.color}
+                  opacity={labels.label.opacity}
+                  textAnchor={labels.label.textAnchor}
+                  rotation={labels.label.rotation}
+                >
+                  {labels.formatter(value)}
+                </Text>
+              </G>
             )}
           </React.Fragment>
         )
@@ -125,28 +126,28 @@ const defaultProps = {
       stroke: {
         color: '#bbb',
         width: 2,
-        opacity: 1
+        opacity: 1,
       },
-      dy: 0
+      dy: 0,
     },
     grid: {
       visible: true,
       stroke: {
         color: '#ccc',
         width: 1,
-        opacity: 1
-      }
+        opacity: 1,
+      },
     },
     ticks: {
       visible: true,
       stroke: {
         color: '#000',
         width: 1,
-        opacity: 1
+        opacity: 1,
       },
       dy: 0,
       length: 6,
-      includeOriginTick: false
+      includeOriginTick: false,
     },
     labels: {
       visible: true,
@@ -157,9 +158,10 @@ const defaultProps = {
         textAnchor: 'middle',
         opacity: 1,
         dx: 0,
-        dy: -12
+        dy: -12,
+        rotation: 0,
       },
-      formatter: (v: number) => String(v)
-    }
-  }
+      formatter: (v: number) => String(v),
+    },
+  },
 }
