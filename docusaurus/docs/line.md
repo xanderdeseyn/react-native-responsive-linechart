@@ -6,7 +6,7 @@ route: /line
 
 ---
 
-import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from '../../src'
+import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from 'react-native-responsive-linechart'
 
 This component draws a line. Multiple lines can be drawn on one chart.
 

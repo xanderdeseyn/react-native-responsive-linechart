@@ -96,7 +96,10 @@ const HorizontalAxis: React.FC<Props> = (props) => {
             )}
             {/* Render Label */}
             {labels.visible && (
-              <G x={labels.label.dx + scalePointToDimensions({ x: value, y: 0 }, domain, dimensions).x} y={dimensions.height - labels.label.dy}>
+              <G
+                translateX={labels.label.dx + scalePointToDimensions({ x: value, y: 0 }, domain, dimensions).x}
+                translateY={dimensions.height - labels.label.dy}
+              >
                 <Text
                   fontSize={labels.label.fontSize}
                   fontWeight={labels.label.fontWeight}

@@ -93,7 +93,7 @@ const VerticalAxis: React.FC<Props> = (props) => {
             )}
             {/* Render Label */}
             {labels.visible && (
-              <G x={labels.label.dx} y={labels.label.dy + scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}>
+              <G translateX={labels.label.dx} translateY={labels.label.dy + scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}>
                 <Text
                   fontSize={labels.label.fontSize}
                   fontWeight={labels.label.fontWeight}

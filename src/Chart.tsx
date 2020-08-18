@@ -25,12 +25,8 @@ type Props = {
 }
 
 const Chart: React.FC<Props> = (props) => {
-  console.log('testtest')
   const { style, children, data = [], padding, xDomain, yDomain } = deepmerge(computeDefaultProps(props.data), props)
-  console.log('component dims')
-  console.log('component dims 2')
   const { dimensions, onLayout } = useComponentDimensions()
-  console.log('component dims done')
   const dataDimensions = calculateDataDimensions(dimensions, padding)
 
   const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)

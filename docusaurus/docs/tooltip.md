@@ -6,7 +6,7 @@ route: /tooltip
 
 ---
 
-import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from '../../src'
+import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from 'react-native-responsive-linechart'
 
 Tooltips can only be used in combination with a Line component.
 **This library provides one example tooltip component `BoxTooltip`**. For advanced styling, it is recommended to implement your own Tooltip component.
