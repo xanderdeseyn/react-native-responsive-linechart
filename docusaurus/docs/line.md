@@ -38,7 +38,7 @@ Any part of this theme can be overridden through the `theme` prop.
 
 
 
-### Combined with area
+### Combined with `<Area />`
 
 <Chart
   style={{ height: 200, width: 400, marginBottom: 40 }}
@@ -96,7 +96,7 @@ Any part of this theme can be overridden through the `theme` prop.
 </Chart>
 ```
 
-### Multiple lines
+### Multiple lines and `tension`
 
 <Chart
   style={{ height: 200, width: 400, marginBottom: 40 }}
@@ -110,7 +110,8 @@ Any part of this theme can be overridden through the `theme` prop.
   />
   <HorizontalAxis  />
   <Line 
-    theme={{ stroke: { color: 'red', width: 3 } }} 
+    theme={{ stroke: { color: 'red', width: 3 } }}
+    tension={0.3}
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -176,7 +177,7 @@ Any part of this theme can be overridden through the `theme` prop.
 </Chart>
 ```
 
-### Example with tooltip and large number of datapoints
+### Example with `tooltipComponent` and large number of datapoints
 
 ![Tooltip example](/img/tooltip.png)
 

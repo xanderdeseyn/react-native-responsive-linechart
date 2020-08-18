@@ -40,7 +40,7 @@ Any part of this theme can be overridden through the `theme` prop.
 
 
 
-### Combined with line
+### Combined with `<Line />`
 
 <Chart
   style={{ height: 200, width: 400, marginBottom: 40 }}
@@ -98,7 +98,7 @@ Any part of this theme can be overridden through the `theme` prop.
 </Chart>
 ```
 
-### Multiple areas
+### Multiple areas and `tension`
 
 <Chart
   style={{ height: 200, width: 400, marginBottom: 40 }}
@@ -113,6 +113,7 @@ Any part of this theme can be overridden through the `theme` prop.
   <HorizontalAxis  />
   <Area 
     theme={{ gradient: { from : { color: '#1abc9c', opacity: 0.4 }, to : { color: '#1abc9c' , opacity: 0.4 } } }} 
+    tension={0.3}
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -125,6 +126,7 @@ Any part of this theme can be overridden through the `theme` prop.
   />
   <Area 
     theme={{ gradient: { from : { color: '#f39c12', opacity: 0.4 }, to : { color: '#f39c12' , opacity: 0.4 } } }} 
+    tension={0.3}
     data={[
       { x: -2, y: 0 },
       { x: -1, y: 2 },
