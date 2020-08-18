@@ -29,7 +29,16 @@ export type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700
 
 export type TextAnchor = 'start' | 'middle' | 'end'
 
-export type Label = { color?: string; fontSize?: number; opacity?: number; dy?: number; dx?: number; fontWeight?: FontWeight; textAnchor?: TextAnchor }
+export type Label = {
+  color?: string
+  fontSize?: number
+  opacity?: number
+  dy?: number
+  dx?: number
+  fontWeight?: FontWeight
+  textAnchor?: TextAnchor
+  rotation?: number
+}
 
 export type ChartContext = {
   data: ChartDataPoint[]
@@ -37,4 +46,5 @@ export type ChartContext = {
   domain: ChartDomain
   lastTouch: XYValue | undefined
 }
+
 ```

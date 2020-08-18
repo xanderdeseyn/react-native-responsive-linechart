@@ -28,28 +28,27 @@ Any part of this theme can be overridden through the `theme` prop.
     stroke: {
       color: '#bbb',
       width: 2,
-      opacity: 1
+      opacity: 1,
     },
-    dy: 0
+    dx: 0,
   },
   grid: {
     visible: true,
     stroke: {
       color: '#ccc',
       width: 1,
-      opacity: 1
-    }
+      opacity: 1,
+    },
   },
   ticks: {
     visible: true,
     stroke: {
       color: '#000',
       width: 1,
-      opacity: 1
+      opacity: 1,
     },
-    dy: 0,
+    dx: 0,
     length: 6,
-    includeOriginTick: false
   },
   labels: {
     visible: true,
@@ -57,13 +56,14 @@ Any part of this theme can be overridden through the `theme` prop.
       color: '#000',
       fontSize: 10,
       fontWeight: 300,
-      textAnchor: 'middle',
+      textAnchor: 'end',
       opacity: 1,
-      dx: 0,
-      dy: -12
+      dx: -4,
+      dy: 4,
+      rotation: 0,
     },
-    formatter: (v: number) => String(v)
-  }
+    formatter: (v: number) => String(v),
+  },
 }
 ```
 
