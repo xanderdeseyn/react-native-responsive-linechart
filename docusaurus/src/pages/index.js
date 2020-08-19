@@ -63,6 +63,11 @@ function Home() {
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <h2 style={{ textAlign: 'center', marginTop: 24 }}>Screenshots</h2>
           <img style={{ width: 1000 }} src="img/home.png" />
+          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+            <img style={{ width: 350 }} src="img/tooltip.png" />
+            <img style={{ width: 300 }} src="img/smooth.png" />
+            <img style={{ width: 320 }} src="img/smoothing.png" />
+          </div>
         </div>
         <h2 style={{ textAlign: 'center', marginTop: 64 }}>Features</h2>
         {features && features.length > 0 && (

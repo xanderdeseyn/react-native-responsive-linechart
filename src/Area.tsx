@@ -4,14 +4,15 @@ import { Defs, Stop, LinearGradient, Path } from 'react-native-svg'
 import Bezier from 'paths-js/bezier'
 import Polygon from 'paths-js/polygon'
 import ChartContext from './ChartContext'
-import { ChartDataPoint, Gradient } from './types'
-import { formatDataForSVG, scalePointsToDimensions } from './utils'
+import { ChartDataPoint, Gradient, Smoothing } from './types'
+import { appendPointsToPath, bezierPath, formatDataForSVG, scalePointsToDimensions, splinePath, svgPath } from './utils'
 
 type Props = {
   /** Theme for the area */
   theme?: {
     gradient?: Gradient
   }
+  smoothing?: Smoothing
   /** Setting this prop will smooth out the line with bézier curves. Value between 0 and 1. */
   tension?: number
   /** Data for the chart. Overrides optional data provided in `<Chart />`. */
@@ -25,6 +26,7 @@ const Area: React.FC<Props> = (props) => {
     theme: { gradient },
     data = contextData,
     tension,
+    smoothing,
   } = deepmerge(defaultProps, props)
 
   if (!dimensions) {
@@ -32,19 +34,14 @@ const Area: React.FC<Props> = (props) => {
   }
 
   const points = scalePointsToDimensions([...data], domain, dimensions)
+  const pointsWithinDimensions = points.filter((p) => p.x >= 0 && p.x <= dimensions.width)
 
-  let path
-  if (tension) {
-    path = Bezier({ points: points.map((p) => [p.x, p.y]), tension })
-      .path.lineto(dimensions.width, dimensions.height)
-      .lineto(0, dimensions.height)
-      .closepath()
-  } else {
-    path = Polygon({ points: points.map((p) => [p.x, p.y]) })
-      .path.lineto(dimensions.width, dimensions.height)
-      .lineto(0, dimensions.height)
-      .closepath()
-  }
+  const path = svgPath(pointsWithinDimensions, smoothing, tension)
+
+  const closedPath = appendPointsToPath(path, [
+    { x: dimensions.width, y: dimensions.height },
+    { x: 0, y: dimensions.height },
+  ])
 
   return (
     <React.Fragment>
@@ -54,7 +51,7 @@ const Area: React.FC<Props> = (props) => {
           <Stop offset="100%" stopColor={gradient.to.color} stopOpacity={gradient.to.opacity} />
         </LinearGradient>
       </Defs>
-      <Path d={path.print()} fill="url(#grad)" strokeWidth="0"></Path>
+      <Path d={closedPath} fill="url(#grad)" strokeWidth="0"></Path>
     </React.Fragment>
   )
 }
@@ -74,4 +71,6 @@ const defaultProps = {
       },
     },
   },
+  smoothing: 'none',
+  tension: 0.3,
 }

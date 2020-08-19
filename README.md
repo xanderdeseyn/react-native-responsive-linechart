@@ -21,6 +21,7 @@ Due to the nature of the changes, version 2.2 and below is now no longer support
 ![Preview 1](docusaurus/static/img/home.png)
 ![Preview 2](docusaurus/static/img/tooltip.png)
 ![Preview 3](docusaurus/static/img/smooth.png)
+![Preview 4](docusaurus/static/img/smoothing.png)
 
 ### Quick example
 
@@ -35,8 +36,8 @@ import { Chart, VerticalAxis, HorizontalAxis, Line } from 'react-native-responsi
 >
   <VerticalAxis tickValues={[0, 4, 8, 12, 16, 20]} />
   <HorizontalAxis tickCount={3} />
-  <Line data={data1} theme={{ stroke: { color: 'red', width: 1 } }} />
-  <Line data={data2} theme={{ stroke: { color: 'blue', width: 1 } }} />
+  <Line data={data1} smoothing="none" theme={{ stroke: { color: 'red', width: 1 } }} />
+  <Line data={data2} smoothing="cubic-spline" theme={{ stroke: { color: 'blue', width: 1 } }} />
 </Chart>
 
 const data1 = [

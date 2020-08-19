@@ -137,3 +137,5 @@ To give you and idea of the options this library offers, here are some end resul
 </div>
 
 ![Tooltip example](/img/tooltip.png)
+![Smoothing 1](/img/smooth.png)
+![Smoothing 2](/img/smoothing.png)

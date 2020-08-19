@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@yr/monotone-cubic-spline": "^1.0.3",
     "deepmerge": "^4.2.2",
     "lodash.clamp": "^4.0.3",
     "lodash.clonedeep": "^4.5.0",

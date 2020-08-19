@@ -8,6 +8,8 @@ export type Dimensions = { top: number; left: number; width: number; height: num
 
 export type AxisDomain = { min: number; max: number }
 
+export type Smoothing = 'none' | 'cubic-spline' | 'bezier'
+
 export type ChartDomain = { x: AxisDomain; y: AxisDomain }
 
 export type Stroke = { color?: string; width?: number; opacity?: number }

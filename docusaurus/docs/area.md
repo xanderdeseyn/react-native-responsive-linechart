@@ -14,7 +14,8 @@ This component draws an area. Multiple areas can be drawn on one chart.
 | Prop        | Type | Required | Description
 | ----------- | ----------- | ------------- | ------ |
 | `data`      | `{ x: number, y: number, meta?: any }[]` | Yes* | Data for the chart. Overrides optional data provided in `<Chart />`.  |
-| `tension`      | `number` | No | Setting this prop will smooth out the line with bézier curves. Value between 0 and 1, recommended somewhere around `0.3`. |
+| `smoothing`      | `"none" | "cubic-spline" | "bezier"` | No | `none` is just linear lines. `cubic-spline` is usually the most aesthetically pleasing smoothing. |
+| `tension`      | `number` | No | Only works in combination with smoothing='bezier'. Value between 0 and 1, recommended somewhere around `0.3`. |
 | `theme`   | Defined below        | No | Theme for the area.  |
 
 \* unless provided in parent `<Chart />` component
@@ -98,7 +99,7 @@ Any part of this theme can be overridden through the `theme` prop.
 </Chart>
 ```
 
-### Multiple areas and `tension`
+### Multiple areas and `smoothing`
 
 <Chart
   style={{ height: 200, width: 400, marginBottom: 40 }}
@@ -113,7 +114,7 @@ Any part of this theme can be overridden through the `theme` prop.
   <HorizontalAxis  />
   <Area 
     theme={{ gradient: { from : { color: '#1abc9c', opacity: 0.4 }, to : { color: '#1abc9c' , opacity: 0.4 } } }} 
-    tension={0.2}
+    smoothing="cubic-spline"
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -126,7 +127,7 @@ Any part of this theme can be overridden through the `theme` prop.
   />
   <Area 
     theme={{ gradient: { from : { color: '#f39c12', opacity: 0.4 }, to : { color: '#f39c12' , opacity: 0.4 } } }} 
-    tension={0.2}
+    smoothing="cubic-spline"
     data={[
       { x: -2, y: 0 },
       { x: -1, y: 2 },
@@ -142,7 +143,7 @@ Any part of this theme can be overridden through the `theme` prop.
 
 ```jsx
 <Chart
-  style={{ height: 200, width: 400, marginBottom: 40 }}
+  style={{ height: 200, width: 400 }}
   padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
   xDomain={{ min: -2, max: 10 }}
   yDomain={{ min: 0, max: 20 }}
@@ -154,7 +155,7 @@ Any part of this theme can be overridden through the `theme` prop.
   <HorizontalAxis  />
   <Area 
     theme={{ gradient: { from : { color: '#1abc9c', opacity: 0.4 }, to : { color: '#1abc9c' , opacity: 0.4 } } }} 
-    tension={0.2}
+    smoothing="cubic-spline"
     data={[
       { x: -2, y: 15 },
       { x: -1, y: 10 },
@@ -167,7 +168,7 @@ Any part of this theme can be overridden through the `theme` prop.
   />
   <Area 
     theme={{ gradient: { from : { color: '#f39c12', opacity: 0.4 }, to : { color: '#f39c12' , opacity: 0.4 } } }} 
-    tension={0.2}
+    smoothing="cubic-spline"
     data={[
       { x: -2, y: 0 },
       { x: -1, y: 2 },
