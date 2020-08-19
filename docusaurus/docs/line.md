@@ -100,7 +100,7 @@ Any part of this theme can be overridden through the `theme` prop.
 ### Multiple lines and `smoothing`
 
 <Chart
-  style={{ height: 200, width: '100%', marginTop: 40 }}
+  style={{ height: 200, width: '100%', marginBottom: 40 }}
   data={[
     { x: 5, y: 15 },
     { x: 6, y: 6 },
