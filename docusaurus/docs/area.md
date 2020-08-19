@@ -14,7 +14,7 @@ This component draws an area. Multiple areas can be drawn on one chart.
 | Prop        | Type | Required | Description
 | ----------- | ----------- | ------------- | ------ |
 | `data`      | `{ x: number, y: number, meta?: any }[]` | Yes* | Data for the chart. Overrides optional data provided in `<Chart />`.  |
-| `smoothing`      | `"none" | "cubic-spline" | "bezier"` | No | `none` is just linear lines. `cubic-spline` is usually the most aesthetically pleasing smoothing. |
+| `smoothing`      | "none" \| "cubic-spline" \| "bezier" | No | `none` is just linear lines. `cubic-spline` is usually the most aesthetically pleasing smoothing. |
 | `tension`      | `number` | No | Only works in combination with smoothing='bezier'. Value between 0 and 1, recommended somewhere around `0.3`. |
 | `theme`   | Defined below        | No | Theme for the area.  |
 

@@ -1933,6 +1933,11 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@yr/monotone-cubic-spline@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@yr/monotone-cubic-spline/-/monotone-cubic-spline-1.0.3.tgz#7272d89f8e4f6fb7a1600c28c378cc18d3b577b9"
+  integrity sha512-FQXkOta0XBSUPHndIKON2Y9JeQz5ZeMqLYZVVK93FliNBFm7LNMIZmY6FrMEB9XPcDbE2bekMbZD6kzDkxwYjA==
+
 accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.7.tgz#531bc726517a3b2b41f850021c6cc15eaab507cd"
@@ -8134,11 +8139,12 @@ react-loadable@^5.5.0:
   dependencies:
     prop-types "^15.5.0"
 
-react-native-responsive-linechart@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-3.2.0.tgz#8d9e23cac9bed44084790828169eed09873b8409"
-  integrity sha512-K4OmAynzpMwtl+4I7k7EJx7VnveHPfmK3Anhi83SVl5RR0geek3SXeO9l3JJgjpXp7zP2WWbstm413bZIyvhPQ==
+react-native-responsive-linechart@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-3.3.0.tgz#a4057ab0c32e63fb2f93e69f7e06de658bb6c429"
+  integrity sha512-Rmx04HZxFUGhyFTqf+7PVDeYNHmUA8QH8jegzyrgFSgOwyOiZ5G7oD4BLnYv2rKbXj0NQNI9tt2RRPoipjNJgQ==
   dependencies:
+    "@yr/monotone-cubic-spline" "^1.0.3"
     deepmerge "^4.2.2"
     lodash.clamp "^4.0.3"
     lodash.clonedeep "^4.5.0"

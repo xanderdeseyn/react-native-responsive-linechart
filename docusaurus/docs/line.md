@@ -15,7 +15,7 @@ This component draws a line. Multiple lines can be drawn on one chart.
 | Prop        | Type | Required | Description
 | ----------- | ----------- | ------------- | ------ |
 | `data`      | `{ x: number, y: number, meta?: any }[]` | Yes* | Data for the chart. Overrides optional data provided in `<Chart />`.  |
-| `smoothing`      | `"none" | "cubic-spline" | "bezier"` | No | `none` is just linear lines. `cubic-spline` is usually the most aesthetically pleasing smoothing. |
+| `smoothing`      | "none" \| "cubic-spline" \| "bezier" | No | `none` is just linear lines. `cubic-spline` is usually the most aesthetically pleasing smoothing. |
 | `tension`      | `number` | No | Only works in combination with smoothing='bezier'. Value between 0 and 1, recommended somewhere around `0.3`. |
 | `tooltipComponent`   | `JSX.Element` | No | Component to be used to draw tooltips. This library provides a basic tooltip with the `BoxTooltip` component. Example below.  |
 | `theme`   | Defined below        | No | Theme for the line.  |
@@ -101,7 +101,12 @@ Any part of this theme can be overridden through the `theme` prop.
 
 <Chart
   style={{ height: 200, width: '100%', marginTop: 40 }}
-  data={data1}
+  data={[
+    { x: 5, y: 15 },
+    { x: 6, y: 6 },
+    { x: 7, y: 15 },
+    { x: 8, y: 3 },
+  ]}
   padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
   xDomain={{ min: 5, max: 8 }}
 >
@@ -130,7 +135,12 @@ Any part of this theme can be overridden through the `theme` prop.
 ```jsx
 <Chart
   style={{ height: 200, width: '100%', marginTop: 40 }}
-  data={data1}
+  data={[
+  { x: 5, y: 15 },
+  { x: 6, y: 6 },
+  { x: 7, y: 15 },
+  { x: 8, y: 3 },
+]}
   padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
   xDomain={{ min: 5, max: 8 }}
 >

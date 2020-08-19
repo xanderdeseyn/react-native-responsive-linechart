@@ -19,6 +19,7 @@ type Props = {
 
 const Area: React.FC<Props> = (props) => {
   const { data: contextData, dimensions, domain } = React.useContext(ChartContext)
+  const [randomGradientRef] = React.useState(Math.random().toFixed(10).toString())
 
   const {
     theme: { gradient },
@@ -44,12 +45,12 @@ const Area: React.FC<Props> = (props) => {
   return (
     <React.Fragment>
       <Defs>
-        <LinearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <LinearGradient id={`grad${randomGradientRef}`} x1="0%" y1="0%" x2="0%" y2="100%">
           <Stop offset="0%" stopColor={gradient.from.color} stopOpacity={gradient.from.opacity} />
           <Stop offset="100%" stopColor={gradient.to.color} stopOpacity={gradient.to.opacity} />
         </LinearGradient>
       </Defs>
-      <Path d={closedPath} fill="url(#grad)" strokeWidth="0"></Path>
+      <Path d={closedPath} fill={`url(#grad${randomGradientRef})`} strokeWidth="0"></Path>
     </React.Fragment>
   )
 }
