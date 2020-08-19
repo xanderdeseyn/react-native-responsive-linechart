@@ -18,7 +18,9 @@ Due to the nature of the changes, version 2.2 and below is now no longer support
 
 ### Screenshots
 
-![Preview](docusaurus/static/img/home.png)
+![Preview 1](docusaurus/static/img/home.png)
+![Preview 2](docusaurus/static/img/tooltip.png)
+![Preview 3](docusaurus/static/img/smooth.png)
 
 ### Quick example
 

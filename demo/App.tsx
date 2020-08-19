@@ -8,7 +8,7 @@ const App = () => {
     <Container>
       <StatusBar barStyle="dark-content" />
       <Chart
-        style={{ height: 200, width: '100%', backgroundColor: '#eee', marginTop: 100 }}
+        style={{ height: 200, width: '100%', marginTop: 100 }}
         data={data1}
         xDomain={{ min: -2, max: 10 }}
         yDomain={{ min: -2, max: 20 }}
@@ -16,8 +16,8 @@ const App = () => {
       >
         <VerticalAxis tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]} theme={{ axis: { dx: 0 }, ticks: { dx: 0 } }} />
         <HorizontalAxis />
-        <Line data={data1} tension={0.3} theme={{ stroke: { color: 'red', width: 1 } }} />
-        <Line data={data2} tension={0.3} theme={{ stroke: { color: 'blue', width: 1 } }} />
+        <Line data={data1} tension={0.3} theme={{ stroke: { color: 'red', width: 4 } }} />
+        <Area data={data1} tension={0.3} />
       </Chart>
       <Chart
         style={{ height: 200, width: '100%', marginTop: 100 }}
@@ -61,7 +61,7 @@ const Container = styled.View`
 const data1 = [
   { x: -2, y: 1 },
   { x: -1, y: 0 },
-  { x: 0, y: 1 },
+  { x: 0, y: 4 },
   { x: 1, y: 2 },
   { x: 5, y: 8 },
   { x: 6, y: 12 },
