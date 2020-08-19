@@ -1,11 +1,9 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
 import { Defs, Stop, LinearGradient, Path } from 'react-native-svg'
-import Bezier from 'paths-js/bezier'
-import Polygon from 'paths-js/polygon'
 import ChartContext from './ChartContext'
 import { ChartDataPoint, Gradient, Smoothing } from './types'
-import { appendPointsToPath, bezierPath, formatDataForSVG, scalePointsToDimensions, splinePath, svgPath } from './utils'
+import { appendPointsToPath, scalePointsToDimensions, svgPath } from './utils'
 
 type Props = {
   /** Theme for the area */
