@@ -60,7 +60,7 @@ the `scatter` theme defines how data points should be visualised. Optionally, yo
 
 
 
-### Combined with `<Area />`
+### Combined with `<Area />` and using scatter points
 
 <Chart
   style={{ height: 200, width: 400, marginBottom: 40 }}
@@ -86,7 +86,7 @@ the `scatter` theme defines how data points should be visualised. Optionally, yo
   <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
   <HorizontalAxis tickCount={3} />
   <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } }}} />
-  <Line theme={{ stroke: { color: '#44bd32', width: 10 }, scatter: { default: { width: 4, height: 4, radius: 2 }, selected: { color: 'red' } } }} />
+  <Line theme={{ stroke: { color: '#44bd32', width: 5 }, scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } } }} />
 </Chart>
 
 ```jsx
@@ -114,7 +114,7 @@ the `scatter` theme defines how data points should be visualised. Optionally, yo
   <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
   <HorizontalAxis tickCount={3} />
   <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } }}} />
-  <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
+  <Line theme={{ stroke: { color: '#44bd32', width: 5 }, scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } } }} />
 </Chart>
 ```
 
