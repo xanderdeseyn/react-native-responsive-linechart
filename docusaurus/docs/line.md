@@ -35,15 +35,20 @@ Any part of this theme can be overridden through the `theme` prop.
   },
   scatter: {
     default: {
-      width: 8,
-      height: 8,
+      width: 0,
+      height: 0,
       dx: 0,
       dy: 0,
-      rx: 4,
+      rx: 0,
       color: 'black',
     },
     selected: {
-      color: 'red',
+      width: 0,
+      height: 0,
+      dx: 0,
+      dy: 0,
+      rx: 0,
+      color: 'black'
     },
   },
 }

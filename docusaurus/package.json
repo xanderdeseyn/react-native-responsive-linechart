@@ -18,7 +18,7 @@
     "clsx": "^1.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-native-responsive-linechart": "^4.0.0",
+    "react-native-responsive-linechart": "^4.0.1",
     "react-native-svg-web-transform": "^1.3.2",
     "react-native-web": "^0.13.7"
   },

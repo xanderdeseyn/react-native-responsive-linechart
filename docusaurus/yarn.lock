@@ -8139,10 +8139,10 @@ react-loadable@^5.5.0:
   dependencies:
     prop-types "^15.5.0"
 
-react-native-responsive-linechart@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-4.0.0.tgz#1606dc0a133aa93fcfd5c408802a470511e935b4"
-  integrity sha512-D/q4VNCkVc5dGkyjKzeQ/ZdeD2RqbM1dlUlLUlPFwGY/bCcaUaT6a6/S0Y4T/QD96Zz/6AHUJ1lqDXodr4Jp7w==
+react-native-responsive-linechart@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-linechart/-/react-native-responsive-linechart-4.0.1.tgz#c4ecc9133e95877010062ff8eefb567a0ffd5260"
+  integrity sha512-ZxHZe4Gg7q/XqjjqMazRkIoDo5FQpVF/gbOPlasVvs/8rrpbYcA1yTfE87am8wvVqlVDq+OMh34xOZHQAvpsAg==
   dependencies:
     "@yr/monotone-cubic-spline" "^1.0.3"
     deepmerge "^4.2.2"
