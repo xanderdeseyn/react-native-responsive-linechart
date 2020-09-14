@@ -68,7 +68,13 @@ const App = () => {
         <Line theme={{ stroke: { color: 'red', width: 2 } }} />
         <Line smoothing="bezier" tension={0.15} theme={{ stroke: { color: 'blue', width: 2 } }} />
         <Line smoothing="bezier" tension={0.3} theme={{ stroke: { color: 'green', width: 2 } }} />
-        <Line smoothing="cubic-spline" tension={0.3} theme={{ stroke: { color: 'orange', width: 2 } }} />
+        <Line
+          smoothing="cubic-spline"
+          tension={0.3}
+          theme={{ stroke: { color: 'orange', width: 2 } }}
+          tooltipComponent={<BoxTooltip />}
+          onTooltipSelect={console.log}
+        />
       </Chart>
     </Container>
   )
