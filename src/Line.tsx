@@ -50,7 +50,7 @@ const Line: React.FC<Props> = (props) => {
         onTooltipSelect(data[newIndex], newIndex)
       }
     }
-  }, [data, domain, dimensions, lastTouch, stroke, tension, smoothing])
+  }, [data, domain, dimensions, lastTouch])
 
   const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
   const adjustedPoints = adjustPointsForThickStroke(scaledPoints, stroke)
