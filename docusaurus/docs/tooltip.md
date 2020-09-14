@@ -6,18 +6,18 @@ route: /tooltip
 
 ---
 
-import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from 'react-native-responsive-linechart'
+import { Chart, HorizontalAxis, Area, VerticalAxis, Line, Tooltip } from 'react-native-responsive-linechart'
 
 Tooltips can only be used in combination with a Line component.
-**This library provides one example tooltip component `BoxTooltip`**. For advanced styling, it is recommended to implement your own Tooltip component.
+**This library provides one example tooltip component `Tooltip`**. For advanced styling, it is recommended to implement your own Tooltip component.
 
-## BoxTooltip Props
+## Tooltip Props
 | Prop        | Type | Required | Description
 | ----------- | ----------- | ------------- | ------ |
 | `theme`   | Defined below        | No | Theme for the line.  |
 
 
-### BoxTooltip default theme
+### Tooltip default theme
 Any part of this theme can be overridden through the `theme` prop.
 
 ```json
@@ -31,7 +31,7 @@ Any part of this theme can be overridden through the `theme` prop.
     dx: 0,
     dy: 16.5,
   },
-  box: {
+  shape: {
     width: 30,
     height: 20,
     dx: 0,
@@ -50,9 +50,9 @@ Your tooltip component will be provided with the following props:
 | Prop        | Type | Description
 | ----------- | ----------- | ------------- | ------ |
 | `value`      | `{ x: number, y: number, meta?: any }` | The value that the tooltip should represent.  |
-| `position`   | `{ x: number, y: number }` | The exact position of the data point on the chart. You can offset your component from this position. Check out the source of `BoxTooltip` for an example.  |
+| `position`   | `{ x: number, y: number }` | The exact position of the data point on the chart. You can offset your component from this position. Check out the source of `Tooltip` for an example.  |
 
-You can then simply substitute `<BoxTooltip />` with your own component in the `tooltipComponent` prop!
+You can then simply substitute `<Tooltip />` with your own component in the `tooltipComponent` prop!
 
 ## Example
 
@@ -76,7 +76,7 @@ Be advised this doesn't work in the browser, but it will work in an app!
     tickCount={5}
   />
   <HorizontalAxis tickCount={3} />
-  <Line theme={{ stroke: { color: '#c0392b', width: 4 } }} tooltipComponent={<BoxTooltip theme={{ box: { width: 35 } }} />} />
+  <Line theme={{ stroke: { color: '#c0392b', width: 4 } }} tooltipComponent={<Tooltip theme={{ shape: { width: 35 } }} />} />
 </Chart>
 
 ```jsx
@@ -98,6 +98,6 @@ Be advised this doesn't work in the browser, but it will work in an app!
     tickCount={5}
   />
   <HorizontalAxis tickCount={3} />
-  <Line theme={{ stroke: { color: '#c0392b', width: 4 } }} tooltipComponent={<BoxTooltip theme={{ box: { width: 35 } }} />} />
+  <Line theme={{ stroke: { color: '#c0392b', width: 4 } }} tooltipComponent={<Tooltip theme={{ shape: { width: 35 } }} />} />
 </Chart>
 ```

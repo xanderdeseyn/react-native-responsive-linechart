@@ -4,7 +4,7 @@ title: Screenshots
 id: screenshots
 
 ---
-import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from 'react-native-responsive-linechart'
+import { Chart, HorizontalAxis, Area, VerticalAxis, Line, Tooltip } from 'react-native-responsive-linechart'
 
 To give you and idea of the options this library offers, here are some end results.
 

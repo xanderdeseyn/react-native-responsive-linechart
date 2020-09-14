@@ -23,7 +23,17 @@ export type ChartDomain = { x: AxisDomain; y: AxisDomain }
 
 export type Stroke = { color?: string; width?: number; opacity?: number }
 
-export type Box = { color?: string; width?: number; height?: number; dx?: number; dy?: number; rx?: number; opacity?: number; radius?: number; border?: Stroke }
+export type Shape = {
+  color?: string
+  width?: number
+  height?: number
+  dx?: number
+  dy?: number
+  rx?: number
+  opacity?: number
+  radius?: number
+  border?: Stroke
+}
 
 export type Gradient = { from?: { color?: string; opacity?: number }; to?: { color?: string; opacity?: number } }
 
@@ -48,6 +58,5 @@ export type ChartContext = {
   domain: ChartDomain
   lastTouch: XYValue | undefined
 }
-
 
 ```

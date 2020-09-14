@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 import { StatusBar } from 'react-native'
-import { Chart, HorizontalAxis, VerticalAxis, Line, Area, BoxTooltip } from 'react-native-responsive-linechart'
+import { Chart, HorizontalAxis, VerticalAxis, Line, Area, Tooltip } from 'react-native-responsive-linechart'
 
 const App = () => {
   return (
@@ -72,7 +72,7 @@ const App = () => {
           smoothing="cubic-spline"
           tension={0.3}
           theme={{ stroke: { color: 'orange', width: 2 } }}
-          tooltipComponent={<BoxTooltip />}
+          tooltipComponent={<Tooltip />}
           onTooltipSelect={console.log}
         />
       </Chart>

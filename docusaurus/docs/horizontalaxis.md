@@ -6,7 +6,7 @@ route: /horizontalaxis
 
 ---
 
-import { Chart, HorizontalAxis, Area, VerticalAxis, Line, BoxTooltip } from 'react-native-responsive-linechart'
+import { Chart, HorizontalAxis, Area, VerticalAxis, Line, Tooltip } from 'react-native-responsive-linechart'
 
 
 This component draws an axis on the X plane.

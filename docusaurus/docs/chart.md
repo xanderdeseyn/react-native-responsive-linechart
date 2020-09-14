@@ -6,7 +6,7 @@ route: /chart
 
 ---
 
-import { Chart, HorizontalAxis, VerticalAxis, Line, Area, BoxTooltip } from 'react-native-responsive-linechart'
+import { Chart, HorizontalAxis, VerticalAxis, Line, Area, Tooltip } from 'react-native-responsive-linechart'
 
 This component should **always** be wrapped around any other component from this library, since it is responsible for constructing the chart context.
 

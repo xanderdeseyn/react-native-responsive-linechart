@@ -1,21 +1,25 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
-import { Path } from 'react-native-svg'
+import { Path, Rect } from 'react-native-svg'
 
 import ChartContext from './ChartContext'
 import { adjustPointsForThickStroke, calculateTooltipIndex } from './Line.utils'
-import { ChartDataPoint, Smoothing, Stroke } from './types'
+import { ChartDataPoint, Smoothing, Stroke, Shape } from './types'
 import { scalePointsToDimensions, svgPath } from './utils'
 
 type Props = {
   /** Theme for the line */
   theme?: {
     stroke?: Stroke
+    scatter?: {
+      default?: Shape
+      selected?: Shape
+    }
   }
   smoothing?: Smoothing
   /** Only works in combination with smoothing='bezier'. Value between 0 and 1. */
   tension?: number
-  /** Component to render tooltips. An example component is included: <BoxTooltip />. */
+  /** Component to render tooltips. An example component is included: <Tooltip />. */
   tooltipComponent?: JSX.Element
   /** Callback method that fires when a tooltip is displayed for a data point. */
   onTooltipSelect?: (value: ChartDataPoint, index: number) => void
@@ -28,7 +32,7 @@ const Line: React.FC<Props> = (props) => {
   const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(undefined)
 
   const {
-    theme: { stroke },
+    theme: { stroke, scatter },
     tooltipComponent,
     data = contextData,
     tension,
@@ -62,6 +66,21 @@ const Line: React.FC<Props> = (props) => {
   return (
     <React.Fragment>
       <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
+      {pointsWithinDimensions.map((p, i) => {
+        const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
+        return (
+          <Rect
+            key={JSON.stringify(p)}
+            x={p.x - shape.width / 2 + shape.dx}
+            y={p.y - shape.height / 2 - shape.dy}
+            rx={shape.rx}
+            fill={shape.color}
+            opacity={shape.opacity}
+            height={shape.height}
+            width={shape.width}
+          />
+        )
+      })}
       {tooltipIndex !== undefined &&
         tooltipComponent &&
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}
@@ -77,6 +96,19 @@ const defaultProps = {
       color: 'black',
       width: 1,
       opacity: 1,
+    },
+    scatter: {
+      default: {
+        width: 8,
+        height: 8,
+        dx: 0,
+        dy: 0,
+        rx: 4,
+        color: 'black',
+      },
+      selected: {
+        color: 'red',
+      },
     },
   },
   tension: 0.3,
