@@ -48,7 +48,7 @@ For more advanced examples, check out the [Line](line.md) and [Area](area.md) do
   <VerticalAxis tickCount={11} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
   <HorizontalAxis tickCount={5} />
   <Area theme={{ gradient: { from: { color: '#ffa502' }, to: { color: '#ffa502', opacity: 0.4 } }}} />
-  <Line theme={{ stroke: { color: '#ffa502', width: 10 } }} />
+  <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
 </Chart>
 
 
@@ -79,6 +79,6 @@ import { Chart, Line, Area, HorizontalAxis, VerticalAxis } from 'react-native-re
   <VerticalAxis tickCount={11} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
   <HorizontalAxis tickCount={5} />
   <Area theme={{ gradient: { from: { color: '#ffa502' }, to: { color: '#ffa502', opacity: 0.4 } }}} />
-  <Line theme={{ stroke: { color: '#ffa502', width: 10 }, scatter: { default: { width: 4, height: 4, radius: 2 }} }} />
+  <Line theme={{ stroke: { color: '#ffa502', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
 </Chart>
 ```

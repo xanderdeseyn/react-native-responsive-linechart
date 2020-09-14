@@ -99,16 +99,14 @@ const defaultProps = {
     },
     scatter: {
       default: {
-        width: 8,
-        height: 8,
+        width: 0,
+        height: 0,
         dx: 0,
         dy: 0,
-        rx: 4,
+        rx: 0,
         color: 'black',
       },
-      selected: {
-        color: 'red',
-      },
+      selected: {},
     },
   },
   tension: 0.3,
