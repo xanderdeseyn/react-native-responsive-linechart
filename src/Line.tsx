@@ -5,7 +5,7 @@ import { Path, Rect, Svg } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { adjustPointsForThickStroke, calculateTooltipIndex } from './Line.utils'
 import { ChartDataPoint, Smoothing, Stroke, Shape } from './types'
-import { scalePointsToDimensions, svgPath } from './utils'
+import { scalePointsToDimensions, scalePointToDimensions, svgPath } from './utils'
 
 type Props = {
   /** Theme for the line */
@@ -54,19 +54,35 @@ const Line: React.FC<Props> = (props) => {
         onTooltipSelect(data[newIndex], newIndex)
       }
     }
-  }, [data, viewportDomain, dimensions, lastTouch])
+  }, [data, viewportDomain, domain, dimensions, lastTouch])
 
-  const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
+  const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
   const points = adjustPointsForThickStroke(scaledPoints, stroke)
 
   const path = svgPath(points, smoothing, tension)
 
+  const viewport1 = scalePointToDimensions({ x: viewportDomain.x.min, y: viewportDomain.y.min }, domain, dimensions)
+  const viewport2 = scalePointToDimensions({ x: viewportDomain.x.max, y: viewportDomain.y.max }, domain, dimensions)
+
+  console.log('viewport1', viewport1)
+  console.log('viewport2', viewport2)
+  console.log('firstPoint', points[0])
+  console.log('lastPoint', points[points.length - 1])
+
   return (
     <React.Fragment>
-      <Svg width={dimensions.width} height={dimensions.height}>
+      <Svg
+        width={dimensions.width}
+        height={dimensions.height}
+        viewBox={`${viewport1.x} ${viewport2.y} ${viewport2.x - viewport1.x} ${viewport1.y - viewport2.y} `}
+      >
         <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
         {points.map((p, i) => {
           const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
+          if (shape.width === 0 && shape.height === 0) {
+            return null
+          }
+
           return (
             <Rect
               key={JSON.stringify(p)}

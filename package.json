@@ -53,6 +53,7 @@
     "lodash.clonedeep": "^4.5.0",
     "lodash.maxby": "^4.6.0",
     "lodash.minby": "^4.6.0",
+    "memoize-one": "^5.1.1",
     "paths-js": "^0.4.11"
   },
   "jest": {
