@@ -46,6 +46,8 @@ const Chart: React.FC<Props> = (props) => {
     panY
   )
 
+  console.log(viewportDomain)
+
   const handleTouchEvent = (evt) => {
     if (dataDimensions) {
       setLastTouch({
@@ -53,15 +55,15 @@ const Chart: React.FC<Props> = (props) => {
         y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
       })
 
-      const factorX = Math.abs(viewportDomain.x.max - viewportDomain.x.min) / dataDimensions.width
+      const factorX = viewport.size.width / dataDimensions.width
       setPanX(offset.x._value - evt.nativeEvent.translationX * factorX)
 
-      const factorY = Math.abs(viewportDomain.y.max - viewportDomain.y.min) / dataDimensions.height
+      const factorY = viewport.size.height / dataDimensions.height
       setPanY(offset.y._value + evt.nativeEvent.translationY * factorY)
 
       if (evt.nativeEvent.state === State.END) {
-        offset.x.setValue(offset.x._value - evt.nativeEvent.translationX * factorX)
-        offset.y.setValue(offset.y._value + evt.nativeEvent.translationY * factorY)
+        offset.x.setValue(clamp(xDomain.min, offset.x._value - evt.nativeEvent.translationX * factorX, xDomain.max))
+        offset.y.setValue(clamp(yDomain.min, offset.y._value + evt.nativeEvent.translationY * factorY, yDomain.max))
       }
     }
     return true

@@ -18,10 +18,10 @@ export const calculateViewportDimensions = (viewport: ViewPort, domain: ChartDom
   const maxX = Math.min(minX + viewport.size.width, domain.x.max)
 
   const minY = Math.max(panY + viewport.initialOrigin.y, domain.y.min)
-  const maxY = Math.min(minY + viewport.size.width, domain.y.max)
+  const maxY = Math.min(minY + viewport.size.height, domain.y.max)
 
   return {
-    x: { min: minX, max: maxX },
-    y: { min: minY, max: maxY },
+    x: { min: Math.min(minX, maxX - viewport.size.width), max: maxX },
+    y: { min: Math.min(minY, maxY - viewport.size.height), max: maxY },
   }
 }
