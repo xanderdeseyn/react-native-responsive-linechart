@@ -1,6 +1,6 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
-import { Defs, Stop, LinearGradient, Path } from 'react-native-svg'
+import { Defs, Svg, Stop, LinearGradient, Path } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { ChartDataPoint, Gradient, Smoothing } from './types'
 import { appendPointsToPath, scalePointsToDimensions, svgPath } from './utils'
@@ -33,13 +33,15 @@ const Area: React.FC<Props> = (props) => {
   }
 
   const points = scalePointsToDimensions([...data], domain, dimensions)
-  const pointsWithinDimensions = points.filter((p) => p.x >= 0 && p.x <= dimensions.width)
 
-  const path = svgPath(pointsWithinDimensions, smoothing, tension)
+  const path = svgPath(points, smoothing, tension)
+
+  const firstPoint = points[0]
+  const lastPoint = points[points.length - 1]
 
   const closedPath = appendPointsToPath(path, [
-    { x: dimensions.width, y: dimensions.height },
-    { x: 0, y: dimensions.height },
+    { x: lastPoint.x, y: dimensions.height },
+    { x: firstPoint.x, y: dimensions.height },
   ])
 
   return (

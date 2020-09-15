@@ -43,13 +43,13 @@ const Chart: React.FC<Props> = (props) => {
       })
 
       const factorX = Math.abs(xDomain.max - xDomain.min) / dataDimensions.width
-      setPanX(offset.x._value + -evt.nativeEvent.translationX * factorX)
+      setPanX(offset.x._value - evt.nativeEvent.translationX * factorX)
 
       const factorY = Math.abs(yDomain.max - yDomain.min) / dataDimensions.height
       setPanY(offset.y._value + evt.nativeEvent.translationY * factorY)
 
       if (evt.nativeEvent.state === State.END) {
-        offset.x.setValue(offset.x._value + -evt.nativeEvent.translationX * factorX)
+        offset.x.setValue(offset.x._value - evt.nativeEvent.translationX * factorX)
         offset.y.setValue(offset.y._value + evt.nativeEvent.translationY * factorY)
       }
     }

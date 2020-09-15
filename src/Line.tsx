@@ -65,7 +65,7 @@ const Line: React.FC<Props> = (props) => {
 
   return (
     <React.Fragment>
-      <Svg width={dimensions.width} height={dimensions.height} fill="red" opacity={0}>
+      <Svg width={dimensions.width} height={dimensions.height} opacity={0}>
         <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
         {pointsWithinDimensions.map((p, i) => {
           const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
