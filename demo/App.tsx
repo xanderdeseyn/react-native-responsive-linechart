@@ -44,7 +44,7 @@ const App = () => {
         />
       </Chart>
       <Chart
-        style={{ height: 200, width: '100%', marginTop: 100 }}
+        style={{ height: 200, width: '100%', marginTop: 100, backgroundColor: '#f2f2f2' }}
         data={data1}
         padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
         xDomain={{ min: 0, max: 10 }}
@@ -70,13 +70,7 @@ const App = () => {
         <Line theme={{ stroke: { color: 'red', width: 2 } }} />
         <Line smoothing="bezier" tension={0.15} theme={{ stroke: { color: 'blue', width: 2 } }} />
         <Line smoothing="bezier" tension={0.3} theme={{ stroke: { color: 'green', width: 2 } }} />
-        <Line
-          smoothing="cubic-spline"
-          tension={0.3}
-          theme={{ stroke: { color: 'orange', width: 2 } }}
-          tooltipComponent={<Tooltip />}
-          onTooltipSelect={console.log}
-        />
+        <Line smoothing="cubic-spline" tension={0.3} theme={{ stroke: { color: 'orange', width: 2 } }} tooltipComponent={<Tooltip />} />
       </Chart>
     </Container>
   )

@@ -57,17 +57,15 @@ const Line: React.FC<Props> = (props) => {
   }, [data, viewportDomain, dimensions, lastTouch])
 
   const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
-  const adjustedPoints = adjustPointsForThickStroke(scaledPoints, stroke)
+  const points = adjustPointsForThickStroke(scaledPoints, stroke)
 
-  const pointsWithinDimensions = adjustedPoints //.filter((p) => p.x >= 0 && p.x <= dimensions.width)
-
-  const path = svgPath(pointsWithinDimensions, smoothing, tension)
+  const path = svgPath(points, smoothing, tension)
 
   return (
     <React.Fragment>
-      <Svg width={dimensions.width} height={dimensions.height} opacity={0}>
+      <Svg width={dimensions.width} height={dimensions.height}>
         <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
-        {pointsWithinDimensions.map((p, i) => {
+        {points.map((p, i) => {
           const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
           return (
             <Rect

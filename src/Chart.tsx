@@ -20,6 +20,7 @@ type Props = {
   xDomain?: AxisDomain
   /** Domain for the vertical (Y) axis. */
   yDomain?: AxisDomain
+  /** Size of the viewport for the chart. Should always be <= the domain. */
   viewport?: ViewPort
   /** Padding of the chart. Use this instead of setting padding in the `style` prop. */
   padding?: Padding
@@ -45,8 +46,6 @@ const Chart: React.FC<Props> = (props) => {
     panX,
     panY
   )
-
-  console.log(viewportDomain)
 
   const handleTouchEvent = (evt) => {
     if (dataDimensions) {

@@ -42,13 +42,15 @@ const VerticalAxis: React.FC<Props> = (props) => {
     includeOriginTick,
   } = deepmerge(defaultProps, props)
 
-  const { dimensions, viewportDomain } = React.useContext(ChartContext)
+  const { dimensions, viewportDomain, domain } = React.useContext(ChartContext)
 
   if (!dimensions) {
     return null
   }
 
-  const finalTickValues = calculateTickValues(tickValues, tickCount, viewportDomain.y, includeOriginTick)
+  const finalTickValues = calculateTickValues(tickValues, tickCount, domain.y, includeOriginTick).filter(
+    (v) => v >= viewportDomain.y.min && v <= viewportDomain.y.max
+  )
 
   return (
     <>
