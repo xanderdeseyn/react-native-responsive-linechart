@@ -42,13 +42,13 @@ const VerticalAxis: React.FC<Props> = (props) => {
     includeOriginTick,
   } = deepmerge(defaultProps, props)
 
-  const { dimensions, domain } = React.useContext(ChartContext)
+  const { dimensions, viewportDomain } = React.useContext(ChartContext)
 
   if (!dimensions) {
     return null
   }
 
-  const finalTickValues = calculateTickValues(tickValues, tickCount, domain.y, includeOriginTick)
+  const finalTickValues = calculateTickValues(tickValues, tickCount, viewportDomain.y, includeOriginTick)
 
   return (
     <>
@@ -71,9 +71,9 @@ const VerticalAxis: React.FC<Props> = (props) => {
             {grid.visible && (
               <Line
                 x1={0}
-                y1={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
+                y1={scalePointToDimensions({ x: 0, y: value }, viewportDomain, dimensions).y}
                 x2={dimensions.width}
-                y2={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
+                y2={scalePointToDimensions({ x: 0, y: value }, viewportDomain, dimensions).y}
                 stroke={grid.stroke.color}
                 strokeWidth={grid.stroke.width}
                 strokeOpacity={grid.stroke.opacity}
@@ -83,9 +83,9 @@ const VerticalAxis: React.FC<Props> = (props) => {
             {ticks.visible && (
               <Line
                 x1={ticks.dx}
-                y1={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
+                y1={scalePointToDimensions({ x: 0, y: value }, viewportDomain, dimensions).y}
                 x2={ticks.dx + ticks.length}
-                y2={scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}
+                y2={scalePointToDimensions({ x: 0, y: value }, viewportDomain, dimensions).y}
                 stroke={ticks.stroke.color}
                 strokeWidth={ticks.stroke.width}
                 strokeOpacity={ticks.stroke.opacity}
@@ -93,7 +93,7 @@ const VerticalAxis: React.FC<Props> = (props) => {
             )}
             {/* Render Label */}
             {labels.visible && (
-              <G translateX={labels.label.dx} translateY={labels.label.dy + scalePointToDimensions({ x: 0, y: value }, domain, dimensions).y}>
+              <G translateX={labels.label.dx} translateY={labels.label.dy + scalePointToDimensions({ x: 0, y: value }, viewportDomain, dimensions).y}>
                 <Text
                   fontSize={labels.label.fontSize}
                   fontWeight={labels.label.fontWeight}

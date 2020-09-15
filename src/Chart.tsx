@@ -1,15 +1,15 @@
 import * as React from 'react'
 import deepmerge from 'deepmerge'
-import { Animated, NativeSyntheticEvent, View, ViewStyle } from 'react-native'
+import { Animated, View, ViewStyle } from 'react-native'
 import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import clamp from 'lodash.clamp'
 import minBy from 'lodash.minby'
 import maxBy from 'lodash.maxby'
 import Svg, { G } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
-import { AxisDomain, ChartDataPoint, Padding, XYValue } from './types'
+import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort } from './types'
 import { ChartContextProvider } from './ChartContext'
-import { calculateDataDimensions } from './Chart.utils'
+import { calculateDataDimensions, calculateViewportDimensions } from './Chart.utils'
 
 type Props = {
   /** All styling can be used except for padding. If you need padding, use the explicit `padding` prop below.*/
@@ -20,12 +20,13 @@ type Props = {
   xDomain?: AxisDomain
   /** Domain for the vertical (Y) axis. */
   yDomain?: AxisDomain
+  viewport?: ViewPort
   /** Padding of the chart. Use this instead of setting padding in the `style` prop. */
   padding?: Padding
 }
 
 const Chart: React.FC<Props> = (props) => {
-  const { style, children, data = [], padding, xDomain, yDomain } = deepmerge(computeDefaultProps(props.data), props)
+  const { style, children, data = [], padding, xDomain, yDomain, viewport } = deepmerge(computeDefaultProps(props), props)
   const { dimensions, onLayout } = useComponentDimensions()
   const dataDimensions = calculateDataDimensions(dimensions, padding)
 
@@ -35,6 +36,16 @@ const Chart: React.FC<Props> = (props) => {
   const [offset] = React.useState(new Animated.ValueXY({ x: 0, y: 0 }))
   const [drag] = React.useState(new Animated.ValueXY())
 
+  const viewportDomain = calculateViewportDimensions(
+    viewport,
+    {
+      x: xDomain,
+      y: yDomain,
+    },
+    panX,
+    panY
+  )
+
   const handleTouchEvent = (evt) => {
     if (dataDimensions) {
       setLastTouch({
@@ -42,10 +53,10 @@ const Chart: React.FC<Props> = (props) => {
         y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
       })
 
-      const factorX = Math.abs(xDomain.max - xDomain.min) / dataDimensions.width
+      const factorX = Math.abs(viewportDomain.x.max - viewportDomain.x.min) / dataDimensions.width
       setPanX(offset.x._value - evt.nativeEvent.translationX * factorX)
 
-      const factorY = Math.abs(yDomain.max - yDomain.min) / dataDimensions.height
+      const factorY = Math.abs(viewportDomain.y.max - viewportDomain.y.min) / dataDimensions.height
       setPanY(offset.y._value + evt.nativeEvent.translationY * factorY)
 
       if (evt.nativeEvent.state === State.END) {
@@ -71,9 +82,10 @@ const Chart: React.FC<Props> = (props) => {
                 data,
                 dimensions: dataDimensions,
                 domain: {
-                  x: { min: xDomain.min + panX, max: xDomain.max + panX },
-                  y: { min: yDomain.min + panY, max: yDomain.max + panY },
+                  x: xDomain,
+                  y: yDomain,
                 },
+                viewportDomain,
                 lastTouch,
               }}
             >
@@ -92,19 +104,31 @@ const Chart: React.FC<Props> = (props) => {
 
 export { Chart }
 
-const computeDefaultProps = (data: ChartDataPoint[] = []) => ({
-  padding: {
-    left: 0,
-    top: 0,
-    bottom: 0,
-    right: 0,
-  },
-  xDomain: {
+const computeDefaultProps = (props: Props) => {
+  const { data = [], viewport } = props
+
+  const xDomain = props.xDomain ?? {
     min: data.length > 0 ? minBy(data, (d) => d.x)!.x : 0,
     max: data.length > 0 ? maxBy(data, (d) => d.x)!.x : 10,
-  },
-  yDomain: {
+  }
+
+  const yDomain = props.yDomain ?? {
     min: data.length > 0 ? minBy(data, (d) => d.y)!.y : 0,
     max: data.length > 0 ? maxBy(data, (d) => d.y)!.y : 10,
-  },
-})
+  }
+
+  return {
+    padding: {
+      left: 0,
+      top: 0,
+      bottom: 0,
+      right: 0,
+    },
+    xDomain,
+    yDomain,
+    viewport: {
+      size: { width: Math.abs(xDomain.max - xDomain.min), height: Math.abs(yDomain.max - yDomain.min) },
+      initialOrigin: { x: xDomain.min, y: yDomain.min },
+    },
+  }
+}

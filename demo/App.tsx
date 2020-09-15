@@ -47,7 +47,9 @@ const App = () => {
         style={{ height: 200, width: '100%', marginTop: 100 }}
         data={data1}
         padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
-        xDomain={{ min: 5, max: 8 }}
+        xDomain={{ min: 0, max: 10 }}
+        yDomain={{ min: 0, max: 20 }}
+        viewport={{ size: { width: 2, height: 5 } }}
       >
         <VerticalAxis
           tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]}

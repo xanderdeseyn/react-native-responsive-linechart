@@ -28,7 +28,7 @@ type Props = {
 }
 
 const Line: React.FC<Props> = (props) => {
-  const { data: contextData, dimensions, domain, lastTouch } = React.useContext(ChartContext)
+  const { data: contextData, dimensions, viewportDomain, domain, lastTouch } = React.useContext(ChartContext)
   const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(undefined)
 
   const {
@@ -45,7 +45,7 @@ const Line: React.FC<Props> = (props) => {
   }
 
   React.useEffect(() => {
-    const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
+    const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
     const newIndex = calculateTooltipIndex(scaledPoints, lastTouch)
 
     if (newIndex !== tooltipIndex) {
@@ -54,9 +54,9 @@ const Line: React.FC<Props> = (props) => {
         onTooltipSelect(data[newIndex], newIndex)
       }
     }
-  }, [data, domain, dimensions, lastTouch])
+  }, [data, viewportDomain, dimensions, lastTouch])
 
-  const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
+  const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
   const adjustedPoints = adjustPointsForThickStroke(scaledPoints, stroke)
 
   const pointsWithinDimensions = adjustedPoints //.filter((p) => p.x >= 0 && p.x <= dimensions.width)
