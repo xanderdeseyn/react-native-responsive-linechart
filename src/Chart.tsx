@@ -30,7 +30,8 @@ const Chart: React.FC<Props> = (props) => {
   const dataDimensions = calculateDataDimensions(dimensions, padding)
 
   const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)
-  const [pan, setPan] = React.useState<number>(0)
+  const [panX, setPanX] = React.useState<number>(0)
+  const [panY, setPanY] = React.useState<number>(0)
   const [offset] = React.useState(new Animated.ValueXY({ x: 0, y: 0 }))
   const [drag] = React.useState(new Animated.ValueXY())
 
@@ -41,11 +42,15 @@ const Chart: React.FC<Props> = (props) => {
         y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
       })
 
-      const factor = Math.abs(xDomain.max - xDomain.min) / dataDimensions.width
-      setPan(offset.x._value + -evt.nativeEvent.translationX * factor)
+      const factorX = Math.abs(xDomain.max - xDomain.min) / dataDimensions.width
+      setPanX(offset.x._value + -evt.nativeEvent.translationX * factorX)
+
+      const factorY = Math.abs(yDomain.max - yDomain.min) / dataDimensions.height
+      setPanY(offset.y._value + evt.nativeEvent.translationY * factorY)
 
       if (evt.nativeEvent.state === State.END) {
-        offset.x.setValue(offset.x._value + -evt.nativeEvent.translationX * factor)
+        offset.x.setValue(offset.x._value + -evt.nativeEvent.translationX * factorX)
+        offset.y.setValue(offset.y._value + evt.nativeEvent.translationY * factorY)
       }
     }
     return true
@@ -66,8 +71,8 @@ const Chart: React.FC<Props> = (props) => {
                 data,
                 dimensions: dataDimensions,
                 domain: {
-                  x: { min: xDomain.min + pan, max: xDomain.max + pan },
-                  y: yDomain,
+                  x: { min: xDomain.min + panX, max: xDomain.max + panX },
+                  y: { min: yDomain.min + panY, max: yDomain.max + panY },
                 },
                 lastTouch,
               }}
