@@ -1,7 +1,7 @@
 import * as React from 'react'
 import deepmerge from 'deepmerge'
-import { View, ViewStyle } from 'react-native'
-import { GestureResponderEvent, PanResponder } from 'react-native'
+import { Animated, NativeSyntheticEvent, View, ViewStyle } from 'react-native'
+import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import clamp from 'lodash.clamp'
 import minBy from 'lodash.minby'
 import maxBy from 'lodash.maxby'
@@ -30,46 +30,56 @@ const Chart: React.FC<Props> = (props) => {
   const dataDimensions = calculateDataDimensions(dimensions, padding)
 
   const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)
+  const [pan, setPan] = React.useState<number>(0)
+  const [offset] = React.useState(new Animated.ValueXY({ x: 0, y: 0 }))
+  const [drag] = React.useState(new Animated.ValueXY())
 
-  const handleTouchEvent = (evt: GestureResponderEvent) => {
+  const handleTouchEvent = (evt) => {
     if (dataDimensions) {
       setLastTouch({
-        x: clamp(evt.nativeEvent.locationX - padding.left, 0, dataDimensions.width),
-        y: clamp(evt.nativeEvent.locationY - padding.top, 0, dataDimensions.height),
+        x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
+        y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
       })
+
+      const factor = Math.abs(xDomain.max - xDomain.min) / dataDimensions.width
+      setPan(offset.x._value + -evt.nativeEvent.translationX * factor)
+
+      if (evt.nativeEvent.state === State.END) {
+        offset.x.setValue(offset.x._value + -evt.nativeEvent.translationX * factor)
+      }
     }
     return true
   }
 
-  const panResponder = PanResponder.create({
-    onMoveShouldSetPanResponder: () => true,
-    onPanResponderGrant: handleTouchEvent,
-    onPanResponderMove: handleTouchEvent,
-    onStartShouldSetPanResponder: handleTouchEvent,
+  const _onPanGestureEvent = Animated.event([{ nativeEvent: { translationX: drag.x, translationY: drag.y } }], {
+    useNativeDriver: true,
+    listener: handleTouchEvent,
   })
 
   return (
     <View style={style} onLayout={onLayout}>
       {!!dimensions && (
-        <View style={{ width: dimensions.width, height: dimensions.height }} {...panResponder.panHandlers}>
-          <ChartContextProvider
-            value={{
-              data,
-              dimensions: dataDimensions,
-              domain: {
-                x: xDomain,
-                y: yDomain,
-              },
-              lastTouch,
-            }}
-          >
-            <Svg width={dimensions.width} height={dimensions.height}>
-              <G translateX={padding.left} translateY={padding.top}>
-                {children}
-              </G>
-            </Svg>
-          </ChartContextProvider>
-        </View>
+        <PanGestureHandler onGestureEvent={_onPanGestureEvent} onHandlerStateChange={_onPanGestureEvent}>
+          <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
+            <ChartContextProvider
+              value={{
+                data,
+                dimensions: dataDimensions,
+                domain: {
+                  x: { min: xDomain.min + pan, max: xDomain.max + pan },
+                  y: yDomain,
+                },
+                lastTouch,
+              }}
+            >
+              <Svg width={dimensions.width} height={dimensions.height}>
+                <G translateX={padding.left} translateY={padding.top}>
+                  {children}
+                </G>
+              </Svg>
+            </ChartContextProvider>
+          </Animated.View>
+        </PanGestureHandler>
       )}
     </View>
   )

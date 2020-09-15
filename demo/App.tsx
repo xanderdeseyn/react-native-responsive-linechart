@@ -58,7 +58,7 @@ const App = () => {
           }}
         />
         <HorizontalAxis
-          tickCount={9}
+          tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]}
           theme={{
             axis: { stroke: { color: '#aaa', width: 2 } },
             ticks: { stroke: { color: '#aaa', width: 2 } },

@@ -43,6 +43,7 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
+    "react-native-gesture-handler": ">=1.4.0",
     "react-native-svg": ">=7.0.0"
   },
   "dependencies": {

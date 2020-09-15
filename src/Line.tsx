@@ -1,6 +1,6 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
-import { Path, Rect } from 'react-native-svg'
+import { Path, Rect, Svg } from 'react-native-svg'
 
 import ChartContext from './ChartContext'
 import { adjustPointsForThickStroke, calculateTooltipIndex } from './Line.utils'
@@ -59,28 +59,30 @@ const Line: React.FC<Props> = (props) => {
   const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
   const adjustedPoints = adjustPointsForThickStroke(scaledPoints, stroke)
 
-  const pointsWithinDimensions = adjustedPoints.filter((p) => p.x >= 0 && p.x <= dimensions.width)
+  const pointsWithinDimensions = adjustedPoints //.filter((p) => p.x >= 0 && p.x <= dimensions.width)
 
   const path = svgPath(pointsWithinDimensions, smoothing, tension)
 
   return (
     <React.Fragment>
-      <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
-      {pointsWithinDimensions.map((p, i) => {
-        const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
-        return (
-          <Rect
-            key={JSON.stringify(p)}
-            x={p.x - shape.width / 2 + shape.dx}
-            y={p.y - shape.height / 2 - shape.dy}
-            rx={shape.rx}
-            fill={shape.color}
-            opacity={shape.opacity}
-            height={shape.height}
-            width={shape.width}
-          />
-        )
-      })}
+      <Svg width={dimensions.width} height={dimensions.height} fill="red" opacity={0}>
+        <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
+        {pointsWithinDimensions.map((p, i) => {
+          const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
+          return (
+            <Rect
+              key={JSON.stringify(p)}
+              x={p.x - shape.width / 2 + shape.dx}
+              y={p.y - shape.height / 2 - shape.dy}
+              rx={shape.rx}
+              fill={shape.color}
+              opacity={shape.opacity}
+              height={shape.height}
+              width={shape.width}
+            />
+          )
+        })}
+      </Svg>
       {tooltipIndex !== undefined &&
         tooltipComponent &&
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}
