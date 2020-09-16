@@ -14,6 +14,8 @@ export type ChartDomain = { x: AxisDomain; y: AxisDomain }
 
 export type Stroke = { color?: string; width?: number; opacity?: number }
 
+export type ViewPort = { size: { width: number; height: number }; initialOrigin: XYValue }
+
 export type Shape = {
   color?: string
   width?: number
@@ -47,5 +49,8 @@ export type ChartContext = {
   data: ChartDataPoint[]
   dimensions: Dimensions | undefined
   domain: ChartDomain
+  viewportDomain: ChartDomain
+  viewportOrigin: XYValue
+  viewport: ViewPort
   lastTouch: XYValue | undefined
 }

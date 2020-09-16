@@ -64,8 +64,8 @@ function Home() {
           <h2 style={{ textAlign: 'center', marginTop: 24 }}>Screenshots</h2>
           <img style={{ width: 1000 }} src="img/home.png" />
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-            <img style={{ width: 350 }} src="img/tooltip.png" />
-            <img style={{ width: 300 }} src="img/smooth.png" />
+            <img style={{ width: 320 }} src="img/Tooltip.gif" />
+            <img style={{ width: 320 }} src="img/Scrollable.gif" />
             <img style={{ width: 320 }} src="img/smoothing.png" />
           </div>
         </div>

@@ -42,13 +42,15 @@ const HorizontalAxis: React.FC<Props> = (props) => {
     includeOriginTick,
   } = deepmerge(defaultProps, props)
 
-  const { dimensions, domain } = React.useContext(ChartContext)
+  const { dimensions, viewportDomain, domain } = React.useContext(ChartContext)
 
   if (!dimensions) {
     return null
   }
 
-  const finalTickValues = calculateTickValues(tickValues, tickCount, domain.x, includeOriginTick)
+  const finalTickValues = calculateTickValues(tickValues, tickCount, domain.x, includeOriginTick).filter(
+    (v) => v >= viewportDomain.x.min && v <= viewportDomain.x.max
+  )
 
   console
   return (
@@ -72,9 +74,9 @@ const HorizontalAxis: React.FC<Props> = (props) => {
             {grid.visible && (
               <Line
                 key={`grid-${value}`}
-                x1={scalePointToDimensions({ x: value, y: 0 }, domain, dimensions).x}
+                x1={scalePointToDimensions({ x: value, y: 0 }, viewportDomain, dimensions).x}
                 y1={0}
-                x2={scalePointToDimensions({ x: value, y: 0 }, domain, dimensions).x}
+                x2={scalePointToDimensions({ x: value, y: 0 }, viewportDomain, dimensions).x}
                 y2={dimensions.height}
                 stroke={grid.stroke.color}
                 strokeWidth={grid.stroke.width}
@@ -85,9 +87,9 @@ const HorizontalAxis: React.FC<Props> = (props) => {
             {ticks.visible && (
               <Line
                 key={`tick-${value}`}
-                x1={scalePointToDimensions({ x: value, y: 0 }, domain, dimensions).x}
+                x1={scalePointToDimensions({ x: value, y: 0 }, viewportDomain, dimensions).x}
                 y1={dimensions.height - ticks.dy}
-                x2={scalePointToDimensions({ x: value, y: 0 }, domain, dimensions).x}
+                x2={scalePointToDimensions({ x: value, y: 0 }, viewportDomain, dimensions).x}
                 y2={dimensions.height - ticks.dy - ticks.length}
                 stroke={ticks.stroke.color}
                 strokeWidth={ticks.stroke.width}
@@ -97,7 +99,7 @@ const HorizontalAxis: React.FC<Props> = (props) => {
             {/* Render Label */}
             {labels.visible && (
               <G
-                translateX={labels.label.dx + scalePointToDimensions({ x: value, y: 0 }, domain, dimensions).x}
+                translateX={labels.label.dx + scalePointToDimensions({ x: value, y: 0 }, viewportDomain, dimensions).x}
                 translateY={dimensions.height - labels.label.dy}
               >
                 <Text

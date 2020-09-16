@@ -14,7 +14,7 @@ Version 3 is a complete re-write from the ground up, in typescript.
 
 `npm install react-native-responsive-linechart` or `yarn add react-native-responsive-linechart`
 
-This lib depends on [react-native-svg](https://github.com/react-native-community/react-native-svg), so make sure that is installed correctly.
+This lib depends on [react-native-svg](https://github.com/react-native-community/react-native-svg) and [react-native-gesture-handler](https://github.com/software-mansion/react-native-gesture-handler), so make sure that is installed correctly.
 
 ## Getting started
 

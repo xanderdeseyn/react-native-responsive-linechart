@@ -1,15 +1,16 @@
 import * as React from 'react'
 import deepmerge from 'deepmerge'
-import { View, ViewStyle } from 'react-native'
-import { GestureResponderEvent, PanResponder } from 'react-native'
+import { Animated, NativeSyntheticEvent, View, ViewStyle } from 'react-native'
+import { TapGestureHandler, PanGestureHandler, PanGestureHandlerGestureEvent, TapGestureHandlerGestureEvent, State } from 'react-native-gesture-handler'
 import clamp from 'lodash.clamp'
 import minBy from 'lodash.minby'
 import maxBy from 'lodash.maxby'
 import Svg, { G } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
-import { AxisDomain, ChartDataPoint, Padding, XYValue } from './types'
+import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort } from './types'
 import { ChartContextProvider } from './ChartContext'
-import { calculateDataDimensions } from './Chart.utils'
+import { calculateDataDimensions, calculateViewportDomain } from './Chart.utils'
+import { scalePointToDimensions } from './utils'
 
 type Props = {
   /** All styling can be used except for padding. If you need padding, use the explicit `padding` prop below.*/
@@ -20,56 +21,117 @@ type Props = {
   xDomain?: AxisDomain
   /** Domain for the vertical (Y) axis. */
   yDomain?: AxisDomain
+  /** Size of the viewport for the chart. Should always be <= the domain. */
+  viewport?: ViewPort
+  /** This disables touch for the chart. You can use this if you don't need tooltips. */
+  disableTouch?: boolean
+  /** This disables gestures for the chart. You can use this if you don't need scrolling in the chart. */
+  disableGestures?: boolean
   /** Padding of the chart. Use this instead of setting padding in the `style` prop. */
   padding?: Padding
 }
 
 const Chart: React.FC<Props> = (props) => {
-  const { style, children, data = [], padding, xDomain, yDomain } = deepmerge(computeDefaultProps(props.data), props)
+  const { style, children, data = [], padding, xDomain, yDomain, viewport, disableGestures, disableTouch } = deepmerge(computeDefaultProps(props), props)
   const { dimensions, onLayout } = useComponentDimensions()
   const dataDimensions = calculateDataDimensions(dimensions, padding)
 
-  const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)
+  const tapGesture = React.createRef() // declared within constructor
+  const panGesture = React.createRef()
 
-  const handleTouchEvent = (evt: GestureResponderEvent) => {
+  const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)
+  const [panX, setPanX] = React.useState<number>(viewport.initialOrigin.x)
+  const [panY, setPanY] = React.useState<number>(viewport.initialOrigin.y)
+  const [offset] = React.useState(new Animated.ValueXY({ x: viewport.initialOrigin.x, y: viewport.initialOrigin.y }))
+
+  const viewportDomain = calculateViewportDomain(
+    viewport,
+    {
+      x: xDomain,
+      y: yDomain,
+    },
+    panX,
+    panY
+  )
+
+  const handleTouchEvent = (evt: NativeSyntheticEvent<TapGestureHandlerGestureEvent>) => {
     if (dataDimensions) {
       setLastTouch({
-        x: clamp(evt.nativeEvent.locationX - padding.left, 0, dataDimensions.width),
-        y: clamp(evt.nativeEvent.locationY - padding.top, 0, dataDimensions.height),
+        x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
+        y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
       })
+    }
+
+    return true
+  }
+
+  const handlePanEvent = (evt: NativeSyntheticEvent<PanGestureHandlerGestureEvent>) => {
+    if (dataDimensions) {
+      handleTouchEvent(evt)
+
+      const factorX = viewport.size.width / dataDimensions.width
+      setPanX(offset.x._value - evt.nativeEvent.translationX * factorX)
+
+      const factorY = viewport.size.height / dataDimensions.height
+      setPanY(offset.y._value + evt.nativeEvent.translationY * factorY)
+
+      if (evt.nativeEvent.state === State.END) {
+        offset.x.setValue(clamp(offset.x._value - evt.nativeEvent.translationX * factorX, xDomain.min, xDomain.max - viewport.size.width))
+        offset.y.setValue(clamp(offset.y._value + evt.nativeEvent.translationY * factorY, yDomain.min, yDomain.max - viewport.size.height))
+      }
     }
     return true
   }
 
-  const panResponder = PanResponder.create({
-    onMoveShouldSetPanResponder: () => true,
-    onPanResponderGrant: handleTouchEvent,
-    onPanResponderMove: handleTouchEvent,
-    onStartShouldSetPanResponder: handleTouchEvent,
+  const _onTouchGestureEvent = Animated.event<TapGestureHandlerGestureEvent>([{ nativeEvent: {} }], {
+    useNativeDriver: true,
+    listener: handleTouchEvent,
+  })
+
+  const _onPanGestureEvent = Animated.event<PanGestureHandlerGestureEvent>([{ nativeEvent: {} }], {
+    useNativeDriver: true,
+    listener: handlePanEvent,
   })
 
   return (
     <View style={style} onLayout={onLayout}>
       {!!dimensions && (
-        <View style={{ width: dimensions.width, height: dimensions.height }} {...panResponder.panHandlers}>
-          <ChartContextProvider
-            value={{
-              data,
-              dimensions: dataDimensions,
-              domain: {
-                x: xDomain,
-                y: yDomain,
-              },
-              lastTouch,
-            }}
-          >
-            <Svg width={dimensions.width} height={dimensions.height}>
-              <G translateX={padding.left} translateY={padding.top}>
-                {children}
-              </G>
-            </Svg>
-          </ChartContextProvider>
-        </View>
+        <TapGestureHandler enabled={!disableTouch} onHandlerStateChange={_onTouchGestureEvent} ref={tapGesture} simultaneousHandlers={panGesture}>
+          <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
+            <PanGestureHandler
+              enabled={!disableGestures}
+              minDeltaX={0}
+              minDeltaY={0}
+              onGestureEvent={_onPanGestureEvent}
+              onHandlerStateChange={_onPanGestureEvent}
+              ref={panGesture}
+              simultaneousHandlers={tapGesture}
+            >
+              <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
+                <ChartContextProvider
+                  value={{
+                    data,
+                    dimensions: dataDimensions,
+                    domain: {
+                      x: xDomain,
+                      y: yDomain,
+                    },
+                    viewportDomain,
+                    viewportOrigin: scalePointToDimensions({ x: viewportDomain.x.min, y: viewportDomain.y.max }, viewportDomain, dataDimensions),
+                    viewport,
+                    lastTouch,
+                  }}
+                >
+                  <Svg width={dimensions.width} height={dimensions.height}>
+                    <G translateX={padding.left} translateY={padding.top}>
+                      {children}
+                    </G>
+                  </Svg>
+                </ChartContextProvider>
+              </Animated.View>
+            </PanGestureHandler>
+          </Animated.View>
+        </TapGestureHandler>
       )}
     </View>
   )
@@ -77,19 +139,31 @@ const Chart: React.FC<Props> = (props) => {
 
 export { Chart }
 
-const computeDefaultProps = (data: ChartDataPoint[] = []) => ({
-  padding: {
-    left: 0,
-    top: 0,
-    bottom: 0,
-    right: 0,
-  },
-  xDomain: {
+const computeDefaultProps = (props: Props) => {
+  const { data = [] } = props
+
+  const xDomain = props.xDomain ?? {
     min: data.length > 0 ? minBy(data, (d) => d.x)!.x : 0,
     max: data.length > 0 ? maxBy(data, (d) => d.x)!.x : 10,
-  },
-  yDomain: {
+  }
+
+  const yDomain = props.yDomain ?? {
     min: data.length > 0 ? minBy(data, (d) => d.y)!.y : 0,
     max: data.length > 0 ? maxBy(data, (d) => d.y)!.y : 10,
-  },
-})
+  }
+
+  return {
+    padding: {
+      left: 0,
+      top: 0,
+      bottom: 0,
+      right: 0,
+    },
+    xDomain,
+    yDomain,
+    viewport: {
+      size: { width: Math.abs(xDomain.max - xDomain.min), height: Math.abs(yDomain.max - yDomain.min) },
+      initialOrigin: { x: xDomain.min, y: yDomain.min },
+    },
+  }
+}

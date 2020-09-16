@@ -15,8 +15,8 @@ This component draws a line. Multiple lines can be drawn on one chart.
 | Prop        | Type | Required | Description
 | ----------- | ----------- | ------------- | ------ |
 | `data`      | `{ x: number, y: number, meta?: any }[]` | Yes* | Data for the chart. Overrides optional data provided in `<Chart />`.  |
-| `smoothing`      | "none" \| "cubic-spline" \| "bezier" | No | `none` is just linear lines. `cubic-spline` is usually the most aesthetically pleasing smoothing. |
-| `tension`      | `number` | No | Only works in combination with smoothing='bezier'. Value between 0 and 1, recommended somewhere around `0.3`. |
+| `smoothing`      | `"none"` \| `"cubic-spline"` \| `"bezier"` | No | `none` is just linear lines. `cubic-spline` is usually the most aesthetically pleasing smoothing. |
+| `tension`      | `number` | No | Only works in combination with smoothing = `bezier`. Value between 0 and 1, recommended somewhere around `0.3`. |
 | `tooltipComponent`   | `JSX.Element` | No | Component to be used to draw tooltips. This library provides a basic tooltip with the `Tooltip` component. Example below.  |
 | `onTooltipSelect`   | `(value: { x: number, y: number, meta?: any }, index: number) => void` | No | Callback method that fires when a tooltip is displayed for a data point.  |
 | `theme`   | Defined below        | No | Theme for the line.  |
@@ -54,7 +54,7 @@ Any part of this theme can be overridden through the `theme` prop.
 }
 ```
 
-the `scatter` theme defines how data points should be visualised. Optionally, you can change the visualisation when a data point is selected (with tooltip).
+the `scatter` theme defines how data points should be visualised. Optionally, you can change the visualisation when a data point is selected.
 
 ## Examples
 
@@ -189,7 +189,7 @@ the `scatter` theme defines how data points should be visualised. Optionally, yo
 </Container>
 ```
 
-### Example with `tooltipComponent` and large number of datapoints
+### With `tooltipComponent` and large number of datapoints
 
 ![Tooltip example](/img/tooltip.png)
 
@@ -219,5 +219,47 @@ the `scatter` theme defines how data points should be visualised. Optionally, yo
   />
   <Area />
   <Line theme={{ stroke: { color: 'red', width: 1 } }} tooltipComponent={<Tooltip theme={{ formatter: ({ y }) => y.toFixed(2) }} />} />
+</Chart>
+```
+
+
+### With `viewport` (scrollable chart)
+
+![Tooltip example](/img/Scrollable.gif)
+
+By setting the viewport to be smaller than the domain, you can make the chart scrollable. In this example, the viewport has a width of 5, while the x-domain has a range of 10. You can also change where the viewport initially starts with the `initialOrigin` attribute of the `viewport` prop. (Check [Chart props](chart.md#chart-props))
+
+```jsx
+<Chart
+  style={{ height: 200, width: '100%' }}
+  data={/* LOTS OF DATA */}
+  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+  xDomain={{ min: 0, max: 10 }}
+  yDomain={{ min: 0, max: 20 }}
+  viewport={{ size: { width: 5 } }}
+>
+  <VerticalAxis
+    tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]}
+    theme={{
+      axis: { stroke: { color: '#aaa', width: 2 } },
+      ticks: { stroke: { color: '#aaa', width: 2 } },
+      labels: { formatter: (v: number) => v.toFixed(2) },
+    }}
+  />
+  <HorizontalAxis
+    tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]}
+    theme={{
+      axis: { stroke: { color: '#aaa', width: 2 } },
+      ticks: { stroke: { color: '#aaa', width: 2 } },
+      labels: { label: { rotation: 50 }, formatter: (v) => v.toFixed(1) },
+    }}
+  />
+  <Line
+    theme={{
+      stroke: { color: 'red', width: 2 },
+    }}
+    smoothing="cubic-spline"
+  />
+  <Area theme={{ gradient: { from: { color: '#f39c12', opacity: 0.4 }, to: { color: '#f39c12', opacity: 0.4 } } }} smoothing="cubic-spline" />
 </Chart>
 ```

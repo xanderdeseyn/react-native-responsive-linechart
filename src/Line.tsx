@@ -1,11 +1,11 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
-import { Path, Rect } from 'react-native-svg'
+import { G, Path, Rect, Svg } from 'react-native-svg'
 
 import ChartContext from './ChartContext'
 import { adjustPointsForThickStroke, calculateTooltipIndex } from './Line.utils'
 import { ChartDataPoint, Smoothing, Stroke, Shape } from './types'
-import { scalePointsToDimensions, svgPath } from './utils'
+import { scalePointsToDimensions, scalePointToDimensions, svgPath } from './utils'
 
 type Props = {
   /** Theme for the line */
@@ -28,7 +28,7 @@ type Props = {
 }
 
 const Line: React.FC<Props> = (props) => {
-  const { data: contextData, dimensions, domain, lastTouch } = React.useContext(ChartContext)
+  const { data: contextData, dimensions, viewportDomain, viewportOrigin, domain, lastTouch } = React.useContext(ChartContext)
   const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(undefined)
 
   const {
@@ -45,7 +45,7 @@ const Line: React.FC<Props> = (props) => {
   }
 
   React.useEffect(() => {
-    const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
+    const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
     const newIndex = calculateTooltipIndex(scaledPoints, lastTouch)
 
     if (newIndex !== tooltipIndex) {
@@ -54,33 +54,38 @@ const Line: React.FC<Props> = (props) => {
         onTooltipSelect(data[newIndex], newIndex)
       }
     }
-  }, [data, domain, dimensions, lastTouch])
+  }, [data, viewportDomain, domain, dimensions, lastTouch])
 
-  const scaledPoints = scalePointsToDimensions(data, domain, dimensions)
-  const adjustedPoints = adjustPointsForThickStroke(scaledPoints, stroke)
-
-  const pointsWithinDimensions = adjustedPoints.filter((p) => p.x >= 0 && p.x <= dimensions.width)
-
-  const path = svgPath(pointsWithinDimensions, smoothing, tension)
+  const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
+  const points = adjustPointsForThickStroke(scaledPoints, stroke)
+  const path = svgPath(points, smoothing, tension)
 
   return (
     <React.Fragment>
-      <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
-      {pointsWithinDimensions.map((p, i) => {
-        const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
-        return (
-          <Rect
-            key={JSON.stringify(p)}
-            x={p.x - shape.width / 2 + shape.dx}
-            y={p.y - shape.height / 2 - shape.dy}
-            rx={shape.rx}
-            fill={shape.color}
-            opacity={shape.opacity}
-            height={shape.height}
-            width={shape.width}
-          />
-        )
-      })}
+      <Svg width={dimensions.width} height={dimensions.height}>
+        <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
+          <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
+          {points.map((p, i) => {
+            const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
+            if (shape.width === 0 && shape.height === 0) {
+              return null
+            }
+
+            return (
+              <Rect
+                key={JSON.stringify(p)}
+                x={p.x - shape.width / 2 + shape.dx}
+                y={p.y - shape.height / 2 - shape.dy}
+                rx={shape.rx}
+                fill={shape.color}
+                opacity={shape.opacity}
+                height={shape.height}
+                width={shape.width}
+              />
+            )
+          })}
+        </G>
+      </Svg>
       {tooltipIndex !== undefined &&
         tooltipComponent &&
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}

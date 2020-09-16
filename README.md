@@ -10,17 +10,8 @@ Breaking changes with respect to v3:
 - Library supplied tooltip component is renamed from `BoxTooltip` to just `Tooltip`
 - Minor theme changes (box -> shape rename)
 
-## Announcing v3
-
-Version 3 is a complete re-write from the ground up with the following exciting features:
-
-- Completely written in Typescript
-- Composable API, every part of the chart is its own component.
-- Very few dependencies (Total package size is only 62 kilobytes)
-- New documentation website with extensive examples
-- Support for smooth/linear line & charts area charts, tooltips and more
-
-Due to the nature of the changes, version 2.2 and below is now no longer supported. You can find the [old README here](https://github.com/N1ghtly/react-native-responsive-linechart/blob/master/README-v2.2.md).
+Additional features:
+- Scrollable charts!
 
 ## [View installation docs & examples here](https://react-native-responsive-linechart.surge.sh)
 
@@ -28,8 +19,9 @@ Due to the nature of the changes, version 2.2 and below is now no longer support
 
 ![Preview 1](docusaurus/static/img/home.png)
 ![Preview 2](docusaurus/static/img/tooltip.png)
-![Preview 3](docusaurus/static/img/smooth.png)
-![Preview 4](docusaurus/static/img/smoothing.png)
+![Preview 3](docusaurus/static/img/Tooltip.gif)
+![Preview 4](docusaurus/static/img/Scrollable.gif)
+![Preview 5](docusaurus/static/img/smoothing.png)
 
 ### Quick example
 
@@ -66,3 +58,16 @@ const data2 = [
   { x: 10, y: 18 }
 ]
 ```
+
+
+## [OLD] Announcing v3
+
+Version 3 is a complete re-write from the ground up with the following exciting features:
+
+- Completely written in Typescript
+- Composable API, every part of the chart is its own component.
+- Very few dependencies (Total package size is only 62 kilobytes)
+- New documentation website with extensive examples
+- Support for smooth/linear line & charts area charts, tooltips and more
+
+Due to the nature of the changes, version 2.2 and below is now no longer supported. You can find the [old README here](https://github.com/N1ghtly/react-native-responsive-linechart/blob/master/README-v2.2.md).

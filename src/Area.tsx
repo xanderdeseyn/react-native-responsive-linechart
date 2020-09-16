@@ -1,6 +1,6 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
-import { Defs, Stop, LinearGradient, Path } from 'react-native-svg'
+import { Defs, Svg, Stop, LinearGradient, Path, G } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { ChartDataPoint, Gradient, Smoothing } from './types'
 import { appendPointsToPath, scalePointsToDimensions, svgPath } from './utils'
@@ -18,7 +18,7 @@ type Props = {
 }
 
 const Area: React.FC<Props> = (props) => {
-  const { data: contextData, dimensions, domain } = React.useContext(ChartContext)
+  const { data: contextData, dimensions, viewportDomain, viewportOrigin } = React.useContext(ChartContext)
   const [randomGradientRef] = React.useState(Math.random().toFixed(10).toString())
 
   const {
@@ -32,18 +32,20 @@ const Area: React.FC<Props> = (props) => {
     return null
   }
 
-  const points = scalePointsToDimensions([...data], domain, dimensions)
-  const pointsWithinDimensions = points.filter((p) => p.x >= 0 && p.x <= dimensions.width)
+  const points = scalePointsToDimensions([...data], viewportDomain, dimensions)
 
-  const path = svgPath(pointsWithinDimensions, smoothing, tension)
+  const path = svgPath(points, smoothing, tension)
+
+  const firstPoint = points[0]
+  const lastPoint = points[points.length - 1]
 
   const closedPath = appendPointsToPath(path, [
-    { x: dimensions.width, y: dimensions.height },
-    { x: 0, y: dimensions.height },
+    { x: lastPoint.x, y: dimensions.height },
+    { x: firstPoint.x, y: dimensions.height },
   ])
 
   return (
-    <React.Fragment>
+    <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
       <Defs>
         <LinearGradient id={`grad${randomGradientRef}`} x1="0%" y1="0%" x2="0%" y2="100%">
           <Stop offset="0%" stopColor={gradient.from.color} stopOpacity={gradient.from.opacity} />
@@ -51,7 +53,7 @@ const Area: React.FC<Props> = (props) => {
         </LinearGradient>
       </Defs>
       <Path d={closedPath} fill={`url(#grad${randomGradientRef})`} strokeWidth="0"></Path>
-    </React.Fragment>
+    </G>
   )
 }
 
