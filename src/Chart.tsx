@@ -42,7 +42,7 @@ const Chart: React.FC<Props> = (props) => {
   const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)
   const [panX, setPanX] = React.useState<number>(viewport.initialOrigin.x)
   const [panY, setPanY] = React.useState<number>(viewport.initialOrigin.y)
-  const [offset] = React.useState(new Animated.ValueXY({ x: 0, y: 0 }))
+  const [offset] = React.useState(new Animated.ValueXY({ x: viewport.initialOrigin.x, y: viewport.initialOrigin.y }))
 
   const viewportDomain = calculateViewportDomain(
     viewport,

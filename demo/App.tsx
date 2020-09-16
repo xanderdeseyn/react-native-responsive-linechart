@@ -49,7 +49,7 @@ const App = () => {
         padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
         xDomain={{ min: 0, max: 10 }}
         yDomain={{ min: 0, max: 20 }}
-        viewport={{ size: { width: 5 }, initialOrigin: { x: 5 } }}
+        viewport={{ size: { width: 5, height: 15 }, initialOrigin: { x: 5, y: 5 } }}
       >
         <VerticalAxis
           tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]}
