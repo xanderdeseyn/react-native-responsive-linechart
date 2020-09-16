@@ -54,7 +54,7 @@ const Chart: React.FC<Props> = (props) => {
     panY
   )
 
-  const handleTouchEvent = (evt: NativeSyntheticEvent<TapGestureHandlerGestureEvent>) => {
+  const handleTouchEvent = (evt: NativeSyntheticEvent<any>) => {
     if (dataDimensions) {
       setLastTouch({
         x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
@@ -65,30 +65,30 @@ const Chart: React.FC<Props> = (props) => {
     return true
   }
 
-  const handlePanEvent = (evt: NativeSyntheticEvent<PanGestureHandlerGestureEvent>) => {
+  const handlePanEvent = (evt: NativeSyntheticEvent<any>) => {
     if (dataDimensions) {
       handleTouchEvent(evt)
 
       const factorX = viewport.size.width / dataDimensions.width
-      setPanX(offset.x._value - evt.nativeEvent.translationX * factorX)
+      setPanX((offset.x as any)._value - evt.nativeEvent.translationX * factorX)
 
       const factorY = viewport.size.height / dataDimensions.height
-      setPanY(offset.y._value + evt.nativeEvent.translationY * factorY)
+      setPanY((offset.y as any)._value + evt.nativeEvent.translationY * factorY)
 
       if (evt.nativeEvent.state === State.END) {
-        offset.x.setValue(clamp(offset.x._value - evt.nativeEvent.translationX * factorX, xDomain.min, xDomain.max - viewport.size.width))
-        offset.y.setValue(clamp(offset.y._value + evt.nativeEvent.translationY * factorY, yDomain.min, yDomain.max - viewport.size.height))
+        offset.x.setValue(clamp((offset.x as any)._value - evt.nativeEvent.translationX * factorX, xDomain.min, xDomain.max - viewport.size.width))
+        offset.y.setValue(clamp((offset.y as any)._value + evt.nativeEvent.translationY * factorY, yDomain.min, yDomain.max - viewport.size.height))
       }
     }
     return true
   }
 
-  const _onTouchGestureEvent = Animated.event<TapGestureHandlerGestureEvent>([{ nativeEvent: {} }], {
+  const _onTouchGestureEvent = Animated.event<any>([{ nativeEvent: {} }], {
     useNativeDriver: true,
     listener: handleTouchEvent,
   })
 
-  const _onPanGestureEvent = Animated.event<PanGestureHandlerGestureEvent>([{ nativeEvent: {} }], {
+  const _onPanGestureEvent = Animated.event<any>([{ nativeEvent: {} }], {
     useNativeDriver: true,
     listener: handlePanEvent,
   })
