@@ -50,6 +50,7 @@ export type ChartContext = {
   dimensions: Dimensions | undefined
   domain: ChartDomain
   viewportDomain: ChartDomain
+  viewportOrigin: XYValue
   viewport: ViewPort
   lastTouch: XYValue | undefined
 }

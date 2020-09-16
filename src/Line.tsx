@@ -28,7 +28,7 @@ type Props = {
 }
 
 const Line: React.FC<Props> = (props) => {
-  const { data: contextData, dimensions, viewportDomain, domain, lastTouch } = React.useContext(ChartContext)
+  const { data: contextData, dimensions, viewportDomain, viewportOrigin, domain, lastTouch } = React.useContext(ChartContext)
   const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(undefined)
 
   const {
@@ -58,9 +58,7 @@ const Line: React.FC<Props> = (props) => {
 
   const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
   const points = adjustPointsForThickStroke(scaledPoints, stroke)
-
   const path = svgPath(points, smoothing, tension)
-  const viewportOrigin = scalePointToDimensions({ x: viewportDomain.x.min, y: viewportDomain.y.max }, viewportDomain, dimensions)
 
   return (
     <React.Fragment>

@@ -10,6 +10,7 @@ import { useComponentDimensions } from './useComponentDimensions'
 import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort } from './types'
 import { ChartContextProvider } from './ChartContext'
 import { calculateDataDimensions, calculateViewportDimensions } from './Chart.utils'
+import { scalePointToDimensions } from './utils'
 
 type Props = {
   /** All styling can be used except for padding. If you need padding, use the explicit `padding` prop below.*/
@@ -116,6 +117,7 @@ const Chart: React.FC<Props> = (props) => {
                       y: yDomain,
                     },
                     viewportDomain,
+                    viewportOrigin: scalePointToDimensions({ x: viewportDomain.x.min, y: viewportDomain.y.max }, viewportDomain, dataDimensions),
                     viewport,
                     lastTouch,
                   }}

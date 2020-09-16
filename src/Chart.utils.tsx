@@ -10,7 +10,7 @@ export const calculateDataDimensions = (dimensions: { width: number; height: num
     }
   }
 
-  return undefined
+  return { top: 0, left: 0, width: 10, height: 10 }
 }
 
 export const calculateViewportDimensions = (viewport: ViewPort, domain: ChartDomain, panX: number, panY: number) => {
