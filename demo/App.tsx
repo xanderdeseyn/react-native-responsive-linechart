@@ -67,7 +67,12 @@ const App = () => {
             labels: { label: { rotation: 50 }, formatter: (v) => v.toFixed(1) },
           }}
         />
-        <Line theme={{ stroke: { color: 'red', width: 2 } }} />
+        <Line
+          theme={{
+            stroke: { color: 'red', width: 2 },
+            scatter: { default: { width: 4, height: 4, rx: 2, color: 'black' }, selected: { width: 8, height: 8, color: 'green' } },
+          }}
+        />
         {/* <Line smoothing="bezier" tension={0.15} theme={{ stroke: { color: 'blue', width: 2 } }} />
         <Line smoothing="cubic-spline" tension={0.3} theme={{ stroke: { color: 'green', width: 2 } }} />
         <Line tension={0.3} theme={{ stroke: { color: 'orange', width: 2 }, scatter: { default: { width: 4, height: 4 } } }} /> */}
@@ -88,6 +93,7 @@ const App = () => {
         padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
         xDomain={{ min: -2, max: 10 }}
         yDomain={{ min: -4, max: 20 }}
+        disableGestures
       >
         <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
         <HorizontalAxis tickCount={3} />
@@ -149,7 +155,7 @@ const App = () => {
             labels: { label: { rotation: 50 }, formatter: (v) => v.toFixed(1) },
           }}
         />
-        <Line theme={{ stroke: { color: 'red', width: 2 } }} />
+        <Line theme={{ stroke: { color: 'red', width: 2 } }} tooltipComponenet={<Tooltip />} />
         <Line smoothing="bezier" tension={0.15} theme={{ stroke: { color: 'blue', width: 2 } }} />
         <Line smoothing="bezier" tension={0.3} theme={{ stroke: { color: 'green', width: 2 } }} />
         <Line smoothing="cubic-spline" tension={0.3} theme={{ stroke: { color: 'orange', width: 2 } }} />

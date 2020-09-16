@@ -1,7 +1,7 @@
 import * as React from 'react'
 import deepmerge from 'deepmerge'
 import { Animated, NativeSyntheticEvent, View, ViewStyle } from 'react-native'
-import { PanGestureHandler, PanGestureHandlerGestureEvent, State } from 'react-native-gesture-handler'
+import { TapGestureHandler, PanGestureHandler, PanGestureHandlerGestureEvent, TapGestureHandlerGestureEvent, State } from 'react-native-gesture-handler'
 import clamp from 'lodash.clamp'
 import minBy from 'lodash.minby'
 import maxBy from 'lodash.maxby'
@@ -9,7 +9,7 @@ import Svg, { G } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
 import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort } from './types'
 import { ChartContextProvider } from './ChartContext'
-import { calculateDataDimensions, calculateViewportDimensions, shouldEnablePanResponder } from './Chart.utils'
+import { calculateDataDimensions, calculateViewportDimensions } from './Chart.utils'
 
 type Props = {
   /** All styling can be used except for padding. If you need padding, use the explicit `padding` prop below.*/
@@ -22,20 +22,26 @@ type Props = {
   yDomain?: AxisDomain
   /** Size of the viewport for the chart. Should always be <= the domain. */
   viewport?: ViewPort
+  /** This disables touch for the chart. You can use this if you don't need tooltips. */
+  disableTouch?: boolean
+  /** This disables gestures for the chart. You can use this if you don't need scrolling in the chart. */
+  disableGestures?: boolean
   /** Padding of the chart. Use this instead of setting padding in the `style` prop. */
   padding?: Padding
 }
 
 const Chart: React.FC<Props> = (props) => {
-  const { style, children, data = [], padding, xDomain, yDomain, viewport } = deepmerge(computeDefaultProps(props), props)
+  const { style, children, data = [], padding, xDomain, yDomain, viewport, disableGestures, disableTouch } = deepmerge(computeDefaultProps(props), props)
   const { dimensions, onLayout } = useComponentDimensions()
   const dataDimensions = calculateDataDimensions(dimensions, padding)
+
+  const tapGesture = React.createRef() // declared within constructor
+  const panGesture = React.createRef()
 
   const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)
   const [panX, setPanX] = React.useState<number>(0)
   const [panY, setPanY] = React.useState<number>(0)
   const [offset] = React.useState(new Animated.ValueXY({ x: 0, y: 0 }))
-  const [drag] = React.useState(new Animated.ValueXY())
 
   const viewportDomain = calculateViewportDimensions(
     viewport,
@@ -47,12 +53,20 @@ const Chart: React.FC<Props> = (props) => {
     panY
   )
 
-  const handleTouchEvent = (evt: NativeSyntheticEvent<PanGestureHandlerGestureEvent>) => {
+  const handleTouchEvent = (evt: NativeSyntheticEvent<TapGestureHandlerGestureEvent>) => {
     if (dataDimensions) {
       setLastTouch({
         x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
         y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
       })
+    }
+
+    return true
+  }
+
+  const handlePanEvent = (evt: NativeSyntheticEvent<PanGestureHandlerGestureEvent>) => {
+    if (dataDimensions) {
+      handleTouchEvent(evt)
 
       const factorX = viewport.size.width / dataDimensions.width
       setPanX(offset.x._value - evt.nativeEvent.translationX * factorX)
@@ -68,41 +82,54 @@ const Chart: React.FC<Props> = (props) => {
     return true
   }
 
-  const _onPanGestureEvent = Animated.event<PanGestureHandlerGestureEvent>([{ nativeEvent: { translationX: drag.x, translationY: drag.y } }], {
+  const _onTouchGestureEvent = Animated.event<TapGestureHandlerGestureEvent>([{ nativeEvent: {} }], {
     useNativeDriver: true,
     listener: handleTouchEvent,
+  })
+
+  const _onPanGestureEvent = Animated.event<PanGestureHandlerGestureEvent>([{ nativeEvent: {} }], {
+    useNativeDriver: true,
+    listener: handlePanEvent,
   })
 
   return (
     <View style={style} onLayout={onLayout}>
       {!!dimensions && (
-        <PanGestureHandler
-          enabled={shouldEnablePanResponder(viewportDomain, { x: xDomain, y: yDomain })}
-          onGestureEvent={_onPanGestureEvent}
-          onHandlerStateChange={_onPanGestureEvent}
-        >
+        <TapGestureHandler enabled={!disableTouch} onHandlerStateChange={_onTouchGestureEvent} ref={tapGesture} simultaneousHandlers={panGesture}>
           <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
-            <ChartContextProvider
-              value={{
-                data,
-                dimensions: dataDimensions,
-                domain: {
-                  x: xDomain,
-                  y: yDomain,
-                },
-                viewportDomain,
-                viewport,
-                lastTouch,
-              }}
+            <PanGestureHandler
+              enabled={!disableGestures}
+              minDeltaX={0}
+              minDeltaY={0}
+              onGestureEvent={_onPanGestureEvent}
+              onHandlerStateChange={_onPanGestureEvent}
+              ref={panGesture}
+              simultaneousHandlers={tapGesture}
             >
-              <Svg width={dimensions.width} height={dimensions.height}>
-                <G translateX={padding.left} translateY={padding.top}>
-                  {children}
-                </G>
-              </Svg>
-            </ChartContextProvider>
+              <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
+                <ChartContextProvider
+                  value={{
+                    data,
+                    dimensions: dataDimensions,
+                    domain: {
+                      x: xDomain,
+                      y: yDomain,
+                    },
+                    viewportDomain,
+                    viewport,
+                    lastTouch,
+                  }}
+                >
+                  <Svg width={dimensions.width} height={dimensions.height}>
+                    <G translateX={padding.left} translateY={padding.top}>
+                      {children}
+                    </G>
+                  </Svg>
+                </ChartContextProvider>
+              </Animated.View>
+            </PanGestureHandler>
           </Animated.View>
-        </PanGestureHandler>
+        </TapGestureHandler>
       )}
     </View>
   )

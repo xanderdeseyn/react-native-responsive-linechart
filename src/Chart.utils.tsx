@@ -13,16 +13,6 @@ export const calculateDataDimensions = (dimensions: { width: number; height: num
   return undefined
 }
 
-// Only enable pan responder if viewport domain differs from chart domain
-export const shouldEnablePanResponder = (viewportDomain: ChartDomain, chartDomain: ChartDomain) => {
-  return (
-    viewportDomain.x.min !== chartDomain.x.min ||
-    viewportDomain.x.max !== chartDomain.x.max ||
-    viewportDomain.y.min !== chartDomain.y.min ||
-    viewportDomain.y.max !== chartDomain.y.max
-  )
-}
-
 export const calculateViewportDimensions = (viewport: ViewPort, domain: ChartDomain, panX: number, panY: number) => {
   const minX = Math.max(panX + viewport.initialOrigin.x, domain.x.min)
   const maxX = Math.min(minX + viewport.size.width, domain.x.max)
