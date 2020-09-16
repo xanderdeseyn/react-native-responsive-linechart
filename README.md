@@ -31,8 +31,9 @@ Due to the nature of the changes, version 2.2 and below is now no longer support
 
 ![Preview 1](docusaurus/static/img/home.png)
 ![Preview 2](docusaurus/static/img/tooltip.png)
-![Preview 3](docusaurus/static/img/smooth.png)
-![Preview 4](docusaurus/static/img/smoothing.png)
+![Preview 3](docusaurus/static/img/Tooltip.gif)
+![Preview 4](docusaurus/static/img/Scrollable.gif)
+![Preview 5](docusaurus/static/img/smoothing.png)
 
 ### Quick example
 
