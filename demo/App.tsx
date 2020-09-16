@@ -126,6 +126,7 @@ const App = () => {
         <HorizontalAxis tickCount={3} />
         <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } } }} />
         <Line
+          tooltipComponent={<Tooltip />}
           theme={{ stroke: { color: '#44bd32', width: 5 }, scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } } }}
         />
       </Chart>
@@ -156,7 +157,7 @@ const App = () => {
             labels: { label: { rotation: 50 }, formatter: (v) => v.toFixed(1) },
           }}
         />
-        <Line theme={{ stroke: { color: 'red', width: 2 } }} tooltipComponenet={<Tooltip />} />
+        <Line theme={{ stroke: { color: 'red', width: 2 } }} tooltipComponent={<Tooltip />} />
         <Line smoothing="bezier" tension={0.15} theme={{ stroke: { color: 'blue', width: 2 } }} />
         <Line smoothing="bezier" tension={0.3} theme={{ stroke: { color: 'green', width: 2 } }} />
         <Line smoothing="cubic-spline" tension={0.3} theme={{ stroke: { color: 'orange', width: 2 } }} />

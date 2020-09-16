@@ -10,6 +10,9 @@ Breaking changes with respect to v3:
 - Library supplied tooltip component is renamed from `BoxTooltip` to just `Tooltip`
 - Minor theme changes (box -> shape rename)
 
+Additional features:
+- Scrollable charts!
+
 ## Announcing v3
 
 Version 3 is a complete re-write from the ground up with the following exciting features:
