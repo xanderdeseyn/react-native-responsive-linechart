@@ -14,7 +14,7 @@ This component draws an axis on the X plane.
 | ----------- | ----------- | ------------- | ------ |
 | `tickValues`      | `number[]` | No | Use this to explicitly set the ticks which should be drawn on the axis. |
 | `tickCount`      | `number[]` | No | Use this if you always want to render X amount of ticks on the axis. The lib will calculate the tick values itself. |
-| `includeOriginTick`   | `boolean` | No | Only relevant in combination with the `tickCount` prop. Defaults to `true`. Check example below.  |
+| `includeOriginTick`   | `boolean` | No | Only relevant in combination with the `tickCount` prop. Defaults to `true`. Check verticalaxis example.  |
 | `theme`   | Defined below        | No | Theme for the line.  |
 
 ### HorizontalAxis default theme
@@ -129,37 +129,6 @@ Any part of this theme can be overridden through the `theme` prop.
   yDomain={{ min: -4, max: 20 }}
 >
   <HorizontalAxis tickCount={5} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} includeOriginTick={false} />
-  <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
-</Chart>
-```
-
-### with `tickCount` and `includeOriginTick=true`
-
-![Chart example](/img/horizontalaxis/example3.png)
-
-```jsx
-<Chart
-  style={{ height: 200, width: 400 }}
-  data={[
-    { x: -2, y: 15 },
-    { x: -1, y: 10 },
-    { x: 0, y: 12 },
-    { x: 1, y: 7 },
-    { x: 2, y: 6 },
-    { x: 3, y: 3 },
-    { x: 4, y: 5 },
-    { x: 5, y: 8 },
-    { x: 6, y: 12 },
-    { x: 7, y: 14 },
-    { x: 8, y: 12 },
-    { x: 9, y: 13.5 },
-    { x: 10, y: 18 },
-  ]}
-  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
-  xDomain={{ min: -2, max: 10 }}
-  yDomain={{ min: -4, max: 20 }}
->
-  <HorizontalAxis tickCount={5} includeOriginTick theme={{ labels: { formatter: (v) => v.toFixed(2) } }}/>
   <Line theme={{ stroke: { color: '#44bd32', width: 10 } }} />
 </Chart>
 ```
