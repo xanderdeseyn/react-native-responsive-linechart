@@ -61,8 +61,8 @@ const Chart: React.FC<Props> = (props) => {
       setPanY(offset.y._value + evt.nativeEvent.translationY * factorY)
 
       if (evt.nativeEvent.state === State.END) {
-        offset.x.setValue(clamp(xDomain.min, offset.x._value - evt.nativeEvent.translationX * factorX, xDomain.max))
-        offset.y.setValue(clamp(yDomain.min, offset.y._value + evt.nativeEvent.translationY * factorY, yDomain.max))
+        offset.x.setValue(clamp(offset.x._value - evt.nativeEvent.translationX * factorX, xDomain.min, xDomain.max - viewport.size.width))
+        offset.y.setValue(clamp(offset.y._value + evt.nativeEvent.translationY * factorY, yDomain.min, yDomain.max - viewport.size.height))
       }
     }
     return true
@@ -87,6 +87,7 @@ const Chart: React.FC<Props> = (props) => {
                   y: yDomain,
                 },
                 viewportDomain,
+                viewport,
                 lastTouch,
               }}
             >

@@ -70,7 +70,7 @@ const App = () => {
         {/* <Line theme={{ stroke: { color: 'red', width: 2 } }} />
         <Line smoothing="bezier" tension={0.15} theme={{ stroke: { color: 'blue', width: 2 } }} />
         <Line smoothing="bezier" tension={0.3} theme={{ stroke: { color: 'green', width: 2 } }} /> */}
-        <Line tension={0.3} theme={{ stroke: { color: 'orange', width: 2 } }} />
+        <Line tension={0.3} theme={{ stroke: { color: 'orange', width: 2 }, scatter: { default: { width: 4, height: 4 } } }} />
       </Chart>
     </Container>
   )
@@ -92,4 +92,4 @@ const data1 = [
   { x: 8, y: 3 },
 ]
 
-const data2 = new Array(500).fill(undefined).map((v, i) => ({ x: i / 50, y: Math.random() * 10 }))
+const data2 = new Array(100).fill(undefined).map((v, i) => ({ x: i / 10, y: Math.random() * 10 }))
