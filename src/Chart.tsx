@@ -9,7 +9,7 @@ import Svg, { G } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
 import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort } from './types'
 import { ChartContextProvider } from './ChartContext'
-import { calculateDataDimensions, calculateViewportDimensions } from './Chart.utils'
+import { calculateDataDimensions, calculateViewportDomain } from './Chart.utils'
 import { scalePointToDimensions } from './utils'
 
 type Props = {
@@ -40,11 +40,11 @@ const Chart: React.FC<Props> = (props) => {
   const panGesture = React.createRef()
 
   const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)
-  const [panX, setPanX] = React.useState<number>(0)
-  const [panY, setPanY] = React.useState<number>(0)
+  const [panX, setPanX] = React.useState<number>(viewport.initialOrigin.x)
+  const [panY, setPanY] = React.useState<number>(viewport.initialOrigin.y)
   const [offset] = React.useState(new Animated.ValueXY({ x: 0, y: 0 }))
 
-  const viewportDomain = calculateViewportDimensions(
+  const viewportDomain = calculateViewportDomain(
     viewport,
     {
       x: xDomain,

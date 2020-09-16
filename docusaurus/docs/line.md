@@ -227,6 +227,8 @@ the `scatter` theme defines how data points should be visualised. Optionally, yo
 
 ![Tooltip example](/img/Scrollable.gif)
 
+By setting the viewport to be smaller than the domain, you can make the chart scrollable. In this example, the viewport has a width of 5, while the x-domain has a range of 10. You can also change where the viewport initially starts with `initialOrigin`.
+
 ```jsx
 <Chart
   style={{ height: 200, width: '100%' }}

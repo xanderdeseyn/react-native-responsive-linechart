@@ -13,11 +13,11 @@ export const calculateDataDimensions = (dimensions: { width: number; height: num
   return { top: 0, left: 0, width: 10, height: 10 }
 }
 
-export const calculateViewportDimensions = (viewport: ViewPort, domain: ChartDomain, panX: number, panY: number) => {
-  const minX = Math.max(panX + viewport.initialOrigin.x, domain.x.min)
+export const calculateViewportDomain = (viewport: ViewPort, domain: ChartDomain, panX: number, panY: number): ChartDomain => {
+  const minX = Math.max(panX, domain.x.min)
   const maxX = Math.min(minX + viewport.size.width, domain.x.max)
 
-  const minY = Math.max(panY + viewport.initialOrigin.y, domain.y.min)
+  const minY = Math.max(panY, domain.y.min)
   const maxY = Math.min(minY + viewport.size.height, domain.y.max)
 
   return {
