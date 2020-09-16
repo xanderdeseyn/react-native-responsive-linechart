@@ -6,8 +6,6 @@ route: /line
 
 ---
 
-import { Chart, HorizontalAxis, Area, VerticalAxis, Line, Tooltip } from 'react-native-responsive-linechart'
-
 This component draws a line. Multiple lines can be drawn on one chart.
 
 
@@ -62,32 +60,7 @@ the `scatter` theme defines how data points should be visualised. Optionally, yo
 
 ### Combined with `<Area />` and using scatter points
 
-<Chart
-  style={{ height: 200, width: 400, marginBottom: 40 }}
-  data={[
-    { x: -2, y: 15 },
-    { x: -1, y: 10 },
-    { x: 0, y: 12 },
-    { x: 1, y: 7 },
-    { x: 2, y: 6 },
-    { x: 3, y: 3 },
-    { x: 4, y: 5 },
-    { x: 5, y: 8 },
-    { x: 6, y: 12 },
-    { x: 7, y: 14 },
-    { x: 8, y: 12 },
-    { x: 9, y: 13.5 },
-    { x: 10, y: 18 },
-  ]}
-  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
-  xDomain={{ min: -2, max: 10 }}
-  yDomain={{ min: -4, max: 20 }}
->
-  <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-  <HorizontalAxis tickCount={3} />
-  <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } }}} />
-  <Line theme={{ stroke: { color: '#44bd32', width: 5 }, scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } } }} />
-</Chart>
+![Chart example](/img/line/example1.png)
 
 ```jsx
 <Chart
@@ -120,38 +93,7 @@ the `scatter` theme defines how data points should be visualised. Optionally, yo
 
 ### Multiple lines and `smoothing`
 
-<Chart
-  style={{ height: 200, width: '100%', marginBottom: 40 }}
-  data={[
-    { x: 5, y: 15 },
-    { x: 6, y: 6 },
-    { x: 7, y: 15 },
-    { x: 8, y: 3 },
-  ]}
-  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
-  xDomain={{ min: 5, max: 8 }}
->
-  <VerticalAxis
-    tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]}
-    theme={{
-      axis: { stroke: { color: '#aaa', width: 2 } },
-      ticks: { stroke: { color: '#aaa', width: 2 } },
-      labels: { formatter: (v) => v.toFixed(2) },
-    }}
-  />
-  <HorizontalAxis
-    tickCount={9}
-    theme={{
-      axis: { stroke: { color: '#aaa', width: 2 } },
-      ticks: { stroke: { color: '#aaa', width: 2 } },
-      labels: { label: { rotation: 50 }, formatter: (v) => v.toFixed(1) },
-    }}
-  />
-  <Line theme={{ stroke: { color: 'red', width: 2 } }} />
-  <Line smoothing="bezier" tension={0.15} theme={{ stroke: { color: 'blue', width: 2 } }} />
-  <Line smoothing="bezier" tension={0.3} theme={{ stroke: { color: 'green', width: 2 } }} />
-  <Line smoothing="cubic-spline" tension={0.3} theme={{ stroke: { color: 'orange', width: 2 } }} />
-</Chart>
+![Chart example](/img/line/example2.png)
 
 ```jsx
 <Chart

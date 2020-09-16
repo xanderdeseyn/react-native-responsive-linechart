@@ -7,17 +7,6 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'n1ghtly', // Usually your GitHub org/user name.
   projectName: 'react-native-responsive-linechart', // Usually your repo name.
-  plugins: [
-    [
-      '@couds/docusaurus-resolve-plugin',
-      {
-        alias: {
-          'react-native': 'react-native-web',
-          'react-native-svg': 'react-native-svg-web-transform',
-        },
-      },
-    ],
-  ],
   themeConfig: {
     sidebarCollapsible: false,
     navbar: {

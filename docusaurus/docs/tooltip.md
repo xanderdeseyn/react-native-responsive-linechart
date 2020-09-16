@@ -6,8 +6,6 @@ route: /tooltip
 
 ---
 
-import { Chart, HorizontalAxis, Area, VerticalAxis, Line, Tooltip } from 'react-native-responsive-linechart'
-
 Tooltips can only be used in combination with a Line component.
 **This library provides one example tooltip component `Tooltip`**. For advanced styling, it is recommended to implement your own Tooltip component.
 
@@ -87,50 +85,5 @@ You can then simply substitute `<Tooltip />` with your own component in the `too
     tooltipComponent={<Tooltip />}
     theme={{ stroke: { color: '#44bd32', width: 5 }, scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } } }}
   />
-</Chart>
-```
-
-
-<Chart
-  style={{ height: 200, width: 400, marginBottom: 40 }}
-  data={[
-    { x: -2, y: 5 },
-    { x: -1, y: 10 },
-    { x: 0, y: 12 },
-    { x: 4, y: 11 },
-    { x: 8, y: 12 },
-    { x: 9, y: 13.5 },
-    { x: 10, y: 18 },
-  ]}
-  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
-  yDomain={{ min: 0, max: 20 }}
->
-  <VerticalAxis
-    tickCount={5}
-  />
-  <HorizontalAxis tickCount={3} />
-  <Line theme={{ stroke: { color: '#c0392b', width: 4 } }} tooltipComponent={<Tooltip theme={{ shape: { width: 35 } }} />} />
-</Chart>
-
-```jsx
-<Chart
-  style={{ height: 200, width: 400 }}
-  data={[
-    { x: -2, y: 5 },
-    { x: -1, y: 10 },
-    { x: 0, y: 12 },
-    { x: 4, y: 11 },
-    { x: 8, y: 12 },
-    { x: 9, y: 13.5 },
-    { x: 10, y: 18 },
-  ]}
-  padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
-  yDomain={{ min: 0, max: 20 }}
->
-  <VerticalAxis
-    tickCount={5}
-  />
-  <HorizontalAxis tickCount={3} />
-  <Line theme={{ stroke: { color: '#c0392b', width: 4 } }} tooltipComponent={<Tooltip theme={{ shape: { width: 35 } }} />} />
 </Chart>
 ```
