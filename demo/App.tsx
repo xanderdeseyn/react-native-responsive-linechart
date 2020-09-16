@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Container>
       <StatusBar barStyle="dark-content" />
-      {/* <Chart
+      <Chart
         style={{ height: 200, width: 400 }}
         padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
         xDomain={{ min: -2, max: 10 }}
@@ -42,14 +42,14 @@ const App = () => {
             { x: 10, y: 12 },
           ]}
         />
-      </Chart> */}
+      </Chart>
       <Chart
         style={{ height: 200, width: '100%', marginTop: 100, backgroundColor: '#f2f2f2' }}
         data={data2}
         padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
         xDomain={{ min: 0, max: 10 }}
         yDomain={{ min: 0, max: 20 }}
-        viewport={{ size: { width: 5 } }}
+        viewport={{ size: { width: 5, height: 10 } }}
       >
         <VerticalAxis
           tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]}
@@ -67,10 +67,10 @@ const App = () => {
             labels: { label: { rotation: 50 }, formatter: (v) => v.toFixed(1) },
           }}
         />
-        {/* <Line theme={{ stroke: { color: 'red', width: 2 } }} />
-        <Line smoothing="bezier" tension={0.15} theme={{ stroke: { color: 'blue', width: 2 } }} />
-        <Line smoothing="bezier" tension={0.3} theme={{ stroke: { color: 'green', width: 2 } }} /> */}
-        <Line tension={0.3} theme={{ stroke: { color: 'orange', width: 2 }, scatter: { default: { width: 4, height: 4 } } }} />
+        <Line theme={{ stroke: { color: 'red', width: 2 } }} />
+        {/* <Line smoothing="bezier" tension={0.15} theme={{ stroke: { color: 'blue', width: 2 } }} />
+        <Line smoothing="cubic-spline" tension={0.3} theme={{ stroke: { color: 'green', width: 2 } }} />
+        <Line tension={0.3} theme={{ stroke: { color: 'orange', width: 2 }, scatter: { default: { width: 4, height: 4 } } }} /> */}
       </Chart>
     </Container>
   )
@@ -92,4 +92,4 @@ const data1 = [
   { x: 8, y: 3 },
 ]
 
-const data2 = new Array(100).fill(undefined).map((v, i) => ({ x: i / 10, y: Math.random() * 10 }))
+const data2 = new Array(500).fill(undefined).map((v, i) => ({ x: i / 10, y: Math.random() * 10 + 5 }))

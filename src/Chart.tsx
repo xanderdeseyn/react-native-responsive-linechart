@@ -1,7 +1,7 @@
 import * as React from 'react'
 import deepmerge from 'deepmerge'
-import { Animated, View, ViewStyle } from 'react-native'
-import { PanGestureHandler, State } from 'react-native-gesture-handler'
+import { Animated, NativeSyntheticEvent, View, ViewStyle } from 'react-native'
+import { PanGestureHandler, PanGestureHandlerGestureEvent, State } from 'react-native-gesture-handler'
 import clamp from 'lodash.clamp'
 import minBy from 'lodash.minby'
 import maxBy from 'lodash.maxby'
@@ -9,7 +9,7 @@ import Svg, { G } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
 import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort } from './types'
 import { ChartContextProvider } from './ChartContext'
-import { calculateDataDimensions, calculateViewportDimensions } from './Chart.utils'
+import { calculateDataDimensions, calculateViewportDimensions, shouldEnablePanResponder } from './Chart.utils'
 
 type Props = {
   /** All styling can be used except for padding. If you need padding, use the explicit `padding` prop below.*/
@@ -47,7 +47,7 @@ const Chart: React.FC<Props> = (props) => {
     panY
   )
 
-  const handleTouchEvent = (evt) => {
+  const handleTouchEvent = (evt: NativeSyntheticEvent<PanGestureHandlerGestureEvent>) => {
     if (dataDimensions) {
       setLastTouch({
         x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
@@ -68,7 +68,7 @@ const Chart: React.FC<Props> = (props) => {
     return true
   }
 
-  const _onPanGestureEvent = Animated.event([{ nativeEvent: { translationX: drag.x, translationY: drag.y } }], {
+  const _onPanGestureEvent = Animated.event<PanGestureHandlerGestureEvent>([{ nativeEvent: { translationX: drag.x, translationY: drag.y } }], {
     useNativeDriver: true,
     listener: handleTouchEvent,
   })
@@ -76,7 +76,11 @@ const Chart: React.FC<Props> = (props) => {
   return (
     <View style={style} onLayout={onLayout}>
       {!!dimensions && (
-        <PanGestureHandler onGestureEvent={_onPanGestureEvent} onHandlerStateChange={_onPanGestureEvent}>
+        <PanGestureHandler
+          enabled={shouldEnablePanResponder(viewportDomain, { x: xDomain, y: yDomain })}
+          onGestureEvent={_onPanGestureEvent}
+          onHandlerStateChange={_onPanGestureEvent}
+        >
           <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
             <ChartContextProvider
               value={{
@@ -107,7 +111,7 @@ const Chart: React.FC<Props> = (props) => {
 export { Chart }
 
 const computeDefaultProps = (props: Props) => {
-  const { data = [], viewport } = props
+  const { data = [] } = props
 
   const xDomain = props.xDomain ?? {
     min: data.length > 0 ? minBy(data, (d) => d.x)!.x : 0,
