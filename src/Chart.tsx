@@ -60,6 +60,10 @@ const Chart: React.FC<Props> = (props) => {
         x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
         y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
       })
+
+      if (evt.nativeEvent.state === State.END) {
+        setLastTouch(undefined);
+      }
     }
 
     return true
