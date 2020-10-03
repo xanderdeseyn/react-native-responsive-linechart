@@ -23,6 +23,8 @@ type Props = {
   tooltipComponent?: JSX.Element
   /** Callback method that fires when a tooltip is displayed for a data point. */
   onTooltipSelect?: (value: ChartDataPoint, index: number) => void
+  /** Callback method that fires when the user stoped touching the chart. */
+  onTooltipSelectEnd?: () => void
   /** Data for the chart. Overrides optional data provided in `<Chart />`. */
   data?: ChartDataPoint[]
 }
@@ -38,6 +40,7 @@ const Line: React.FC<Props> = (props) => {
     tension,
     smoothing,
     onTooltipSelect,
+    onTooltipSelectEnd = () => {},
   } = deepmerge(defaultProps, props)
 
   if (!dimensions) {
@@ -47,6 +50,10 @@ const Line: React.FC<Props> = (props) => {
   React.useEffect(() => {
     const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
     const newIndex = calculateTooltipIndex(scaledPoints, lastTouch)
+
+    if (tooltipIndex !== undefined && newIndex === undefined && !lastTouch) {
+      onTooltipSelectEnd()
+    }
 
     if (newIndex !== tooltipIndex) {
       setTooltipIndex(newIndex)

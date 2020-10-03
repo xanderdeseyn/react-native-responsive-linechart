@@ -60,10 +60,6 @@ const Chart: React.FC<Props> = (props) => {
         x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
         y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
       })
-
-      if (evt.nativeEvent.state === State.END) {
-        setLastTouch(undefined);
-      }
     }
 
     return true
@@ -82,6 +78,7 @@ const Chart: React.FC<Props> = (props) => {
       if (evt.nativeEvent.state === State.END) {
         offset.x.setValue(clamp((offset.x as any)._value - evt.nativeEvent.translationX * factorX, xDomain.min, xDomain.max - viewport.size.width))
         offset.y.setValue(clamp((offset.y as any)._value + evt.nativeEvent.translationY * factorY, yDomain.min, yDomain.max - viewport.size.height))
+        setLastTouch(undefined);
       }
     }
     return true
