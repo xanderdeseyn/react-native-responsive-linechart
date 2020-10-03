@@ -23,7 +23,7 @@ type Props = {
   tooltipComponent?: JSX.Element
   /** Callback method that fires when a tooltip is displayed for a data point. */
   onTooltipSelect?: (value: ChartDataPoint, index: number) => void
-  /** Callback method that fires when the user stoped touching the chart. */
+  /** Callback method that fires when the user stopped touching the chart. */
   onTooltipSelectEnd?: () => void
   /** Data for the chart. Overrides optional data provided in `<Chart />`. */
   data?: ChartDataPoint[]
