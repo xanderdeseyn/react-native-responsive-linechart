@@ -17,6 +17,7 @@ This component draws a line. Multiple lines can be drawn on one chart.
 | `tension`      | `number` | No | Only works in combination with smoothing = `bezier`. Value between 0 and 1, recommended somewhere around `0.3`. |
 | `tooltipComponent`   | `JSX.Element` | No | Component to be used to draw tooltips. This library provides a basic tooltip with the `Tooltip` component. Example below.  |
 | `onTooltipSelect`   | `(value: { x: number, y: number, meta?: any }, index: number) => void` | No | Callback method that fires when a tooltip is displayed for a data point.  |
+| `onTooltipSelectEnd`   | `() => void` | No | Callback method that fires when the user stopped touching the chart.  |
 | `theme`   | Defined below        | No | Theme for the line.  |
 
 \* unless provided in parent `<Chart />` component
