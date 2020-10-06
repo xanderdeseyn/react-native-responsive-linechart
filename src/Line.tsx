@@ -69,30 +69,27 @@ const Line: React.FC<Props> = (props) => {
 
   return (
     <React.Fragment>
-      <Svg width={dimensions.width} height={dimensions.height} viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}>
-        <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
-          <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
-          {points.map((p, i) => {
-            const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
-            if (shape.width === 0 && shape.height === 0) {
-              return null
-            }
-
-            return (
-              <Rect
-                key={JSON.stringify(p)}
-                x={p.x - shape.width / 2 + shape.dx}
-                y={p.y - shape.height / 2 - shape.dy}
-                rx={shape.rx}
-                fill={shape.color}
-                opacity={shape.opacity}
-                height={shape.height}
-                width={shape.width}
-              />
-            )
-          })}
-        </G>
-      </Svg>
+      <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
+        <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
+        {points.map((p, i) => {
+          const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
+          if (shape.width === 0 && shape.height === 0) {
+            return null
+          }
+          return (
+            <Rect
+              key={JSON.stringify(p)}
+              x={p.x - shape.width / 2 + shape.dx}
+              y={p.y - shape.height / 2 - shape.dy}
+              rx={shape.rx}
+              fill={shape.color}
+              opacity={shape.opacity}
+              height={shape.height}
+              width={shape.width}
+            />
+          )
+        })}
+      </G>
       {tooltipIndex !== undefined &&
         tooltipComponent &&
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}

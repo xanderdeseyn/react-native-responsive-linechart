@@ -94,6 +94,10 @@ const Chart: React.FC<Props> = (props) => {
     listener: handlePanEvent,
   })
 
+  const childComponents = React.Children.toArray(children)
+  const lineAndAreaComponents = childComponents.filter((c) => ['Line', 'Area'].includes((c as any)?.type?.name))
+  const otherComponents = childComponents.filter((c) => !['Line', 'Area'].includes((c as any)?.type?.name))
+
   return (
     <View style={style} onLayout={onLayout}>
       {!!dimensions && (
@@ -125,7 +129,12 @@ const Chart: React.FC<Props> = (props) => {
                 >
                   <Svg width={dimensions.width} height={dimensions.height}>
                     <G translateX={padding.left} translateY={padding.top}>
-                      {children}
+                      {otherComponents}
+                      <View style={{ marginLeft: padding.left, marginTop: padding.top }}>
+                        <Svg width={dataDimensions.width} height={dataDimensions.height} viewBox={`0 0 ${dataDimensions.width} ${dataDimensions.height}`}>
+                          {lineAndAreaComponents}
+                        </Svg>
+                      </View>
                     </G>
                   </Svg>
                 </ChartContextProvider>

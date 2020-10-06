@@ -67,13 +67,13 @@ const App = () => {
             labels: { label: { rotation: 50 }, formatter: (v) => v.toFixed(1) },
           }}
         />
+        <Area theme={{ gradient: { from: { color: '#f39c12', opacity: 0.4 }, to: { color: '#f39c12', opacity: 0.4 } } }} smoothing="cubic-spline" />
         <Line
           theme={{
             stroke: { color: 'red', width: 2 },
           }}
           smoothing="cubic-spline"
         />
-        <Area theme={{ gradient: { from: { color: '#f39c12', opacity: 0.4 }, to: { color: '#f39c12', opacity: 0.4 } } }} smoothing="cubic-spline" />
         {/* <Line smoothing="bezier" tension={0.15} theme={{ stroke: { color: 'blue', width: 2 } }} />
         <Line smoothing="cubic-spline" tension={0.3} theme={{ stroke: { color: 'green', width: 2 } }} />
         <Line tension={0.3} theme={{ stroke: { color: 'orange', width: 2 }, scatter: { default: { width: 4, height: 4 } } }} /> */}

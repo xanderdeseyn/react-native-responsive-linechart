@@ -1,5 +1,6 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
+import { Platform, View } from 'react-native'
 import { Defs, Svg, Stop, LinearGradient, Path, G } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { ChartDataPoint, Gradient, Smoothing } from './types'
@@ -45,17 +46,15 @@ const Area: React.FC<Props> = (props) => {
   ])
 
   return (
-    <Svg width={dimensions.width} height={dimensions.height} viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}>
-      <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
-        <Defs>
-          <LinearGradient id={`grad${randomGradientRef}`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <Stop offset="0%" stopColor={gradient.from.color} stopOpacity={gradient.from.opacity} />
-            <Stop offset="100%" stopColor={gradient.to.color} stopOpacity={gradient.to.opacity} />
-          </LinearGradient>
-        </Defs>
-        <Path d={closedPath} fill={`url(#grad${randomGradientRef})`} strokeWidth="0"></Path>
-      </G>
-    </Svg>
+    <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
+      <Defs>
+        <LinearGradient id={`grad${randomGradientRef}`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <Stop offset="0%" stopColor={gradient.from.color} stopOpacity={gradient.from.opacity} />
+          <Stop offset="100%" stopColor={gradient.to.color} stopOpacity={gradient.to.opacity} />
+        </LinearGradient>
+      </Defs>
+      <Path d={closedPath} fill={`url(#grad${randomGradientRef})`} strokeWidth="0"></Path>
+    </G>
   )
 }
 
