@@ -69,7 +69,7 @@ const Line: React.FC<Props> = (props) => {
 
   return (
     <React.Fragment>
-      <Svg width={dimensions.width} height={dimensions.height}>
+      <Svg width={dimensions.width} height={dimensions.height} viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}>
         <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
           <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
           {points.map((p, i) => {

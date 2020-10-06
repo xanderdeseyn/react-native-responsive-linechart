@@ -45,15 +45,17 @@ const Area: React.FC<Props> = (props) => {
   ])
 
   return (
-    <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
-      <Defs>
-        <LinearGradient id={`grad${randomGradientRef}`} x1="0%" y1="0%" x2="0%" y2="100%">
-          <Stop offset="0%" stopColor={gradient.from.color} stopOpacity={gradient.from.opacity} />
-          <Stop offset="100%" stopColor={gradient.to.color} stopOpacity={gradient.to.opacity} />
-        </LinearGradient>
-      </Defs>
-      <Path d={closedPath} fill={`url(#grad${randomGradientRef})`} strokeWidth="0"></Path>
-    </G>
+    <Svg width={dimensions.width} height={dimensions.height} viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}>
+      <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
+        <Defs>
+          <LinearGradient id={`grad${randomGradientRef}`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <Stop offset="0%" stopColor={gradient.from.color} stopOpacity={gradient.from.opacity} />
+            <Stop offset="100%" stopColor={gradient.to.color} stopOpacity={gradient.to.opacity} />
+          </LinearGradient>
+        </Defs>
+        <Path d={closedPath} fill={`url(#grad${randomGradientRef})`} strokeWidth="0"></Path>
+      </G>
+    </Svg>
   )
 }
 
