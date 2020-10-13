@@ -31,7 +31,7 @@ export const appendPointsToPath = (path: string, points: XYValue[]) => {
 export const svgPath = (points: XYValue[], smoothing: Smoothing, tension: number) => {
   if (smoothing === 'bezier') {
     return bezierPath(points, tension)
-  } else if (smoothing === 'cubic-spline') {
+  } else if (smoothing === 'cubic-spline' && points.length > 1) {
     return splinePath(points)
   } else {
     return linearPath(points)

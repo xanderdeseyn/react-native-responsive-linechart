@@ -1,7 +1,6 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
-import { Platform, View } from 'react-native'
-import { Defs, Svg, Stop, LinearGradient, Path, G } from 'react-native-svg'
+import { Defs, Stop, LinearGradient, Path, G } from 'react-native-svg'
 import ChartContext from './ChartContext'
 import { ChartDataPoint, Gradient, Smoothing } from './types'
 import { appendPointsToPath, scalePointsToDimensions, svgPath } from './utils'

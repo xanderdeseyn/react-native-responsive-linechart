@@ -1,11 +1,11 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
-import { G, Path, Rect, Svg } from 'react-native-svg'
+import { G, Path, Rect } from 'react-native-svg'
 
 import ChartContext from './ChartContext'
 import { adjustPointsForThickStroke, calculateTooltipIndex } from './Line.utils'
 import { ChartDataPoint, Smoothing, Stroke, Shape } from './types'
-import { scalePointsToDimensions, scalePointToDimensions, svgPath } from './utils'
+import { scalePointsToDimensions, svgPath } from './utils'
 
 type Props = {
   /** Theme for the line */
