@@ -1,5 +1,6 @@
 ---
 
+slug: /
 title: Getting started
 id: gettingstarted
 
