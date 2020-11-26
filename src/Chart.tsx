@@ -67,8 +67,6 @@ const Chart: React.FC<Props> = (props) => {
 
   const handlePanEvent = (evt: NativeSyntheticEvent<any>) => {
     if (dataDimensions) {
-      handleTouchEvent(evt)
-
       const factorX = viewport.size.width / dataDimensions.width
       setPanX((offset.x as any)._value - evt.nativeEvent.translationX * factorX)
 
@@ -79,6 +77,11 @@ const Chart: React.FC<Props> = (props) => {
         offset.x.setValue(clamp((offset.x as any)._value - evt.nativeEvent.translationX * factorX, xDomain.min, xDomain.max - viewport.size.width))
         offset.y.setValue(clamp((offset.y as any)._value + evt.nativeEvent.translationY * factorY, yDomain.min, yDomain.max - viewport.size.height))
         setLastTouch(undefined)
+      } else {
+        setLastTouch({
+          x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
+          y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
+        })
       }
     }
     return true
@@ -130,11 +133,15 @@ const Chart: React.FC<Props> = (props) => {
                   <Svg width={dimensions.width} height={dimensions.height}>
                     <G translateX={padding.left} translateY={padding.top}>
                       {otherComponents}
-                      <View style={{ marginLeft: padding.left, marginTop: padding.top }}>
-                        <Svg width={dataDimensions.width} height={dataDimensions.height} viewBox={`0 0 ${dataDimensions.width} ${dataDimensions.height}`}>
-                          {lineAndAreaComponents}
-                        </Svg>
-                      </View>
+                      {/* If we do not need to scroll (no custom viewport defined) we don't wrap it in another SVG to allow tooltips to appear outside of the chart area */}
+                      {!props.viewport && lineAndAreaComponents}
+                      {props.viewport && (
+                        <View style={{ marginLeft: padding.left, marginTop: padding.top }}>
+                          <Svg width={dataDimensions.width} height={dataDimensions.height} viewBox={`0 0 ${dataDimensions.width} ${dataDimensions.height}`}>
+                            {lineAndAreaComponents}
+                          </Svg>
+                        </View>
+                      )}
                     </G>
                   </Svg>
                 </ChartContextProvider>
