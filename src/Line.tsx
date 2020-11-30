@@ -69,8 +69,8 @@ const Line: React.FC<Props> = (props) => {
 
   return (
     <React.Fragment>
-      <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
-        <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity}></Path>
+      <G translateX={viewportOrigin.x} translateY={viewportOrigin.y} mask="url(#Mask)">
+        <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity} />
         {points.map((p, i) => {
           const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
           if (shape.width === 0 && shape.height === 0) {

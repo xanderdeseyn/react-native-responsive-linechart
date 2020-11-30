@@ -5,7 +5,7 @@ import { TapGestureHandler, PanGestureHandler, State } from 'react-native-gestur
 import clamp from 'lodash.clamp'
 import minBy from 'lodash.minby'
 import maxBy from 'lodash.maxby'
-import Svg, { G } from 'react-native-svg'
+import Svg, { G, Mask, Defs, Rect } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
 import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort } from './types'
 import { ChartContextProvider } from './ChartContext'
@@ -133,15 +133,13 @@ const Chart: React.FC<Props> = (props) => {
                   <Svg width={dimensions.width} height={dimensions.height}>
                     <G translateX={padding.left} translateY={padding.top}>
                       {otherComponents}
-                      {/* If we do not need to scroll (no custom viewport defined) we don't wrap it in another SVG to allow tooltips to appear outside of the chart area */}
-                      {!props.viewport && lineAndAreaComponents}
-                      {props.viewport && (
-                        <View style={{ marginLeft: padding.left, marginTop: padding.top }}>
-                          <Svg width={dataDimensions.width} height={dataDimensions.height} viewBox={`0 0 ${dataDimensions.width} ${dataDimensions.height}`}>
-                            {lineAndAreaComponents}
-                          </Svg>
-                        </View>
-                      )}
+                      <Defs>
+                        {/* Mask to fix viewport overflow bugs */}
+                        <Mask id="Mask" x={0} y={0} width={dataDimensions.width} height={dataDimensions.height}>
+                          <Rect x="0" y="0" width={dataDimensions.width} height={dataDimensions.height} fill="#ffffff" />
+                        </Mask>
+                      </Defs>
+                      {lineAndAreaComponents}
                     </G>
                   </Svg>
                 </ChartContextProvider>

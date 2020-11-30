@@ -45,7 +45,7 @@ const Area: React.FC<Props> = (props) => {
   ])
 
   return (
-    <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
+    <G translateX={viewportOrigin.x} translateY={viewportOrigin.y} mask="url(#Mask)">
       <Defs>
         <LinearGradient id={`grad${randomGradientRef}`} x1="0%" y1="0%" x2="0%" y2="100%">
           <Stop offset="0%" stopColor={gradient.from.color} stopOpacity={gradient.from.opacity} />
