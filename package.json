@@ -6,6 +6,9 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "description": "Customizable linechart for react-native that works with flex",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
