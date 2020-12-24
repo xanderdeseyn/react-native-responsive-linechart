@@ -52,5 +52,10 @@ export type ChartContext = {
   viewportDomain: ChartDomain
   viewportOrigin: XYValue
   viewport: ViewPort
-  lastTouch: XYValue | undefined
+  lastTouch: TouchEvent | undefined
+}
+
+export type TouchEvent = {
+  position: XYValue
+  type: 'pan' | 'tap'
 }

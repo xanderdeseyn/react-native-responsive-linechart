@@ -127,6 +127,7 @@ const App = () => {
         <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } } }} />
         <Line
           initialTooltipIndex={2}
+          hideTooltipAfterTouchEnd
           tooltipComponent={<Tooltip />}
           theme={{ stroke: { color: '#44bd32', width: 5 }, scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } } }}
         />

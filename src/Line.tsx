@@ -25,10 +25,10 @@ type Props = {
   onTooltipSelect?: (value: ChartDataPoint, index: number) => void
   /** Callback method that fires when the user stopped touching the chart. */
   onTooltipSelectEnd?: () => void
-  /** Data for the chart. Overrides optional data provided in `<Chart />`. */
-  data?: ChartDataPoint[]
   /** Initial index for the tooltip. The tooltip will be immediately visible at this index on first render, without requiring user interaction. */
   initialTooltipIndex?: number
+  /** Data for the chart. Overrides optional data provided in `<Chart />`. */
+  data?: ChartDataPoint[]
 }
 
 const Line: React.FC<Props> = (props) => {
@@ -51,13 +51,13 @@ const Line: React.FC<Props> = (props) => {
 
   React.useEffect(() => {
     const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
-    const newIndex = calculateTooltipIndex(scaledPoints, lastTouch)
+    const newIndex = calculateTooltipIndex(scaledPoints, lastTouch?.position)
 
     if (tooltipIndex !== undefined && newIndex === undefined && !lastTouch) {
       onTooltipSelectEnd()
     }
 
-    if (newIndex !== tooltipIndex && lastTouch) {
+    if (newIndex !== tooltipIndex) {
       setTooltipIndex(newIndex)
       if (typeof onTooltipSelect === 'function' && typeof newIndex === 'number' && data.length > newIndex) {
         onTooltipSelect(data[newIndex], newIndex)

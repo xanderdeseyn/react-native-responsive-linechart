@@ -7,7 +7,7 @@ import minBy from 'lodash.minby'
 import maxBy from 'lodash.maxby'
 import Svg, { G, Mask, Defs, Rect } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
-import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort } from './types'
+import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort, TouchEvent } from './types'
 import { ChartContextProvider } from './ChartContext'
 import { calculateDataDimensions, calculateViewportDomain } from './Chart.utils'
 import { scalePointToDimensions } from './utils'
@@ -39,7 +39,7 @@ const Chart: React.FC<Props> = (props) => {
   const tapGesture = React.createRef() // declared within constructor
   const panGesture = React.createRef()
 
-  const [lastTouch, setLastTouch] = React.useState<XYValue | undefined>(undefined)
+  const [lastTouch, setLastTouch] = React.useState<TouchEvent | undefined>(undefined)
   const [panX, setPanX] = React.useState<number>(viewport.initialOrigin.x)
   const [panY, setPanY] = React.useState<number>(viewport.initialOrigin.y)
   const [offset] = React.useState(new Animated.ValueXY({ x: viewport.initialOrigin.x, y: viewport.initialOrigin.y }))
@@ -57,8 +57,11 @@ const Chart: React.FC<Props> = (props) => {
   const handleTouchEvent = (evt: NativeSyntheticEvent<any>) => {
     if (dataDimensions) {
       setLastTouch({
-        x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
-        y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
+        position: {
+          x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
+          y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
+        },
+        type: 'tap',
       })
     }
 
@@ -79,8 +82,11 @@ const Chart: React.FC<Props> = (props) => {
         setLastTouch(undefined)
       } else {
         setLastTouch({
-          x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
-          y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
+          position: {
+            x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
+            y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
+          },
+          type: 'pan',
         })
       }
     }
