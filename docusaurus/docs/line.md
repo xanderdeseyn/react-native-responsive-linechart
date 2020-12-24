@@ -18,6 +18,7 @@ This component draws a line. Multiple lines can be drawn on one chart.
 | `tooltipComponent`   | `JSX.Element` | No | Component to be used to draw tooltips. This library provides a basic tooltip with the `Tooltip` component. Example below.  |
 | `onTooltipSelect`   | `(value: { x: number, y: number, meta?: any }, index: number) => void` | No | Callback method that fires when a tooltip is displayed for a data point.  |
 | `onTooltipSelectEnd`   | `() => void` | No | Callback method that fires when the user stopped touching the chart.  |
+| `initialTooltipIndex`      | `number` | No | Initial index for the tooltip. The tooltip will be immediately visible at this index on first render, without requiring user interaction. |
 | `theme`   | Defined below        | No | Theme for the line.  |
 
 \* unless provided in parent `<Chart />` component
