@@ -4,16 +4,6 @@ import { StatusBar } from 'react-native'
 import { Chart, HorizontalAxis, VerticalAxis, Line, Area, Tooltip } from 'react-native-responsive-linechart'
 
 const App = () => {
-  const ref = React.useRef()
-
-  React.useEffect(() => {
-    if (ref.current) {
-      setTimeout(() => {
-        ref.current.selectChartDatapoint(5)
-      }, 2500)
-    }
-  }, [ref.current])
-
   return (
     <Container>
       <StatusBar barStyle="dark-content" />
@@ -131,13 +121,12 @@ const App = () => {
         padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
         xDomain={{ min: -2, max: 10 }}
         yDomain={{ min: -4, max: 20 }}
-        initialSelectedDatapointIndex={2}
-        ref={ref}
       >
         <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
         <HorizontalAxis tickCount={3} />
         <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } } }} />
         <Line
+          initialTooltipIndex={2}
           tooltipComponent={<Tooltip />}
           theme={{ stroke: { color: '#44bd32', width: 5 }, scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } } }}
         />

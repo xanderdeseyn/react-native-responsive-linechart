@@ -27,11 +27,13 @@ type Props = {
   onTooltipSelectEnd?: () => void
   /** Data for the chart. Overrides optional data provided in `<Chart />`. */
   data?: ChartDataPoint[]
+  /** Initial index for the tooltip. The tooltip will be immediately visible at this index on first render, without requiring user interaction. */
+  initialTooltipIndex?: number
 }
 
 const Line: React.FC<Props> = (props) => {
   const { data: contextData, dimensions, viewportDomain, viewportOrigin, domain, lastTouch } = React.useContext(ChartContext)
-  const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(undefined)
+  const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(props.initialTooltipIndex)
 
   const {
     theme: { stroke, scatter },
@@ -55,7 +57,7 @@ const Line: React.FC<Props> = (props) => {
       onTooltipSelectEnd()
     }
 
-    if (newIndex !== tooltipIndex) {
+    if (newIndex !== tooltipIndex && lastTouch) {
       setTooltipIndex(newIndex)
       if (typeof onTooltipSelect === 'function' && typeof newIndex === 'number' && data.length > newIndex) {
         onTooltipSelect(data[newIndex], newIndex)

@@ -29,15 +29,10 @@ type Props = {
   disableGestures?: boolean
   /** Padding of the chart. Use this instead of setting padding in the `style` prop. */
   padding?: Padding
-  /** This sets a tooltip on a certain datapoint on first render */
-  initialSelectedDatapointIndex?: number
 }
 
-const Chart: React.FC<Props> = React.forwardRef((props, ref) => {
-  const { style, children, data = [], padding, xDomain, yDomain, viewport, disableGestures, disableTouch, initialSelectedDatapointIndex } = deepmerge(
-    computeDefaultProps(props),
-    props
-  )
+const Chart: React.FC<Props> = (props) => {
+  const { style, children, data = [], padding, xDomain, yDomain, viewport, disableGestures, disableTouch } = deepmerge(computeDefaultProps(props), props)
   const { dimensions, onLayout } = useComponentDimensions()
   const dataDimensions = calculateDataDimensions(dimensions, padding)
 
@@ -58,37 +53,6 @@ const Chart: React.FC<Props> = React.forwardRef((props, ref) => {
     panX,
     panY
   )
-
-  // Check if we need to set initial tooltip after dimensions are calculated
-  React.useEffect(() => {
-    if (dimensions && typeof initialSelectedDatapointIndex === 'number') {
-      if (initialSelectedDatapointIndex < 0 || initialSelectedDatapointIndex >= data.length) {
-        throw new Error('Index out of bounds. Cannot select initial datapoint.')
-      }
-      const positionOfDatapoint = scalePointToDimensions(data[initialSelectedDatapointIndex], viewportDomain, dataDimensions)
-      setLastTouch({
-        x: positionOfDatapoint.x,
-        y: positionOfDatapoint.y,
-      })
-    }
-  }, [dimensions])
-
-  React.useImperativeHandle(ref, () => ({
-    selectChartDatapoint: (index?: number) => {
-      if (index === undefined) {
-        setLastTouch(undefined)
-      } else if (typeof index === 'number') {
-        if (index < 0 || index >= data.length) {
-          throw new Error('Index out of bounds. Cannot select datapoint.')
-        }
-        const positionOfDatapoint = scalePointToDimensions(data[index], viewportDomain, dataDimensions)
-        setLastTouch({
-          x: positionOfDatapoint.x,
-          y: positionOfDatapoint.y,
-        })
-      }
-    },
-  }))
 
   const handleTouchEvent = (evt: NativeSyntheticEvent<any>) => {
     if (dataDimensions) {
@@ -138,7 +102,7 @@ const Chart: React.FC<Props> = React.forwardRef((props, ref) => {
   const otherComponents = childComponents.filter((c) => !['Line', 'Area'].includes((c as any)?.type?.name))
 
   return (
-    <View style={style} onLayout={onLayout} ref={ref}>
+    <View style={style} onLayout={onLayout}>
       {!!dimensions && (
         <TapGestureHandler enabled={!disableTouch} onHandlerStateChange={_onTouchGestureEvent} ref={tapGesture} simultaneousHandlers={panGesture}>
           <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
@@ -186,7 +150,7 @@ const Chart: React.FC<Props> = React.forwardRef((props, ref) => {
       )}
     </View>
   )
-})
+}
 
 export { Chart }
 
