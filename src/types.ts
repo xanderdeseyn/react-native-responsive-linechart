@@ -57,5 +57,5 @@ export type ChartContext = {
 
 export type TouchEvent = {
   position: XYValue
-  type: 'pan' | 'tap'
+  type: 'pan' | 'tap' | 'panEnd'
 }

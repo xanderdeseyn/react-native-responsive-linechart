@@ -53,11 +53,13 @@ const Line: React.FC<Props> = (props) => {
     const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
     const newIndex = calculateTooltipIndex(scaledPoints, lastTouch?.position)
 
-    if (tooltipIndex !== undefined && newIndex === undefined && !lastTouch) {
+    if (tooltipIndex !== undefined && newIndex === undefined && lastTouch) {
       onTooltipSelectEnd()
     }
 
-    if (newIndex !== tooltipIndex) {
+    if (lastTouch?.type === 'panEnd') {
+      setTooltipIndex(undefined)
+    } else if (newIndex !== tooltipIndex && lastTouch) {
       setTooltipIndex(newIndex)
       if (typeof onTooltipSelect === 'function' && typeof newIndex === 'number' && data.length > newIndex) {
         onTooltipSelect(data[newIndex], newIndex)
