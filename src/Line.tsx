@@ -50,6 +50,12 @@ const Line: React.FC<Props> = (props) => {
   }
 
   React.useEffect(() => {
+    if (props.initialTooltipIndex !== undefined && !lastTouch) {
+      setTooltipIndex(props.initialTooltipIndex)
+    }
+  }, [props.initialTooltipIndex])
+
+  React.useEffect(() => {
     const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
     const newIndex = calculateTooltipIndex(scaledPoints, lastTouch?.position)
 
