@@ -5,6 +5,7 @@ import { TapGestureHandler, PanGestureHandler, State } from 'react-native-gestur
 import clamp from 'lodash.clamp'
 import minBy from 'lodash.minby'
 import maxBy from 'lodash.maxby'
+import debounce from 'lodash.debounce'
 import Svg, { G, Mask, Defs, Rect } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
 import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort, TouchEvent } from './types'
@@ -54,19 +55,27 @@ const Chart: React.FC<Props> = (props) => {
     panY
   )
 
-  const handleTouchEvent = (evt: NativeSyntheticEvent<any>) => {
-    if (dataDimensions) {
-      setLastTouch({
-        position: {
-          x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
-          y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
-        },
-        type: 'tap',
-      })
-    }
+  const handleTouchEvent = React.useCallback(
+    debounce(
+      (x: number, y: number) => {
+        console.log('Touch at ', x, y)
+        if (dataDimensions) {
+          setLastTouch({
+            position: {
+              x: clamp(x - padding.left, 0, dataDimensions.width),
+              y: clamp(y - padding.top, 0, dataDimensions.height),
+            },
+            type: 'tap',
+          })
+        }
 
-    return true
-  }
+        return true
+      },
+      300,
+      { leading: true, trailing: false }
+    ),
+    [JSON.stringify(dataDimensions)]
+  )
 
   const handlePanEvent = (evt: NativeSyntheticEvent<any>) => {
     if (dataDimensions) {
@@ -95,7 +104,10 @@ const Chart: React.FC<Props> = (props) => {
 
   const _onTouchGestureEvent = Animated.event<any>([{ nativeEvent: {} }], {
     useNativeDriver: true,
-    listener: handleTouchEvent,
+    listener: (evt) => {
+      // Necessary to debounce function, see https://medium.com/trabe/react-syntheticevent-reuse-889cd52981b6
+      handleTouchEvent(evt.nativeEvent.x, evt.nativeEvent.y)
+    },
   })
 
   const _onPanGestureEvent = Animated.event<any>([{ nativeEvent: {} }], {
@@ -110,7 +122,7 @@ const Chart: React.FC<Props> = (props) => {
   return (
     <View style={style} onLayout={onLayout}>
       {!!dimensions && (
-        <TapGestureHandler enabled={!disableTouch} onHandlerStateChange={_onTouchGestureEvent} ref={tapGesture} simultaneousHandlers={panGesture}>
+        <TapGestureHandler enabled={!disableTouch} onHandlerStateChange={_onTouchGestureEvent} ref={tapGesture}>
           <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
             <PanGestureHandler
               enabled={!disableGestures}
@@ -119,7 +131,6 @@ const Chart: React.FC<Props> = (props) => {
               onGestureEvent={_onPanGestureEvent}
               onHandlerStateChange={_onPanGestureEvent}
               ref={panGesture}
-              simultaneousHandlers={tapGesture}
             >
               <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
                 <ChartContextProvider

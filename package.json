@@ -17,6 +17,7 @@
     "@types/jest": "^26.0.15",
     "@types/lodash.clamp": "^4.0.6",
     "@types/lodash.clonedeep": "^4.5.6",
+    "@types/lodash.debounce": "^4.0.6",
     "@types/lodash.maxby": "^4.6.6",
     "@types/lodash.minby": "^4.6.6",
     "@types/react": "^17.0.0",
@@ -53,6 +54,7 @@
     "deepmerge": "^4.2.2",
     "lodash.clamp": "^4.0.3",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.debounce": "^4.0.8",
     "lodash.maxby": "^4.6.0",
     "lodash.minby": "^4.6.0",
     "paths-js": "^0.4.11"

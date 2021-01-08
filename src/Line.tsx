@@ -25,6 +25,8 @@ type Props = {
   onTooltipSelect?: (value: ChartDataPoint, index: number) => void
   /** Callback method that fires when the user stopped touching the chart. */
   onTooltipSelectEnd?: () => void
+  /** Set to true if the tooltip should be hidden when the user stops dragging the chart. */
+  hideTooltipOnDragEnd?: boolean
   /** Initial index for the tooltip. The tooltip will be immediately visible at this index on first render, without requiring user interaction. */
   initialTooltipIndex?: number
   /** Data for the chart. Overrides optional data provided in `<Chart />`. */
@@ -42,6 +44,7 @@ const Line: React.FC<Props> = (props) => {
     tension,
     smoothing,
     onTooltipSelect,
+    hideTooltipOnDragEnd,
     onTooltipSelectEnd = () => {},
   } = deepmerge(defaultProps, props)
 
@@ -59,17 +62,18 @@ const Line: React.FC<Props> = (props) => {
     const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
     const newIndex = calculateTooltipIndex(scaledPoints, lastTouch?.position)
 
-    if (tooltipIndex !== undefined && newIndex === undefined && lastTouch) {
-      onTooltipSelectEnd()
-    }
-
     if (lastTouch?.type === 'panEnd') {
-      setTooltipIndex(undefined)
+      if (hideTooltipOnDragEnd) {
+        setTooltipIndex(undefined)
+      }
+      onTooltipSelectEnd()
     } else if (newIndex !== tooltipIndex && lastTouch) {
       setTooltipIndex(newIndex)
       if (typeof onTooltipSelect === 'function' && typeof newIndex === 'number' && data.length > newIndex) {
         onTooltipSelect(data[newIndex], newIndex)
       }
+    } else if (newIndex === tooltipIndex && lastTouch?.type === 'tap') {
+      setTooltipIndex(undefined)
     }
   }, [data, viewportDomain, domain, dimensions, lastTouch])
 

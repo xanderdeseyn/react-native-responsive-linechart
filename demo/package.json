@@ -14,6 +14,7 @@
     "deepmerge": "^4.2.2",
     "lodash.clamp": "^4.0.3",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.debounce": "^4.0.8",
     "lodash.maxby": "^4.6.0",
     "lodash.minby": "^4.6.0",
     "paths-js": "^0.4.11",
