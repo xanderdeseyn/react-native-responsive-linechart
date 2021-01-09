@@ -25,8 +25,10 @@ type Props = {
   onTooltipSelect?: (value: ChartDataPoint, index: number) => void
   /** Callback method that fires when the user stopped touching the chart. */
   onTooltipSelectEnd?: () => void
-  /** Set to true if the tooltip should be hidden when the user stops dragging the chart. */
+  /** Set to true if the tooltip should be hidden immediately when the user stops dragging the chart. */
   hideTooltipOnDragEnd?: boolean
+  /** Defines a period in ms after which the tooltip should hide */
+  hideTooltipAfter?: number
   /** Initial index for the tooltip. The tooltip will be immediately visible at this index on first render, without requiring user interaction. */
   initialTooltipIndex?: number
   /** Data for the chart. Overrides optional data provided in `<Chart />`. */
@@ -45,6 +47,7 @@ const Line: React.FC<Props> = (props) => {
     smoothing,
     onTooltipSelect,
     hideTooltipOnDragEnd,
+    hideTooltipAfter,
     onTooltipSelectEnd = () => {},
   } = deepmerge(defaultProps, props)
 
@@ -62,12 +65,23 @@ const Line: React.FC<Props> = (props) => {
     const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
     const newIndex = calculateTooltipIndex(scaledPoints, lastTouch?.position)
 
+    let tooltipTimer: NodeJS.Timeout
+
     if (lastTouch?.type === 'panEnd') {
       if (hideTooltipOnDragEnd) {
         setTooltipIndex(undefined)
       }
+      // Hide tooltip after specified time
+      else if (typeof hideTooltipAfter === 'number') {
+        tooltipTimer = setTimeout(() => setTooltipIndex(undefined), hideTooltipAfter)
+      }
       onTooltipSelectEnd()
     } else if (newIndex !== tooltipIndex && lastTouch) {
+      // Hide tooltip after specified time
+      if (typeof hideTooltipAfter === 'number') {
+        tooltipTimer = setTimeout(() => setTooltipIndex(undefined), hideTooltipAfter)
+      }
+
       setTooltipIndex(newIndex)
       if (typeof onTooltipSelect === 'function' && typeof newIndex === 'number' && data.length > newIndex) {
         onTooltipSelect(data[newIndex], newIndex)
@@ -75,7 +89,11 @@ const Line: React.FC<Props> = (props) => {
     } else if (newIndex === tooltipIndex && lastTouch?.type === 'tap') {
       setTooltipIndex(undefined)
     }
-  }, [data, viewportDomain, domain, dimensions, lastTouch])
+
+    return () => {
+      clearTimeout(tooltipTimer)
+    }
+  }, [data, viewportDomain, domain, dimensions, lastTouch, hideTooltipAfter])
 
   const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
   const points = adjustPointsForThickStroke(scaledPoints, stroke)
