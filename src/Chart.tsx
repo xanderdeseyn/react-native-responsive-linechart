@@ -58,7 +58,6 @@ const Chart: React.FC<Props> = (props) => {
   const handleTouchEvent = React.useCallback(
     debounce(
       (x: number, y: number) => {
-        console.log('Touch at ', x, y)
         if (dataDimensions) {
           setLastTouch({
             position: {
