@@ -87,12 +87,26 @@ const Chart: React.FC<Props> = (props) => {
       if (evt.nativeEvent.state === State.END) {
         offset.x.setValue(clamp((offset.x as any)._value - evt.nativeEvent.translationX * factorX, xDomain.min, xDomain.max - viewport.size.width))
         offset.y.setValue(clamp((offset.y as any)._value + evt.nativeEvent.translationY * factorY, yDomain.min, yDomain.max - viewport.size.height))
-        setLastTouch({ position: { x: 0, y: 0 }, type: 'panEnd' })
+        setLastTouch({
+          position: {
+            x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
+            y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
+          },
+          translation: {
+            x: evt.nativeEvent.translationX,
+            y: evt.nativeEvent.translationY,
+          },
+          type: 'panEnd',
+        })
       } else {
         setLastTouch({
           position: {
             x: clamp(evt.nativeEvent.x - padding.left, 0, dataDimensions.width),
             y: clamp(evt.nativeEvent.y - padding.top, 0, dataDimensions.height),
+          },
+          translation: {
+            x: evt.nativeEvent.translationX,
+            y: evt.nativeEvent.translationY,
           },
           type: 'pan',
         })
@@ -105,7 +119,9 @@ const Chart: React.FC<Props> = (props) => {
     useNativeDriver: true,
     listener: (evt) => {
       // Necessary to debounce function, see https://medium.com/trabe/react-syntheticevent-reuse-889cd52981b6
-      handleTouchEvent(evt.nativeEvent.x, evt.nativeEvent.y)
+      if (evt.nativeEvent.state === State.ACTIVE) {
+        handleTouchEvent(evt.nativeEvent.x, evt.nativeEvent.y)
+      }
     },
   })
 
@@ -115,8 +131,9 @@ const Chart: React.FC<Props> = (props) => {
   })
 
   const childComponents = React.Children.toArray(children)
-  const lineAndAreaComponents = childComponents.filter((c) => ['Line', 'Area'].includes((c as any)?.type?.name))
-  const otherComponents = childComponents.filter((c) => !['Line', 'Area'].includes((c as any)?.type?.name))
+  // undefined because ForwardRef (Line) has name undefined
+  const lineAndAreaComponents = childComponents.filter((c) => ['Area', undefined].includes((c as any)?.type?.name))
+  const otherComponents = childComponents.filter((c) => !['Area', undefined].includes((c as any)?.type?.name))
 
   return (
     <View style={style} onLayout={onLayout}>
@@ -125,8 +142,8 @@ const Chart: React.FC<Props> = (props) => {
           <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
             <PanGestureHandler
               enabled={!disableGestures}
-              minDeltaX={0}
-              minDeltaY={0}
+              minDeltaX={10}
+              minDeltaY={10}
               onGestureEvent={_onPanGestureEvent}
               onHandlerStateChange={_onPanGestureEvent}
               ref={panGesture}

@@ -1,12 +1,20 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
-import { StatusBar } from 'react-native'
+import { StatusBar, Text, TouchableOpacity } from 'react-native'
 import { Chart, HorizontalAxis, VerticalAxis, Line, Area, Tooltip } from 'react-native-responsive-linechart'
 
 const App = () => {
+  const ref = React.useRef()
+
   return (
     <Container>
       <StatusBar barStyle="dark-content" />
+      <TouchableOpacity onPress={() => ref?.current?.setTooltipIndex(1)}>
+        <Text>Set tooltip to second datapoint</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => ref?.current?.setTooltipIndex(undefined)}>
+        <Text>Hide tooltip</Text>
+      </TouchableOpacity>
       <Chart
         style={{ height: 200, width: '100%' }}
         data={[
@@ -33,7 +41,9 @@ const App = () => {
         <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } } }} />
         <Line
           initialTooltipIndex={3}
-          hideTooltipAfter={750}
+          ref={ref}
+          hideTooltipOnDragEnd
+          // hideTooltipAfter={750}
           tooltipComponent={<Tooltip />}
           theme={{ stroke: { color: '#44bd32', width: 5 }, scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } } }}
         />
@@ -171,7 +181,7 @@ const App = () => {
 
 export default App
 
-const Container = styled.ScrollView.attrs(() => ({ contentContainerStyle: { paddingBottom: 64 } }))`
+const Container = styled.ScrollView.attrs(() => ({ contentContainerStyle: { paddingBottom: 64, paddingTop: 32 } }))`
   width: 100%;
   flex: 1;
   padding: 24px;

@@ -35,7 +35,11 @@ type Props = {
   data?: ChartDataPoint[]
 }
 
-const Line: React.FC<Props> = (props) => {
+export type LineHandle = {
+  setTooltipIndex: (index: number | undefined) => void
+}
+
+const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   const { data: contextData, dimensions, viewportDomain, viewportOrigin, domain, lastTouch } = React.useContext(ChartContext)
   const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(props.initialTooltipIndex)
 
@@ -55,6 +59,15 @@ const Line: React.FC<Props> = (props) => {
     return null
   }
 
+  React.useImperativeHandle(ref, () => ({
+    setTooltipIndex: (index: number | undefined) => {
+      if (typeof index === 'number' && (index < 0 || index >= data.length)) {
+        throw new Error(`Range out of bounds. Tried to set tooltip index to ${index} but there are only ${data.length} data points.`)
+      }
+      setTooltipIndex(index)
+    },
+  }))
+
   React.useEffect(() => {
     if (props.initialTooltipIndex !== undefined && !lastTouch) {
       setTooltipIndex(props.initialTooltipIndex)
@@ -68,7 +81,7 @@ const Line: React.FC<Props> = (props) => {
     let tooltipTimer: NodeJS.Timeout
 
     if (lastTouch?.type === 'panEnd') {
-      if (hideTooltipOnDragEnd) {
+      if (hideTooltipOnDragEnd && Math.abs(lastTouch?.translation?.x) > 5) {
         setTooltipIndex(undefined)
       }
       // Hide tooltip after specified time
@@ -81,8 +94,11 @@ const Line: React.FC<Props> = (props) => {
       if (typeof hideTooltipAfter === 'number') {
         tooltipTimer = setTimeout(() => setTooltipIndex(undefined), hideTooltipAfter)
       }
-
-      setTooltipIndex(newIndex)
+      // Necessary for Android because pan is called even when finger is not actually panning.
+      // If we don't check for this, we have interference with the tap handler
+      if (lastTouch?.type !== 'pan' || Math.abs(lastTouch?.translation?.x) > 5) {
+        setTooltipIndex(newIndex)
+      }
       if (typeof onTooltipSelect === 'function' && typeof newIndex === 'number' && data.length > newIndex) {
         onTooltipSelect(data[newIndex], newIndex)
       }
@@ -133,7 +149,7 @@ const Line: React.FC<Props> = (props) => {
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}
     </React.Fragment>
   )
-}
+})
 
 export { Line }
 
