@@ -25,6 +25,13 @@ This component draws a line. Multiple lines can be drawn on one chart.
 
 \* unless provided in parent `<Chart />` component
 
+
+## Line Methods
+| Method        | Description
+| ----------- | ------ |
+| `setTooltipIndex(value: number \| undefined)`      | Imperatively set the tooltip index. Pass `undefined` to hide the tooltip.  |
+
+
 ### Line default theme
 Any part of this theme can be overridden through the `theme` prop.
 
