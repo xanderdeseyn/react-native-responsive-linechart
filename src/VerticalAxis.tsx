@@ -48,8 +48,9 @@ const VerticalAxis: React.FC<Props> = (props) => {
     return null
   }
 
+  // fround is used because of potential float comparison errors, see https://github.com/N1ghtly/react-native-responsive-linechart/issues/53
   const finalTickValues = calculateTickValues(tickValues, tickCount, domain.y, includeOriginTick).filter(
-    (v) => v >= viewportDomain.y.min && v <= viewportDomain.y.max
+    (v) => Math.fround(v) >= Math.fround(viewportDomain.y.min) && Math.fround(v) <= Math.fround(viewportDomain.y.max)
   )
 
   return (

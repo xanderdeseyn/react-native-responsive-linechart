@@ -109,7 +109,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
     return () => {
       clearTimeout(tooltipTimer)
     }
-  }, [data, viewportDomain, domain, dimensions, lastTouch, hideTooltipAfter])
+  }, [lastTouch, hideTooltipAfter])
 
   const scaledPoints = scalePointsToDimensions(data, viewportDomain, dimensions)
   const points = adjustPointsForThickStroke(scaledPoints, stroke)

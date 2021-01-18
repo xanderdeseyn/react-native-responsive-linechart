@@ -2,13 +2,14 @@ import * as React from 'react'
 import deepmerge from 'deepmerge'
 import { Animated, NativeSyntheticEvent, View, ViewStyle } from 'react-native'
 import { TapGestureHandler, PanGestureHandler, State } from 'react-native-gesture-handler'
+import fastEqual from 'fast-deep-equal/react'
 import clamp from 'lodash.clamp'
 import minBy from 'lodash.minby'
 import maxBy from 'lodash.maxby'
 import debounce from 'lodash.debounce'
 import Svg, { G, Mask, Defs, Rect } from 'react-native-svg'
 import { useComponentDimensions } from './useComponentDimensions'
-import { AxisDomain, ChartDataPoint, Padding, XYValue, ViewPort, TouchEvent } from './types'
+import { AxisDomain, ChartDataPoint, Padding, ViewPort, TouchEvent } from './types'
 import { ChartContextProvider } from './ChartContext'
 import { calculateDataDimensions, calculateViewportDomain } from './Chart.utils'
 import { scalePointToDimensions } from './utils'
@@ -32,7 +33,7 @@ type Props = {
   padding?: Padding
 }
 
-const Chart: React.FC<Props> = (props) => {
+const Chart: React.FC<Props> = React.memo((props) => {
   const { style, children, data = [], padding, xDomain, yDomain, viewport, disableGestures, disableTouch } = deepmerge(computeDefaultProps(props), props)
   const { dimensions, onLayout } = useComponentDimensions()
   const dataDimensions = calculateDataDimensions(dimensions, padding)
@@ -183,7 +184,7 @@ const Chart: React.FC<Props> = (props) => {
       )}
     </View>
   )
-}
+}, fastEqual)
 
 export { Chart }
 
