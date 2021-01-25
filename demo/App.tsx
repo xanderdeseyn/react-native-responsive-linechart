@@ -111,7 +111,7 @@ const App = () => {
         <Area theme={{ gradient: { from: { color: '#f39c12', opacity: 0.4 }, to: { color: '#f39c12', opacity: 0.4 } } }} smoothing="cubic-spline" />
         <Line
           theme={{
-            stroke: { color: 'red', width: 2 },
+            stroke: { color: 'red', width: 2, dashArray: [5] },
           }}
           smoothing="cubic-spline"
         />

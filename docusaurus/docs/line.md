@@ -41,6 +41,7 @@ Any part of this theme can be overridden through the `theme` prop.
     color: 'black',
     width: 1,
     opacity: 1,
+    dashArray: []
   },
   scatter: {
     default: {
@@ -63,7 +64,8 @@ Any part of this theme can be overridden through the `theme` prop.
 }
 ```
 
-the `scatter` theme defines how data points should be visualised. Optionally, you can change the visualisation when a data point is selected.
+The `scatter` theme defines how data points should be visualised. Optionally, you can change the visualisation when a data point is selected.
+Use `dashArray` if you want to add dashes to the stroke (array of numbers). For the most basic use case, eg. 5px line, 5px open, 5px line, 5px open... just pass `[5]`.
 
 ## Examples
 

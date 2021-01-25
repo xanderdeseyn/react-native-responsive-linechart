@@ -12,7 +12,7 @@ export type Smoothing = 'none' | 'cubic-spline' | 'bezier'
 
 export type ChartDomain = { x: AxisDomain; y: AxisDomain }
 
-export type Stroke = { color?: string; width?: number; opacity?: number }
+export type Stroke = { color?: string; width?: number; opacity?: number; dashArray?: number[] }
 
 export type ViewPort = { size: { width: number; height: number }; initialOrigin: XYValue }
 

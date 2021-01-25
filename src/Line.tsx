@@ -40,7 +40,7 @@ export type LineHandle = {
 }
 
 const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
-  const { data: contextData, dimensions, viewportDomain, viewportOrigin, domain, lastTouch } = React.useContext(ChartContext)
+  const { data: contextData, dimensions, viewportDomain, viewportOrigin, lastTouch } = React.useContext(ChartContext)
   const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(props.initialTooltipIndex)
 
   const {
@@ -118,7 +118,16 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   return (
     <React.Fragment>
       <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
-        <Path d={path} fill="none" strokeLinecap="round" stroke={stroke.color} strokeWidth={stroke.width} strokeOpacity={stroke.opacity} mask="url(#Mask)" />
+        <Path
+          d={path}
+          fill="none"
+          strokeLinecap="round"
+          strokeDasharray={stroke.dashArray.length > 0 ? stroke.dashArray.join(',') : undefined}
+          stroke={stroke.color}
+          strokeWidth={stroke.width}
+          strokeOpacity={stroke.opacity}
+          mask="url(#Mask)"
+        />
         {points.map((p, i) => {
           const shape = i === tooltipIndex ? deepmerge(scatter.default, scatter.selected) : scatter.default
           // Don't render if point falls out of viewport
@@ -159,6 +168,7 @@ const defaultProps = {
       color: 'black',
       width: 1,
       opacity: 1,
+      dashArray: [],
     },
     scatter: {
       default: {
