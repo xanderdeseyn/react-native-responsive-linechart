@@ -36,16 +36,20 @@ const App = () => {
         xDomain={{ min: -2, max: 10 }}
         yDomain={{ min: -4, max: 20 }}
       >
-        <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-        <HorizontalAxis tickCount={3} />
+        <VerticalAxis tickCount={10} theme={{ labels: { formatter: (v) => v.toFixed(2) }, grid: { stroke: { dashArray: [10, 2] } } }} />
+        <HorizontalAxis tickCount={5} theme={{ grid: { stroke: { dashArray: [10, 2] } } }} />
         <Area theme={{ gradient: { from: { color: '#44bd32' }, to: { color: '#44bd32', opacity: 0.2 } } }} />
         <Line
           initialTooltipIndex={3}
           ref={ref}
           hideTooltipOnDragEnd
           // hideTooltipAfter={750}
+          smoothing="cubic-spline"
           tooltipComponent={<Tooltip />}
-          theme={{ stroke: { color: '#44bd32', width: 5 }, scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } } }}
+          theme={{
+            stroke: { color: '#44bd32', width: 5 },
+            scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } },
+          }}
         />
       </Chart>
       <Chart

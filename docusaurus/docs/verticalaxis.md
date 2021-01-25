@@ -27,6 +27,7 @@ Any part of this theme can be overridden through the `theme` prop.
       color: '#bbb',
       width: 2,
       opacity: 1,
+      dashArray: [],
     },
     dx: 0,
   },
@@ -36,6 +37,7 @@ Any part of this theme can be overridden through the `theme` prop.
       color: '#ccc',
       width: 1,
       opacity: 1,
+      dashArray: [],
     },
   },
   ticks: {
@@ -61,9 +63,10 @@ Any part of this theme can be overridden through the `theme` prop.
       rotation: 0,
     },
     formatter: (v: number) => String(v),
-  },
+  }
 }
 ```
+Use `dashArray` if you want to add dashes to the stroke (array of numbers). For the most basic use case, eg. 5px line, 5px open, 5px line, 5px open... just pass `[5]`.
 
 ## Examples
 

@@ -65,6 +65,7 @@ const HorizontalAxis: React.FC<Props> = (props) => {
           stroke={axis.stroke.color}
           strokeWidth={axis.stroke.width}
           strokeOpacity={axis.stroke.opacity}
+          strokeDasharray={axis.stroke.dashArray.length > 0 ? axis.stroke.dashArray.join(',') : undefined}
         />
       )}
       {finalTickValues.map((value) => {
@@ -81,6 +82,7 @@ const HorizontalAxis: React.FC<Props> = (props) => {
                 stroke={grid.stroke.color}
                 strokeWidth={grid.stroke.width}
                 strokeOpacity={grid.stroke.opacity}
+                strokeDasharray={grid.stroke.dashArray.length > 0 ? grid.stroke.dashArray.join(',') : undefined}
               />
             )}
             {/* Render Tick */}
@@ -132,6 +134,7 @@ const defaultProps = {
         color: '#bbb',
         width: 2,
         opacity: 1,
+        dashArray: [],
       },
       dy: 0,
     },
@@ -141,6 +144,7 @@ const defaultProps = {
         color: '#ccc',
         width: 1,
         opacity: 1,
+        dashArray: [],
       },
     },
     ticks: {
