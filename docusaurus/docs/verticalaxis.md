@@ -61,6 +61,7 @@ Any part of this theme can be overridden through the `theme` prop.
       dx: -4,
       dy: 4,
       rotation: 0,
+      fontFamily: 'your font here'
     },
     formatter: (v: number) => String(v),
   }

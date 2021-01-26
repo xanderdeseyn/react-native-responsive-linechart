@@ -24,6 +24,7 @@ Any part of this theme can be overridden through the `theme` prop.
     color: 'white',
     fontSize: 12,
     fontWeight: 700,
+    fontFamily: 'your font here'
     textAnchor: 'middle',
     opacity: 1,
     dx: 0,
