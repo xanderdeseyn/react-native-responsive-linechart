@@ -37,6 +37,7 @@ export type TextAnchor = 'start' | 'middle' | 'end'
 export type Label = {
   color?: string
   fontSize?: number
+  fontFamily?: string
   opacity?: number
   dy?: number
   dx?: number

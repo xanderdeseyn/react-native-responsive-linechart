@@ -107,6 +107,7 @@ const HorizontalAxis: React.FC<Props> = (props) => {
                 <Text
                   fontSize={labels.label.fontSize}
                   fontWeight={labels.label.fontWeight}
+                  fontFamily={labels.label.fontFamily}
                   fill={labels.label.color}
                   opacity={labels.label.opacity}
                   textAnchor={labels.label.textAnchor}
