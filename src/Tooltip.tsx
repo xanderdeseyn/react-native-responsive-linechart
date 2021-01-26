@@ -43,6 +43,7 @@ const Tooltip: React.FC<Props> = (props) => {
         y={position.y - label.dy}
         fontSize={label.fontSize}
         fontWeight={label.fontWeight}
+        fontFamily={label.fontFamily}
         fill={label.color}
         opacity={label.opacity}
         textAnchor={label.textAnchor}
