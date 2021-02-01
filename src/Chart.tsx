@@ -1,7 +1,7 @@
 import * as React from 'react'
 import deepmerge from 'deepmerge'
 import { Animated, NativeSyntheticEvent, View, ViewStyle } from 'react-native'
-import { TapGestureHandler, PanGestureHandler, State } from 'react-native-gesture-handler'
+import { TapGestureHandler, PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler'
 import fastEqual from 'fast-deep-equal/react'
 import clamp from 'lodash.clamp'
 import minBy from 'lodash.minby'
@@ -138,6 +138,7 @@ const Chart: React.FC<Props> = React.memo((props) => {
 
   return (
     <View style={style} onLayout={onLayout}>
+      <GestureHandlerRootView>
       {!!dimensions && (
         <TapGestureHandler enabled={!disableTouch} onHandlerStateChange={_onTouchGestureEvent} ref={tapGesture}>
           <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
@@ -182,6 +183,7 @@ const Chart: React.FC<Props> = React.memo((props) => {
           </Animated.View>
         </TapGestureHandler>
       )}
+      </GestureHandlerRootView>
     </View>
   )
 }, fastEqual)
