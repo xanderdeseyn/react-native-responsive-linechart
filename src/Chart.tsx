@@ -1,6 +1,6 @@
 import * as React from 'react'
 import deepmerge from 'deepmerge'
-import { Animated, NativeSyntheticEvent, View, ViewStyle } from 'react-native'
+import { Animated, NativeSyntheticEvent, View, ViewStyle,TouchableOpacity,Text } from 'react-native'
 import { TapGestureHandler, PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler'
 import fastEqual from 'fast-deep-equal/react'
 import clamp from 'lodash.clamp'
@@ -31,9 +31,10 @@ type Props = {
   disableGestures?: boolean
   /** Padding of the chart. Use this instead of setting padding in the `style` prop. */
   padding?: Padding
+  
 }
 
-const Chart: React.FC<Props> = React.memo((props) => {
+const Chart: React.FC<Props> = React.memo(React.forwardRef((props,ref) => {
   const { style, children, data = [], padding, xDomain, yDomain, viewport, disableGestures, disableTouch } = deepmerge(computeDefaultProps(props), props)
   const { dimensions, onLayout } = useComponentDimensions()
   const dataDimensions = calculateDataDimensions(dimensions, padding)
@@ -41,10 +42,13 @@ const Chart: React.FC<Props> = React.memo((props) => {
   const tapGesture = React.createRef() // declared within constructor
   const panGesture = React.createRef()
 
+
+
   const [lastTouch, setLastTouch] = React.useState<TouchEvent | undefined>(undefined)
   const [panX, setPanX] = React.useState<number>(viewport.initialOrigin.x)
   const [panY, setPanY] = React.useState<number>(viewport.initialOrigin.y)
   const [offset] = React.useState(new Animated.ValueXY({ x: viewport.initialOrigin.x, y: viewport.initialOrigin.y }))
+
 
   const viewportDomain = calculateViewportDomain(
     viewport,
@@ -76,6 +80,17 @@ const Chart: React.FC<Props> = React.memo((props) => {
     ),
     [JSON.stringify(dataDimensions)]
   )
+
+  const scrollXValue = (x: number) => {
+    if (dataDimensions) {
+      const factorX = viewport.size.width / dataDimensions.width
+      setPanX((offset.x as any)._value - x * factorX)
+      offset.x.setValue(clamp((offset.x as any)._value - x, xDomain.min, xDomain.max - viewport.size.width))
+    
+    }
+  }
+
+  React.useImperativeHandle(ref,()=>({scrollXValue}))
 
   const handlePanEvent = (evt: NativeSyntheticEvent<any>) => {
     if (dataDimensions) {
@@ -138,7 +153,7 @@ const Chart: React.FC<Props> = React.memo((props) => {
 
   return (
     <View style={style} onLayout={onLayout}>
-      <GestureHandlerRootView>
+ 
       {!!dimensions && (
         <TapGestureHandler enabled={!disableTouch} onHandlerStateChange={_onTouchGestureEvent} ref={tapGesture}>
           <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
@@ -183,10 +198,10 @@ const Chart: React.FC<Props> = React.memo((props) => {
           </Animated.View>
         </TapGestureHandler>
       )}
-      </GestureHandlerRootView>
+     
     </View>
   )
-}, fastEqual)
+}), fastEqual)
 
 export { Chart }
 
