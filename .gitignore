@@ -64,8 +64,6 @@ exampleapp/*/fastlane/report.xml
 exampleapp/*/fastlane/Preview.html
 exampleapp/*/fastlane/screenshots
 
-lib/
-
 # Bundle artifact
 exampleapp/*.jsbundle
 
