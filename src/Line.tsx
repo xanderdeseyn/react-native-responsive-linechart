@@ -33,8 +33,8 @@ type Props = {
   initialTooltipIndex?: number
   /** Data for the chart. Overrides optional data provided in `<Chart />`. */
   data?: ChartDataPoint[]
-
-  alwaysShowAllToolTips: boolean
+  /** to show all tooltips at once */
+  alwaysShowAllToolTips?: boolean
 }
 
 export type LineHandle = {
@@ -44,7 +44,7 @@ export type LineHandle = {
 const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   const { data: contextData, dimensions, viewportDomain, viewportOrigin, lastTouch } = React.useContext(ChartContext)
   const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(props.initialTooltipIndex)
-  const [alwaysShowAllToolTips, setalwaysShowAllToolTips] = React.useState<boolean>(props.alwaysShowAllToolTips)
+  const [alwaysShowAllToolTips] = React.useState<boolean | undefined>(props.alwaysShowAllToolTips)
 
   const {
     theme: { stroke, scatter },
@@ -118,6 +118,11 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   const points = adjustPointsForThickStroke(scaledPoints, stroke)
   const path = svgPath(points, smoothing, tension)
 
+  let tooltipsAll:any[] = []
+  data.map((val,ind)=>{
+    tooltipsAll.push(React.cloneElement(tooltipComponent, {key: ind, value: val, position: scaledPoints[ind] }))
+  })
+
   return (
     <React.Fragment>
       <G translateX={viewportOrigin.x} translateY={viewportOrigin.y}>
@@ -156,12 +161,11 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
           )
         })}
       </G>
-      {!alwaysShowAllToolTips && tooltipIndex !== undefined &&
-        tooltipComponent &&
+      {(props.alwaysShowAllToolTips === undefined || !props.alwaysShowAllToolTips) && tooltipIndex !== undefined &&
+        tooltipComponent && 
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}
-     {alwaysShowAllToolTips && data.map((value,index)=>{
-       tooltipComponent && React.cloneElement(tooltipComponent, { value: data[index], position: scaledPoints[index] })
-     }) }
+
+       {props.alwaysShowAllToolTips !== undefined && props.alwaysShowAllToolTips && tooltipsAll}
     </React.Fragment>
   )
 })
