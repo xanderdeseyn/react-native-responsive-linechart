@@ -1,6 +1,6 @@
 {
-  "name": "react-native-responsive-linechart",
-  "version": "5.6.2",
+  "name": "react-native-responsive-linechart-scrollable",
+  "version": "5.6.3",
   "author": "Xander Deseyn",
   "license": "MIT",
   "main": "lib/index.js",
@@ -41,7 +41,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/N1ghtly/react-native-responsive-linechart"
+    "url": "https://github.com/zameerascentic/react-native-responsive-linechart"
   },
   "peerDependencies": {
     "react": "*",
