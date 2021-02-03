@@ -34,7 +34,7 @@ type Props = {
 }
 
 export type ChartHandle = {
-  setTooltipIndex: (index: number | undefined) => void
+  setViewportOrigin: (origin: XYValue) => void
 }
 
 const Chart: React.FC<Props> = React.memo(
@@ -49,7 +49,7 @@ const Chart: React.FC<Props> = React.memo(
     const [lastTouch, setLastTouch] = React.useState<TouchEvent | undefined>(undefined)
     const [panX, setPanX] = React.useState<number>(viewport.initialOrigin.x)
     const [panY, setPanY] = React.useState<number>(viewport.initialOrigin.y)
-    const [offset, setOffset] = React.useState(new Animated.ValueXY({ x: viewport.initialOrigin.x, y: viewport.initialOrigin.y }))
+    const [offset] = React.useState(new Animated.ValueXY({ x: viewport.initialOrigin.x, y: viewport.initialOrigin.y }))
 
     const viewportDomain = calculateViewportDomain(
       viewport,
