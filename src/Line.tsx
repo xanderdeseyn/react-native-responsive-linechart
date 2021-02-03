@@ -1,11 +1,13 @@
 import deepmerge from 'deepmerge'
 import * as React from 'react'
-import { G, Path, Rect } from 'react-native-svg'
+import { G, Path, Rect, ForeignObject } from 'react-native-svg'
 
 import ChartContext from './ChartContext'
 import { adjustPointsForThickStroke, calculateTooltipIndex } from './Line.utils'
 import { ChartDataPoint, Smoothing, Stroke, Shape } from './types'
 import { scalePointsToDimensions, svgPath } from './utils'
+
+
 
 type Props = {
   /** Theme for the line */
@@ -35,6 +37,8 @@ type Props = {
   data?: ChartDataPoint[]
   /** to show all tooltips at once */
   alwaysShowAllToolTips?: boolean
+  /** any svg icon component to replace scatter points  */
+  pointIcon?: JSX.Element
 }
 
 export type LineHandle = {
@@ -44,7 +48,6 @@ export type LineHandle = {
 const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   const { data: contextData, dimensions, viewportDomain, viewportOrigin, lastTouch } = React.useContext(ChartContext)
   const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(props.initialTooltipIndex)
-  const [alwaysShowAllToolTips] = React.useState<boolean | undefined>(props.alwaysShowAllToolTips)
 
   const {
     theme: { stroke, scatter },
@@ -55,6 +58,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
     onTooltipSelect,
     hideTooltipOnDragEnd,
     hideTooltipAfter,
+    pointIcon,
     onTooltipSelectEnd = () => {},
   } = deepmerge(defaultProps, props)
 
@@ -147,18 +151,26 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
             return null
           }
 
-          return (
-            <Rect
-              key={JSON.stringify(p)}
-              x={p.x - shape.width / 2 + shape.dx}
-              y={p.y - shape.height / 2 - shape.dy}
-              rx={shape.rx}
-              fill={shape.color}
-              opacity={shape.opacity}
-              height={shape.height}
-              width={shape.width}
-            />
-          )
+          if(props.pointIcon !== undefined){
+            return (
+              <ForeignObject x={p.x - 10 + shape.dx} y={p.y - 10 - shape.dy}>
+                { React.cloneElement(pointIcon,{width: 20, height: 20})}
+              </ForeignObject>
+            )
+          }else{
+            return(
+              <Rect
+                key={JSON.stringify(p)}
+                x={p.x - shape.width / 2 + shape.dx}
+                y={p.y - shape.height / 2 - shape.dy}
+                rx={shape.rx}
+                fill={shape.color}
+                opacity={shape.opacity}
+                height={shape.height}
+                width={shape.width}
+              />
+            )
+          }
         })}
       </G>
       {(props.alwaysShowAllToolTips === undefined || !props.alwaysShowAllToolTips) && tooltipIndex !== undefined &&

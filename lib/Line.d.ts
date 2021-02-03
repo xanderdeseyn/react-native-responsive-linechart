@@ -28,6 +28,8 @@ declare type Props = {
     data?: ChartDataPoint[];
     /** to show all tooltips at once */
     alwaysShowAllToolTips?: boolean;
+    /** any svg icon component to replace scatter points  */
+    pointIcon?: JSX.Element;
 };
 export declare type LineHandle = {
     setTooltipIndex: (index: number | undefined) => void;
