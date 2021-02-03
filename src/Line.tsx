@@ -33,6 +33,8 @@ type Props = {
   initialTooltipIndex?: number
   /** Data for the chart. Overrides optional data provided in `<Chart />`. */
   data?: ChartDataPoint[]
+
+  alwaysShowAllToolTips: boolean
 }
 
 export type LineHandle = {
@@ -42,6 +44,7 @@ export type LineHandle = {
 const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   const { data: contextData, dimensions, viewportDomain, viewportOrigin, lastTouch } = React.useContext(ChartContext)
   const [tooltipIndex, setTooltipIndex] = React.useState<number | undefined>(props.initialTooltipIndex)
+  const [alwaysShowAllToolTips, setalwaysShowAllToolTips] = React.useState<boolean>(props.alwaysShowAllToolTips)
 
   const {
     theme: { stroke, scatter },
@@ -69,6 +72,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   }))
 
   React.useEffect(() => {
+    setalwaysShowAllToolTips(false);
     if (props.initialTooltipIndex !== undefined && !lastTouch) {
       setTooltipIndex(props.initialTooltipIndex)
     }
@@ -153,9 +157,12 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
           )
         })}
       </G>
-      {tooltipIndex !== undefined &&
+      {!alwaysShowAllToolTips && tooltipIndex !== undefined &&
         tooltipComponent &&
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}
+     {alwaysShowAllToolTips && data.map((value,index)=>{
+       React.cloneElement(tooltipComponent, { value: data[index], position: scaledPoints[index] })
+     }) }
     </React.Fragment>
   )
 })
