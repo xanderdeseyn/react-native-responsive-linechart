@@ -72,7 +72,6 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
   }))
 
   React.useEffect(() => {
-    setalwaysShowAllToolTips(false);
     if (props.initialTooltipIndex !== undefined && !lastTouch) {
       setTooltipIndex(props.initialTooltipIndex)
     }
