@@ -22,6 +22,13 @@ This component should **always** be wrapped around any other component from this
 
 \* Props can be left out if `data` prop is provided. Domain will automatically be set to the data bounds.
 
+
+## Chart Methods
+| Method        | Description
+| ----------- | ------ |
+| `setViewportOrigin({ x: number, y: number })`      | Imperatively set the viewport origin of the chart. (example in demo project) |
+
+
 ### Example
 
 ![Chart example](/img/chart/example.png)
