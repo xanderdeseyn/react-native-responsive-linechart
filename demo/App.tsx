@@ -5,6 +5,7 @@ import { Chart, HorizontalAxis, VerticalAxis, Line, Area, Tooltip } from 'react-
 
 const App = () => {
   const ref = React.useRef()
+  const ref2 = React.useRef()
 
   return (
     <Container>
@@ -14,6 +15,12 @@ const App = () => {
       </TouchableOpacity>
       <TouchableOpacity onPress={() => ref?.current?.setTooltipIndex(undefined)}>
         <Text>Hide tooltip</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => ref2?.current?.setViewportOrigin({ x: 0, y: 0 })}>
+        <Text>Set viewport to start</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => ref2?.current?.setViewportOrigin({ x: 5, y: 0 })}>
+        <Text>Set viewport to end</Text>
       </TouchableOpacity>
       <Chart
         style={{ height: 200, width: '100%' }}
@@ -95,6 +102,7 @@ const App = () => {
         xDomain={{ min: 0, max: 10 }}
         yDomain={{ min: 0, max: 20 }}
         viewport={{ size: { width: 5 }, initialOrigin: { x: 5 } }}
+        ref={ref2}
       >
         <VerticalAxis
           tickValues={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]}
