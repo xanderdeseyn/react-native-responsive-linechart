@@ -26,6 +26,7 @@ declare type Props = {
     initialTooltipIndex?: number;
     /** Data for the chart. Overrides optional data provided in `<Chart />`. */
     data?: ChartDataPoint[];
+    alwaysShowAllToolTips: boolean;
 };
 export declare type LineHandle = {
     setTooltipIndex: (index: number | undefined) => void;
