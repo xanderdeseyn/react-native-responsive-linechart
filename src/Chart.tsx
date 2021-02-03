@@ -1,7 +1,7 @@
 import * as React from 'react'
 import deepmerge from 'deepmerge'
 import { Animated, NativeSyntheticEvent, View, ViewStyle } from 'react-native'
-import { TapGestureHandler, PanGestureHandler, State } from 'react-native-gesture-handler'
+import { TapGestureHandler, PanGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler'
 import fastEqual from 'fast-deep-equal/react'
 import clamp from 'lodash.clamp'
 import minBy from 'lodash.minby'
@@ -138,50 +138,52 @@ const Chart: React.FC<Props> = React.memo((props) => {
 
   return (
     <View style={style} onLayout={onLayout}>
-      {!!dimensions && (
-        <TapGestureHandler enabled={!disableTouch} onHandlerStateChange={_onTouchGestureEvent} ref={tapGesture}>
-          <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
-            <PanGestureHandler
-              enabled={!disableGestures}
-              minDeltaX={10}
-              minDeltaY={10}
-              onGestureEvent={_onPanGestureEvent}
-              onHandlerStateChange={_onPanGestureEvent}
-              ref={panGesture}
-            >
-              <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
-                <ChartContextProvider
-                  value={{
-                    data,
-                    dimensions: dataDimensions,
-                    domain: {
-                      x: xDomain,
-                      y: yDomain,
-                    },
-                    viewportDomain,
-                    viewportOrigin: scalePointToDimensions({ x: viewportDomain.x.min, y: viewportDomain.y.max }, viewportDomain, dataDimensions),
-                    viewport,
-                    lastTouch,
-                  }}
-                >
-                  <Svg width={dimensions.width} height={dimensions.height}>
-                    <G translateX={padding.left} translateY={padding.top}>
-                      {otherComponents}
-                      <Defs>
-                        {/* Mask to fix viewport overflow bugs */}
-                        <Mask id="Mask" x={0} y={0} width={dataDimensions.width} height={dataDimensions.height}>
-                          <Rect x="0" y="0" width={dataDimensions.width} height={dataDimensions.height} fill="#ffffff" />
-                        </Mask>
-                      </Defs>
-                      {lineAndAreaComponents}
-                    </G>
-                  </Svg>
-                </ChartContextProvider>
-              </Animated.View>
-            </PanGestureHandler>
-          </Animated.View>
-        </TapGestureHandler>
-      )}
+      <GestureHandlerRootView>
+        {!!dimensions && (
+          <TapGestureHandler enabled={!disableTouch} onHandlerStateChange={_onTouchGestureEvent} ref={tapGesture}>
+            <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
+              <PanGestureHandler
+                enabled={!disableGestures}
+                minDeltaX={10}
+                minDeltaY={10}
+                onGestureEvent={_onPanGestureEvent}
+                onHandlerStateChange={_onPanGestureEvent}
+                ref={panGesture}
+              >
+                <Animated.View style={{ width: dimensions.width, height: dimensions.height }}>
+                  <ChartContextProvider
+                    value={{
+                      data,
+                      dimensions: dataDimensions,
+                      domain: {
+                        x: xDomain,
+                        y: yDomain,
+                      },
+                      viewportDomain,
+                      viewportOrigin: scalePointToDimensions({ x: viewportDomain.x.min, y: viewportDomain.y.max }, viewportDomain, dataDimensions),
+                      viewport,
+                      lastTouch,
+                    }}
+                  >
+                    <Svg width={dimensions.width} height={dimensions.height}>
+                      <G translateX={padding.left} translateY={padding.top}>
+                        {otherComponents}
+                        <Defs>
+                          {/* Mask to fix viewport overflow bugs */}
+                          <Mask id="Mask" x={0} y={0} width={dataDimensions.width} height={dataDimensions.height}>
+                            <Rect x="0" y="0" width={dataDimensions.width} height={dataDimensions.height} fill="#ffffff" />
+                          </Mask>
+                        </Defs>
+                        {lineAndAreaComponents}
+                      </G>
+                    </Svg>
+                  </ChartContextProvider>
+                </Animated.View>
+              </PanGestureHandler>
+            </Animated.View>
+          </TapGestureHandler>
+        )}
+      </GestureHandlerRootView>
     </View>
   )
 }, fastEqual)
