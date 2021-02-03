@@ -33,8 +33,12 @@ type Props = {
   padding?: Padding
 }
 
+export type ChartHandle = {
+  setTooltipIndex: (index: number | undefined) => void
+}
+
 const Chart: React.FC<Props> = React.memo(
-  React.forwardRef((props, ref) => {
+  React.forwardRef<ChartHandle, Props>((props, ref) => {
     const { style, children, data = [], padding, xDomain, yDomain, viewport, disableGestures, disableTouch } = deepmerge(computeDefaultProps(props), props)
     const { dimensions, onLayout } = useComponentDimensions()
     const dataDimensions = calculateDataDimensions(dimensions, padding)
