@@ -160,7 +160,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
         tooltipComponent &&
         React.cloneElement(tooltipComponent, { value: data[tooltipIndex], position: scaledPoints[tooltipIndex] })}
      {alwaysShowAllToolTips && data.map((value,index)=>{
-       React.cloneElement(tooltipComponent, { value: data[index], position: scaledPoints[index] })
+       tooltipComponent && React.cloneElement(tooltipComponent, { value: data[index], position: scaledPoints[index] })
      }) }
     </React.Fragment>
   )
