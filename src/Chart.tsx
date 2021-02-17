@@ -65,6 +65,7 @@ const Chart: React.FC<Props> = React.memo(
       if (dataDimensions) {
         setPanX(origin.x)
         setPanY(origin.y)
+        offset.x.setValue(origin.x)
       }
     }
 
