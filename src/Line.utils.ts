@@ -23,7 +23,7 @@ const smallestIndex = (arr: number[]) => {
 }
 
 export const calculateTooltipIndex = (points: XYValue[], lastTouch?: XYValue) => {
-  if (!lastTouch || points.length < 2) {
+  if (!lastTouch || points.length < 1) {
     return undefined
   }
 
