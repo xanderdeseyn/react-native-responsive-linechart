@@ -55,7 +55,7 @@ const App = () => {
           tooltipComponent={<Tooltip />}
           theme={{
             stroke: { color: '#44bd32', width: 5 },
-            scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32' }, selected: { color: 'red' } },
+            scatter: { default: { width: 8, height: 8, rx: 4, color: '#44ad32', border: { color: 'red', width: 3 } }, selected: { color: 'red' } },
           }}
         />
       </Chart>
