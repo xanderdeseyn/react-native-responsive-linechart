@@ -152,7 +152,7 @@ const Line = React.forwardRef<LineHandle, Props>(function Line(props, ref) {
               stroke={shape.border.color}
               strokeWidth={shape.border.width}
               strokeOpacity={shape.border.opacity}
-              strokeDasharray={shape.border.dashArray}
+              strokeDasharray={stroke.dashArray.length > 0 ? stroke.dashArray.join(',') : undefined}
             />
           )
         })}
@@ -184,8 +184,8 @@ const defaultProps = {
         color: 'black',
         border: {
           color: 'black',
-          width: 0,
-          opacity: 1,
+          width: 1,
+          opacity: 0,
           dashArray: [],
         },
       },
