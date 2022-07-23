@@ -37,7 +37,7 @@ export type ChartHandle = {
   setViewportOrigin: (origin: XYValue) => void
 }
 
-const Chart: React.FC<Props> = React.memo(
+const Chart: React.FC<React.PropsWithChildren<Props>> = React.memo(
   React.forwardRef<ChartHandle, Props>((props, ref) => {
     const { style, children, data = [], padding, xDomain, yDomain, viewport, disableGestures, disableTouch } = deepmerge(computeDefaultProps(props), props)
     const { dimensions, onLayout } = useComponentDimensions()
